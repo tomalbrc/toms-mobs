@@ -1,9 +1,9 @@
 package de.tomalbrc.toms_mobs.util;
 
 import net.minecraft.world.entity.LivingEntity;
-import org.provim.nylon.api.AjHolder;
-import org.provim.nylon.api.Animator;
-import org.provim.nylon.api.VariantController;
+import de.tomalbrc.resin.api.AjHolder;
+import de.tomalbrc.resin.api.Animator;
+import de.tomalbrc.resin.api.VariantController;
 
 public class AnimationHelper {
 

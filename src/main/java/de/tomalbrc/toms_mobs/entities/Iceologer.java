@@ -27,12 +27,12 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.provim.nylon.api.AjEntity;
-import org.provim.nylon.data.AjLoader;
-import org.provim.nylon.holders.entity.EntityHolder;
-import org.provim.nylon.holders.entity.living.LivingEntityHolder;
-import org.provim.nylon.holders.wrappers.Locator;
-import org.provim.nylon.model.AjModel;
+import de.tomalbrc.resin.api.AjEntity;
+import de.tomalbrc.resin.data.AjLoader;
+import de.tomalbrc.resin.holders.entity.EntityHolder;
+import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
+import de.tomalbrc.resin.holders.wrappers.Locator;
+import de.tomalbrc.resin.model.AjModel;
 
 import java.util.ArrayList;
 

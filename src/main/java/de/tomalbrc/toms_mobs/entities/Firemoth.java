@@ -30,11 +30,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
-import org.provim.nylon.api.AjEntity;
-import org.provim.nylon.data.AjLoader;
-import org.provim.nylon.holders.entity.EntityHolder;
-import org.provim.nylon.holders.entity.living.LivingEntityHolder;
-import org.provim.nylon.model.AjModel;
+import de.tomalbrc.resin.api.AjEntity;
+import de.tomalbrc.resin.data.AjLoader;
+import de.tomalbrc.resin.holders.entity.EntityHolder;
+import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
+import de.tomalbrc.resin.model.AjModel;
 
 public class Firemoth extends Animal implements AjEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("firemoth");

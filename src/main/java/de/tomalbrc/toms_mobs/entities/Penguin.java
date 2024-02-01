@@ -36,11 +36,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.provim.nylon.api.AjEntity;
-import org.provim.nylon.data.AjLoader;
-import org.provim.nylon.holders.entity.EntityHolder;
-import org.provim.nylon.holders.entity.living.LivingEntityHolder;
-import org.provim.nylon.model.AjModel;
+import de.tomalbrc.resin.api.AjEntity;
+import de.tomalbrc.resin.data.AjLoader;
+import de.tomalbrc.resin.holders.entity.EntityHolder;
+import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
+import de.tomalbrc.resin.model.AjModel;
 
 public class Penguin extends Animal implements AjEntity, RangedAttackMob {
     public static final ResourceLocation ID = Util.id("penguin");

@@ -23,11 +23,11 @@ import de.tomalbrc.toms_mobs.entities.goals.CircularFangGoal;
 import de.tomalbrc.toms_mobs.entities.goals.IceSpikeGoal;
 import de.tomalbrc.toms_mobs.entities.goals.RapidfireGoal;
 import de.tomalbrc.toms_mobs.entities.goals.ThrowPotionsUpwardGoal;
-import org.provim.nylon.api.AjEntity;
-import org.provim.nylon.data.AjLoader;
-import org.provim.nylon.holders.entity.EntityHolder;
-import org.provim.nylon.holders.entity.living.LivingEntityHolder;
-import org.provim.nylon.model.AjModel;
+import de.tomalbrc.resin.api.AjEntity;
+import de.tomalbrc.resin.data.AjLoader;
+import de.tomalbrc.resin.holders.entity.EntityHolder;
+import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
+import de.tomalbrc.resin.model.AjModel;
 
 import java.util.ArrayList;
 

@@ -24,11 +24,11 @@ import org.jetbrains.annotations.Nullable;
 import de.tomalbrc.toms_mobs.entities.navigation.LessSpinnyGroundPathNavigation;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
-import org.provim.nylon.api.AjEntity;
-import org.provim.nylon.data.AjLoader;
-import org.provim.nylon.holders.entity.EntityHolder;
-import org.provim.nylon.holders.entity.living.LivingEntityHolder;
-import org.provim.nylon.model.AjModel;
+import de.tomalbrc.resin.api.AjEntity;
+import de.tomalbrc.resin.data.AjLoader;
+import de.tomalbrc.resin.holders.entity.EntityHolder;
+import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
+import de.tomalbrc.resin.model.AjModel;
 
 public class Elephant extends Animal implements AjEntity, PlayerRideable {
     public static final ResourceLocation ID = Util.id("elephant");
