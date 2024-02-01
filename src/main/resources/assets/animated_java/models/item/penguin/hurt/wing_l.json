@@ -1,0 +1,6 @@
+{
+	"parent": "animated_java:item/penguin/wing_l",
+	"textures": {
+		"0": "animated_java:item/penguin/penguin_hurt"
+	}
+}

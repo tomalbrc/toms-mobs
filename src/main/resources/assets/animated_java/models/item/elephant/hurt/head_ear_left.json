@@ -1,0 +1,6 @@
+{
+	"parent": "animated_java:item/elephant/head_ear_left",
+	"textures": {
+		"0": "animated_java:item/elephant/elephant_hurt"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "animated_java:item/sculkling/leg_r",
+	"textures": {
+		"0": "animated_java:item/sculkling/texture_hurt",
+		"1": "animated_java:item/sculkling/texture_hurt"
+	}
+}

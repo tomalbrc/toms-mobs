@@ -1,0 +1,57 @@
+{
+	"textures": {
+		"0": "animated_java:item/firemoth/firemoth"
+	},
+	"elements": [
+		{
+			"from": [
+				8,
+				8,
+				1
+			],
+			"to": [
+				18,
+				8,
+				15
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					6,
+					4,
+					7
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						0,
+						7,
+						5,
+						0
+					],
+					"texture": "#0"
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						5,
+						7
+					],
+					"texture": "#0"
+				}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"rotation": [
+				0,
+				180,
+				0
+			]
+		}
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"project_settings": {
+		"project_namespace": "ice_cluster",
+		"project_resolution": [
+			16,
+			16
+		],
+		"target_minecraft_version": "1.20+",
+		"rig_item": "minecraft:blue_dye",
+		"rig_item_model": "",
+		"rig_export_folder": "",
+		"texture_export_folder": "",
+		"enable_advanced_resource_pack_settings": false,
+		"verbose": true,
+		"exporter": "animated_java:json_exporter"
+	},
+	"rig": {
+		"default_pose": [
+			{
+				"uuid": "d391d707-1fd2-e54b-3a17-8dd9e8f4eed1",
+				"matrix": [
+					-1.3333333333333333,
+					0,
+					-1.6328623988631375e-16,
+					0,
+					0,
+					1.3333333333333333,
+					0,
+					0,
+					1.6328623988631375e-16,
+					0,
+					-1.3333333333333333,
+					0,
+					-0.06250000000000011,
+					0.5,
+					0.9375,
+					1
+				]
+			}
+		],
+		"node_map": {
+			"d391d707-1fd2-e54b-3a17-8dd9e8f4eed1": {
+				"type": "bone",
+				"name": "head",
+				"uuid": "d391d707-1fd2-e54b-3a17-8dd9e8f4eed1",
+				"nbt": "{}",
+				"custom_model_data": 2,
+				"resource_location": "animated_java:item/ice_cluster/head"
+			}
+		}
+	},
+	"variants": {},
+	"animations": {}
+}
