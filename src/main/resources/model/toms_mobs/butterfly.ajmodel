@@ -1,0 +1,402 @@
+{
+	"meta": {
+		"format": "animated_java/ajmodel",
+		"format_version": "0.4.6",
+		"uuid": "c751c2b7-d1d7-783d-2bbb-610280803ff6"
+	},
+	"animated_java": {
+		"settings": {
+			"project_namespace": "butterfly",
+			"project_resolution": [16, 16],
+			"target_minecraft_version": "1.20+",
+			"rig_item": "minecraft:leather_horse_armor",
+			"rig_item_model": "",
+			"rig_export_folder": "",
+			"texture_export_folder": "",
+			"enable_advanced_resource_pack_settings": false,
+			"verbose": true,
+			"exporter": "animated_java:json_exporter"
+		},
+		"exporter_settings": {
+			"animated_java:datapack_exporter": {
+				"datapack_mcmeta": "",
+				"outdated_rig_warning": true,
+				"root_entity_nbt": "{}",
+				"include_variant_summon_functions": true,
+				"include_apply_variant_functions": true,
+				"include_uninstall_function": true,
+				"include_pause_all_animations_function": true,
+				"include_remove_rigs_function": true,
+				"include_remove_all_function": true,
+				"include_on_load_function_tags": true,
+				"include_on_tick_function_tags": true,
+				"include_on_summon_function_tags": true,
+				"include_on_remove_function_tags": true
+			}
+		},
+		"variants": [
+			{
+				"name": "default",
+				"textureMap": {},
+				"uuid": "3668c6dd-c46f-5c18-4d09-2f406dc86288",
+				"boneConfig": {},
+				"default": true,
+				"affectedBonesIsAWhitelist": false,
+				"affectedBones": []
+			},
+			{
+				"name": "1",
+				"textureMap": {
+					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
+					"e1e9c37d-e4fc-8d07-56bd-d3b834302a79": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
+					"c12f60ff-f104-ef0d-7315-6268236b02e5": "c12f60ff-f104-ef0d-7315-6268236b02e5"
+				},
+				"uuid": "820e72a3-5a8c-7c07-fb51-c786adcbac6b",
+				"boneConfig": {},
+				"affectedBonesIsAWhitelist": false,
+				"affectedBones": []
+			},
+			{
+				"name": "2",
+				"textureMap": {
+					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "c12f60ff-f104-ef0d-7315-6268236b02e5",
+					"e1e9c37d-e4fc-8d07-56bd-d3b834302a79": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
+					"c12f60ff-f104-ef0d-7315-6268236b02e5": "c12f60ff-f104-ef0d-7315-6268236b02e5"
+				},
+				"uuid": "026606a5-cd3c-3ec3-718d-953c308dd329",
+				"boneConfig": {},
+				"affectedBonesIsAWhitelist": false,
+				"affectedBones": []
+			}
+		]
+	},
+	"resolution": {
+		"width": 16,
+		"height": 16
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"box_uv": false,
+			"rescale": false,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"from": [-1, 0, -2],
+			"to": [0, 1, 2],
+			"autouv": 0,
+			"color": 9,
+			"origin": [-1, 0, 0],
+			"faces": {
+				"north": {
+					"uv": [7, 2, 8, 3],
+					"tint": 0,
+					"texture": 0
+				},
+				"east": {
+					"uv": [5, 0, 9, 1],
+					"tint": 0,
+					"texture": 0
+				},
+				"south": {
+					"uv": [8, 2, 9, 3],
+					"tint": 0,
+					"texture": 0
+				},
+				"west": {
+					"uv": [5, 1, 9, 2],
+					"tint": 0,
+					"texture": 0
+				},
+				"up": {
+					"uv": [6, 6, 5, 2],
+					"tint": 0,
+					"texture": 0
+				},
+				"down": {
+					"uv": [7, 2, 6, 6],
+					"tint": 0,
+					"texture": 0
+				}
+			},
+			"type": "cube",
+			"uuid": "ed02be45-e4e9-e8c3-65d0-f5bacab954b0"
+		},
+		{
+			"name": "cube",
+			"box_uv": false,
+			"rescale": false,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"from": [-6, 0.5, -3.5],
+			"to": [-1, 0.5, 7.5],
+			"autouv": 0,
+			"color": 9,
+			"rotation": [0, 0, -22.5],
+			"origin": [-1, 0.5, -0.5],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 5, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"east": {
+					"uv": [0, 0, 7, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"south": {
+					"uv": [0, 0, 5, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"west": {
+					"uv": [0, 0, 7, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"up": {
+					"uv": [5, 11, 0, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"down": {
+					"uv": [5, 0, 0, 11],
+					"tint": 0,
+					"texture": 0
+				}
+			},
+			"type": "cube",
+			"uuid": "2fc011a6-d459-ea36-80b2-ffc0b4c5a21c"
+		},
+		{
+			"name": "cube",
+			"box_uv": false,
+			"rescale": false,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"from": [0, 0.5, -3.5],
+			"to": [5, 0.5, 7.5],
+			"autouv": 0,
+			"color": 9,
+			"rotation": [0, 0, 22.5],
+			"origin": [0, 0.5, -0.5],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 5, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"east": {
+					"uv": [0, 0, 7, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"south": {
+					"uv": [0, 0, 5, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"west": {
+					"uv": [0, 0, 7, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"up": {
+					"uv": [0, 11, 5, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"down": {
+					"uv": [0, 0, 5, 11],
+					"tint": 0,
+					"texture": 0
+				}
+			},
+			"type": "cube",
+			"uuid": "aaf3889a-94d4-b227-1ce0-05925f359c76"
+		},
+		{
+			"name": "cube",
+			"box_uv": false,
+			"rescale": false,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"from": [0, 1, -5],
+			"to": [0, 3, -2],
+			"autouv": 0,
+			"color": 9,
+			"rotation": [0, -22.5, 0],
+			"origin": [0, 0, -2],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 0, 4],
+					"tint": 0,
+					"texture": 0
+				},
+				"east": {
+					"uv": [7, 3, 10, 5],
+					"tint": 0,
+					"texture": 0
+				},
+				"south": {
+					"uv": [0, 0, 0, 4],
+					"tint": 0,
+					"texture": 0
+				},
+				"west": {
+					"uv": [7, 3, 10, 5],
+					"tint": 0,
+					"texture": 0
+				},
+				"up": {
+					"uv": [0, 5, 0, 0],
+					"tint": 0,
+					"texture": 0
+				},
+				"down": {
+					"uv": [0, 0, 0, 5],
+					"tint": 0,
+					"texture": 0
+				}
+			},
+			"type": "cube",
+			"uuid": "7a3eccf1-7e7f-f3e1-7219-721a9fa15b03"
+		},
+		{
+			"name": "cube",
+			"box_uv": false,
+			"rescale": false,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"from": [-1, 1, -5],
+			"to": [-1, 3, -2],
+			"autouv": 0,
+			"color": 9,
+			"rotation": [0, 22.5, 0],
+			"origin": [-1, 0, -2],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 0, 3],
+					"tint": 0,
+					"texture": 0
+				},
+				"east": {
+					"uv": [7, 3, 10, 5],
+					"tint": 0,
+					"texture": 0
+				},
+				"south": {
+					"uv": [0, 0, 0, 3],
+					"tint": 0,
+					"texture": 0
+				},
+				"west": {
+					"uv": [7, 3, 10, 5],
+					"tint": 0,
+					"texture": 0
+				},
+				"up": {
+					"uv": [0, 5, 0, 8],
+					"tint": 0,
+					"texture": 0
+				},
+				"down": {
+					"uv": [0, 0, 0, 3],
+					"tint": 0,
+					"texture": 0
+				}
+			},
+			"type": "cube",
+			"uuid": "8a6782a3-1381-59d7-96d6-6bca8c70e3bb"
+		}
+	],
+	"outliner": [
+		{
+			"name": "body",
+			"origin": [-1, 0, -2],
+			"color": 0,
+			"nbt": "{}",
+			"uuid": "21d5417b-3fef-e5d8-954c-44df9c6bfb5e",
+			"export": true,
+			"mirror_uv": false,
+			"isOpen": true,
+			"locked": false,
+			"visibility": true,
+			"autouv": 0,
+			"children": [
+				"ed02be45-e4e9-e8c3-65d0-f5bacab954b0",
+				"2fc011a6-d459-ea36-80b2-ffc0b4c5a21c",
+				"aaf3889a-94d4-b227-1ce0-05925f359c76",
+				"7a3eccf1-7e7f-f3e1-7219-721a9fa15b03",
+				"8a6782a3-1381-59d7-96d6-6bca8c70e3bb"
+			]
+		}
+	],
+	"textures": [
+		{
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/texture.png",
+			"name": "texture",
+			"folder": "block",
+			"namespace": "",
+			"id": "0",
+			"particle": true,
+			"render_mode": "default",
+			"render_sides": "auto",
+			"frame_time": 1,
+			"frame_order_type": "loop",
+			"frame_order": "",
+			"frame_interpolate": false,
+			"visible": true,
+			"mode": "bitmap",
+			"saved": true,
+			"uuid": "1f794091-ea4b-a3ef-7632-77c1ed351b5e",
+			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/texture.png",
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAVxJREFUSEvlliGuhDAQQFtFCAaHwgESEq7BDXB40JwBDVchvQUHIDgUjkAQBNHNkLRhf4Aw/WJ//q7ZbJd5nQ6d11Jy8rEsi4vhdV3JOI707DkYO/3DNE2uaZqMGYYBBxAZwOwAQgMcx+HzPO+BhmHwZVnuMwjDUK65aRoKGcDs27YRCL6DUBGcZRkpy5IAAGoABbgrnijQDpimaf/tui5hjF2me/YmaBzHMn1d14nneSTP88cQWhQFb9tWwgFSVdVzAEQCpO97EkURqesaDzhCbNvGLeFqiz4df7xWVC88nf2ymT4P+GYfQCvDG0D74OgCACj5QMUF+0YSPlBxwQ44+gDrArmVAeL7PtoFb72QpinHuuAPN9Pn2/nXGXyrD4QLlH2QJIk8ZJR80HWd0iklfRAEAepQlTcU4QMVF8huZIxx7L1AZiDuBvCNudq8ATB7/+ezSpU/Qv4B4AUO8AhAsYFU2gAAAABJRU5ErkJggg=="
+		},
+		{
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/variant1.png",
+			"name": "variant1.png",
+			"folder": "",
+			"namespace": "",
+			"id": "1",
+			"particle": false,
+			"render_mode": "default",
+			"render_sides": "auto",
+			"frame_time": 1,
+			"frame_order_type": "loop",
+			"frame_order": "",
+			"frame_interpolate": false,
+			"visible": true,
+			"mode": "bitmap",
+			"saved": true,
+			"uuid": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
+			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/variant1.png",
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAWlJREFUSEvtljGOR0AUxkclIhHRuIADSLQSrUSr0oljuIbWDZzFCRyATiIiopjNN7sjdoP1ppP8VQzvzTdv5vs9Gju5XNflcnhdVzaOo3b2HcZOX9i2zXVd32OGYaAlkAowOxL9m8DzPO77PkuShOV5ruF5miYRaJomn+f5XgEC4jhmfd+zpmk0KMDs27YxBN8lEbMheFkWFoahUIAaoAB3xZMFEgmiKGKGYbCqqi6lXu5ClmXccRyhAEmCIBAqrgL+jv9SIJNQlIiZjssgK5CSkAT3lmWxtm2fL+HpWklHmZL0sdSXKXgpD8qy3D2gxAMABSzAdinx4OgBJR7Uda10qDTJA0inOlFgXVoZDypU2nkALiopOPKAyoLLzvSxM6UCF+39pTzoum43E5kHaZpyyQIlHqC9H+1M5gGMROnIx40WPICN5d8J7RT88AAKcKmoEJUvioIrK5A/GCos+PDge8OVmsnxrHwB9Qv5MWUVcdsAAAAASUVORK5CYII="
+		},
+		{
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/variant2.png",
+			"name": "variant2.png",
+			"folder": "",
+			"namespace": "",
+			"id": "2",
+			"particle": false,
+			"render_mode": "default",
+			"render_sides": "auto",
+			"frame_time": 1,
+			"frame_order_type": "loop",
+			"frame_order": "",
+			"frame_interpolate": false,
+			"visible": true,
+			"mode": "bitmap",
+			"saved": true,
+			"uuid": "c12f60ff-f104-ef0d-7315-6268236b02e5",
+			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/variant2.png",
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAXRJREFUSEvtljGOhDAMRZOKAgnRcQEuACVH4QxchItwBloaCgokOoS4AA1CIIQQRVbOylFmdoZNvN1qpszEPx8nfjZnL35BEAhcPs+TLcvCX+2DtYc/wjAU4zhy3/eF4zgqZpqm3wUwGKLQAZwOQsYCEAwOQGzbNhnouq7Y9/3eAQR4nsfWdZUC4ABOv66LQfCdCE/TVCas73slADmAtbvkYYJ4lmVinmfWNI08/V22394CCugObER4nudiGAZ2HId0gYk0FZGW4zgWSZKwuq5VHqwEUASD2rY1zoXxRqOnbGpb3/dfHZB4oJcziQfwmPD+yTzAYiLxQK8BEg/0cibxoCgK0qP6O1CQB1VVWbNA9QW4wiiKGIjYYk19N4iAog0LfnSmTzlTMvDU3lGCxAP9fGse6DAhzQfPAtY80GmEDqzmA+jM+hO25kFZltZF9DBgQFe2LSIlADzouo4+oYASTCnUz1ADBoUFHx58XySpmeiV+wWMx09ALug3mQAAAABJRU5ErkJggg=="
+		}
+	]
+}

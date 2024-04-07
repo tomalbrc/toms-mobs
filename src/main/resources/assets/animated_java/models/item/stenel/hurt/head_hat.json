@@ -1,6 +1,0 @@
-{
-	"parent": "animated_java:item/stenel/head_hat",
-	"textures": {
-		"0": "animated_java:item/stenel/showmaster_hurt"
-	}
-}

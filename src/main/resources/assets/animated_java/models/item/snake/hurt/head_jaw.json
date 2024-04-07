@@ -1,6 +1,0 @@
-{
-	"parent": "animated_java:item/snake/head_jaw",
-	"textures": {
-		"0": "animated_java:item/snake/snake_hurt"
-	}
-}

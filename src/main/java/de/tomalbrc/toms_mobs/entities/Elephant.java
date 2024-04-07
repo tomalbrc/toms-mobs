@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,15 +28,10 @@ import org.jetbrains.annotations.Nullable;
 import de.tomalbrc.toms_mobs.entities.navigation.LessSpinnyGroundPathNavigation;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
-public class Elephant extends Animal implements AjEntity, PlayerRideable {
+public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final ResourceLocation ID = Util.id("elephant");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Elephant> holder;
 
     public static AttributeSupplier.Builder createAttributes() {

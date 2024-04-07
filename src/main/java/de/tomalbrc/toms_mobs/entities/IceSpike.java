@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.simple.SimpleEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,17 +20,12 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import de.tomalbrc.toms_mobs.util.Util;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.simple.SimpleEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
 import java.util.List;
 
-public class IceSpike extends Entity implements AjEntity, TraceableEntity {
+public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity {
     public static final ResourceLocation ID = Util.id("ice_spike");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<IceSpike> holder;
 
     @Nullable
@@ -56,7 +55,7 @@ public class IceSpike extends Entity implements AjEntity, TraceableEntity {
 
         this.holder.getElements().forEach(element -> {
             if (element instanceof DisplayElement displayElement) {
-                displayElement.setYaw(f);
+                //displayElement.setYaw(f);
             }
         });
     }

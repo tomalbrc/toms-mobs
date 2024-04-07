@@ -1,6 +1,11 @@
 package de.tomalbrc.toms_mobs.entities;
 
 import com.mojang.math.Axis;
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.holder.wrapper.Locator;
+import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entities.goals.IceSpikeGoal;
 import de.tomalbrc.toms_mobs.entities.goals.SummonIceClusterGoal;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -27,18 +32,12 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.holders.wrappers.Locator;
-import de.tomalbrc.resin.model.AjModel;
 
 import java.util.ArrayList;
 
-public class Iceologer extends SpellcasterIllager implements AjEntity {
+public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("iceologer");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Iceologer> holder;
 
     private final Locator.LocatorListener listener = (holder, pose) -> {

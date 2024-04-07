@@ -1,17 +1,17 @@
 package de.tomalbrc.toms_mobs.util;
 
+import de.tomalbrc.bil.api.AnimatedHolder;
+import de.tomalbrc.bil.api.Animator;
+import de.tomalbrc.bil.api.VariantController;
 import net.minecraft.world.entity.LivingEntity;
-import de.tomalbrc.resin.api.AjHolder;
-import de.tomalbrc.resin.api.Animator;
-import de.tomalbrc.resin.api.VariantController;
 
 public class AnimationHelper {
 
-    public static void updateWalkAnimation(LivingEntity entity, AjHolder holder) {
+    public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder) {
         updateWalkAnimation(entity, holder, 0);
     }
 
-    public static void updateWalkAnimation(LivingEntity entity, AjHolder holder, int priority) {
+    public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder, int priority) {
         Animator animator = holder.getAnimator();
         if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
             animator.playAnimation("walk", priority);
@@ -22,12 +22,14 @@ public class AnimationHelper {
         }
     }
 
-    public static void updateHurtVariant(LivingEntity entity, AjHolder holder) {
-        VariantController controller = holder.getVariantController();
-        if (entity.hurtTime > 0 || entity.deathTime > 0) {
-            controller.setVariant("hurt");
-        } else if (controller.isCurrentVariant("hurt")) {
-            controller.setDefaultVariant();
-        }
+    public static void updateHurtVariant(LivingEntity entity, AnimatedHolder holder) {
+        updateHurtColor(entity, holder);
+    }
+
+    public static void updateHurtColor(LivingEntity entity, AnimatedHolder holder) {
+        if (entity.hurtTime > 0 || entity.deathTime > 0)
+            holder.setColor(0xff7e7e);
+        else
+            holder.clearColor();
     }
 }

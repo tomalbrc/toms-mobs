@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -23,17 +27,12 @@ import de.tomalbrc.toms_mobs.entities.goals.CircularFangGoal;
 import de.tomalbrc.toms_mobs.entities.goals.IceSpikeGoal;
 import de.tomalbrc.toms_mobs.entities.goals.RapidfireGoal;
 import de.tomalbrc.toms_mobs.entities.goals.ThrowPotionsUpwardGoal;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
 import java.util.ArrayList;
 
-public class Showmaster extends SpellcasterIllager implements AjEntity {
+public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("showmaster");
-    public static final AjModel MODEL = AjLoader.require(Util.id("stenel"));
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Showmaster> holder;
 
     public static AttributeSupplier.Builder createAttributes() {

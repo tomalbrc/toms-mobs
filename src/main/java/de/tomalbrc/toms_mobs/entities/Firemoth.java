@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -30,15 +34,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
-public class Firemoth extends Animal implements AjEntity, FlyingAnimal {
+public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("firemoth");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Firemoth> holder;
 
     public static AttributeSupplier.Builder createAttributes() {

@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -27,15 +31,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import de.tomalbrc.toms_mobs.entities.goals.AnimatedMeleeAttackGoal;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
-public class Sculkling extends Monster implements AjEntity, AnimatedMeleeAttackGoal.IMeleeAttackAnimatable {
+public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeAttackGoal.IMeleeAttackAnimatable {
     public static final ResourceLocation ID = Util.id("sculkling");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Sculkling> holder;
 
     int stolenXP = 0;

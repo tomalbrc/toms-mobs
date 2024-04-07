@@ -1,5 +1,12 @@
 package de.tomalbrc.toms_mobs.entities;
 
+import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.api.AnimatedHolder;
+import de.tomalbrc.bil.core.holder.entity.EntityHolder;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.bil.file.importer.AjModelImporter;
+import de.tomalbrc.bil.file.loader.AjModelLoader;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.registries.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -36,15 +43,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import de.tomalbrc.resin.api.AjEntity;
-import de.tomalbrc.resin.data.AjLoader;
-import de.tomalbrc.resin.holders.entity.EntityHolder;
-import de.tomalbrc.resin.holders.entity.living.LivingEntityHolder;
-import de.tomalbrc.resin.model.AjModel;
 
-public class Penguin extends Animal implements AjEntity, RangedAttackMob {
+public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     public static final ResourceLocation ID = Util.id("penguin");
-    public static final AjModel MODEL = AjLoader.require(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Penguin> holder;
 
     public static AttributeSupplier.Builder createAttributes() {

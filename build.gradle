@@ -27,7 +27,7 @@ dependencies {
     modImplementation include("eu.pb4:polymer-virtual-entity:${project.polymer_version}")
     modRuntimeOnly("eu.pb4:polymer-autohost:${project.polymer_version}")
 
-    modImplementation include("de.tomalbrc:resin:${project.resin_version}")
+    modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
 }
 
 processResources {

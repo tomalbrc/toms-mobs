@@ -1,8 +1,0 @@
-{
-	"parent": "animated_java:item/butterfly/body",
-	"textures": {
-		"0": "animated_java:item/butterfly/variant2",
-		"1": "animated_java:item/butterfly/variant1",
-		"2": "animated_java:item/butterfly/variant2"
-	}
-}
