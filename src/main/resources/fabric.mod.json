@@ -24,7 +24,11 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": ">=${minecraft_version}",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "polymer-resource-pack": "*",
+    "polymer-core": "*",
+    "polymer-virtual-entity": "*",
+    "bil": ">=1.1.5"
   },
   "accessWidener": "toms_mobs.accesswidener"
 }
