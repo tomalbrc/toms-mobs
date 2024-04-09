@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"format": "animated_java/ajmodel",
-		"format_version": "0.4.6",
+		"format_version": "0.4.7",
 		"uuid": "f90b6d4b-9679-341b-ab2b-772f4a4e38c1"
 	},
 	"animated_java": {
@@ -14,11 +14,13 @@
 			"rig_export_folder": "",
 			"texture_export_folder": "",
 			"enable_advanced_resource_pack_settings": false,
+			"resource_pack_mcmeta": "",
 			"verbose": true,
 			"exporter": "animated_java:json_exporter"
 		},
 		"exporter_settings": {
 			"animated_java:datapack_exporter": {
+				"datapack_mcmeta": "",
 				"outdated_rig_warning": true,
 				"root_entity_nbt": "{}",
 				"include_variant_summon_functions": true,
@@ -31,6 +33,9 @@
 				"include_on_tick_function_tags": true,
 				"include_on_summon_function_tags": true,
 				"include_on_remove_function_tags": true
+			},
+			"animated_java:json_exporter": {
+				"output_file": ""
 			}
 		},
 		"variants": [
@@ -419,12 +424,18 @@
 	],
 	"textures": [
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/penguin_animated_java_rig/textures/item/penguin.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/penguin_animated_java_rig/textures/item/penguin.png",
 			"name": "penguin",
 			"folder": "block",
 			"namespace": "",
 			"id": "0",
+			"width": 64,
+			"height": 64,
+			"uv_width": 64,
+			"uv_height": 64,
 			"particle": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
 			"render_mode": "default",
 			"render_sides": "auto",
 			"frame_time": 1,
@@ -432,19 +443,26 @@
 			"frame_order": "",
 			"frame_interpolate": false,
 			"visible": true,
-			"mode": "bitmap",
+			"internal": true,
 			"saved": false,
 			"uuid": "3572ebe7-c383-25bc-b416-4cd7298c2f38",
 			"source": "data:image/png;base64,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",
-			"relative_path": "../../../../provim_rp/assets/penguin_animated_java_rig/textures/item/penguin.png"
+			"image_data": "data:image/png;base64,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",
+			"mode": "bitmap"
 		},
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/penguin_animated_java_rig/textures/item/penguin_hurt.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/penguin_animated_java_rig/textures/item/penguin_hurt.png",
 			"name": "penguin_hurt",
 			"folder": "",
 			"namespace": "",
 			"id": "1",
+			"width": 64,
+			"height": 64,
+			"uv_width": 64,
+			"uv_height": 64,
 			"particle": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
 			"render_mode": "default",
 			"render_sides": "auto",
 			"frame_time": 1,
@@ -452,11 +470,12 @@
 			"frame_order": "",
 			"frame_interpolate": false,
 			"visible": true,
-			"mode": "bitmap",
+			"internal": true,
 			"saved": false,
 			"uuid": "78a9455a-5eac-fd8f-f6e7-56652281b92a",
 			"source": "data:image/png;base64,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",
-			"relative_path": "../../../../provim_rp/assets/penguin_animated_java_rig/textures/item/penguin_hurt.png"
+			"image_data": "data:image/png;base64,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",
+			"mode": "bitmap"
 		}
 	],
 	"animations": [
@@ -616,7 +635,7 @@
 			"override": false,
 			"length": 0.8,
 			"snapping": 20,
-			"selected": true,
+			"selected": false,
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",

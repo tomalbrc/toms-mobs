@@ -4,6 +4,7 @@
   "version": "${version}",
   "name": "Tom's Mobs",
   "description": "",
+  "icon": "icon@256.png",
   "authors": [
     "tomalbrc"
   ],

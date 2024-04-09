@@ -293,7 +293,7 @@
 			"relative_path": "../../../../../../../Desktop/texture.png"
 		},
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/sculkling/texture_hurt.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/sculkling/texture_hurt.png",
 			"name": "texture_hurt",
 			"folder": "",
 			"namespace": "",
@@ -309,7 +309,7 @@
 			"mode": "bitmap",
 			"saved": true,
 			"uuid": "af6bd503-3994-d4a6-3f8a-9ee7d37ff0df",
-			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/sculkling/texture_hurt.png",
+			"relative_path": "../../../.._rp/assets/animated_java/textures/item/sculkling/texture_hurt.png",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAACACAYAAABqZmsaAAAAAXNSR0IArs4c6QAAA7JJREFUeF7tW0tuE0EQLStYMiEflAWyQMhSNmQByygsuAMX4CgsOQoX4A4sQCzDIggpkoVAFhIfJyFYMsHoVbo65fZ8etrThIiazfynX1dVV1e9qe6Q27p7u7Pp6zcdOcdeX1tf3Zj9uDOgla0enX2d0I2PQ8I5tpXj77yfjj7Mva+/VXbckUaw5484EPpcjmk4uvjOoE9y3jsaM5jf7/fTAEjDuschMPSae/roPtHLt3S2fpM2P3+iX9MpTR7cY6kkARBRV4kLUun2787Wfp5yg9e6XTq5vkqkpIDjUIVJKghf4sb3dme9/Xc02dj0tyF2nAsoSGEpAEWSCO2Bde5UgB6vHRzSyc62B5UXwHDkeysqgB3ICEhWgR5u3tpdn0T82BcNQwDBJnbxbfyl+SjQfqDIaBbUoB8ajng0sC/Y6qXZQOh49LnWKUYBi9w5IoheDBHvwBiTJBCKvWzosMFh6LkNDcIAMTrYJna20yQQC4B7eXB44Qdg/eIZB/10R9QEQCgd33vnlJKHYYzH8ipw3k9UIJLJrgL4evH90Pn41m3vA2CcKfMAwLObbSIBcT56XsD7KSOgEYAikGKUcg+SaQokWgJ+OnatQRIISsIJ6vj0qJE3jAbAQw4GKNtwxI5IoiJcBqBsAFKGWIxtsbh09FMWFxbFjDEN1D1zrgId66ngEv5/7gOJUU8VCJYAplroDnuJbLjxQZ99vdxrqt+63vMw1CrgY9ewxIESamdXgTQk0tCSCYHF9Cz2GY528XBdUhH7XGzD8tyc3qtelsi4bTs4B+DC7TIpSO/heFoHILouA5GzcT8KBAT2YQ8hoaLrTXVd9nyjiaOtRvV3/h0Axg/oNCycIXHuA5InD4mevzJ+wKdlf58fcCowfgABqPEDxg8YPyAcofCFKdlTdG5o/EBRNGT8gPEDbUTJxg/4vAApGHLDIn5A7rUh8vAbnqDAxAIARfyABtU2CJ8dx/ADebPjir9eubgBnx0LR1DFD+To/UJ6Do4gBAH952p8DkBISomxaaNs2wAXAORooO6bxg9cwfqBZ4+Jnr4wfuAS+QGnAuMHjB+w+gHOjK1+wNUQGT+AoKPpb3v/1yy2gMH4AasfyP7zWhuZ/2P+39QP8E8q4wdqipJzJam+hqSqKtb4AeMH6nL8Ze4bP3AF+QGrH3Amf3nrC6x+QC3zsfoBqx8wfsDqB2R9kfEDEpKlBK/RNSTGDxg/kOsHpq0vsPUFtr7AZ8dl6whsfcEy5EPMu38ANw5G6piTwC0AAAAASUVORK5CYII="
 		}
 	],

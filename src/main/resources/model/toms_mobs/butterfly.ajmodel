@@ -339,7 +339,7 @@
 	],
 	"textures": [
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/texture.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/texture.png",
 			"name": "texture",
 			"folder": "block",
 			"namespace": "",
@@ -355,11 +355,11 @@
 			"mode": "bitmap",
 			"saved": true,
 			"uuid": "1f794091-ea4b-a3ef-7632-77c1ed351b5e",
-			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/texture.png",
+			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/texture.png",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAVxJREFUSEvlliGuhDAQQFtFCAaHwgESEq7BDXB40JwBDVchvQUHIDgUjkAQBNHNkLRhf4Aw/WJ//q7ZbJd5nQ6d11Jy8rEsi4vhdV3JOI707DkYO/3DNE2uaZqMGYYBBxAZwOwAQgMcx+HzPO+BhmHwZVnuMwjDUK65aRoKGcDs27YRCL6DUBGcZRkpy5IAAGoABbgrnijQDpimaf/tui5hjF2me/YmaBzHMn1d14nneSTP88cQWhQFb9tWwgFSVdVzAEQCpO97EkURqesaDzhCbNvGLeFqiz4df7xWVC88nf2ymT4P+GYfQCvDG0D74OgCACj5QMUF+0YSPlBxwQ44+gDrArmVAeL7PtoFb72QpinHuuAPN9Pn2/nXGXyrD4QLlH2QJIk8ZJR80HWd0iklfRAEAepQlTcU4QMVF8huZIxx7L1AZiDuBvCNudq8ATB7/+ezSpU/Qv4B4AUO8AhAsYFU2gAAAABJRU5ErkJggg=="
 		},
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/variant1.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant1.png",
 			"name": "variant1.png",
 			"folder": "",
 			"namespace": "",
@@ -375,11 +375,11 @@
 			"mode": "bitmap",
 			"saved": true,
 			"uuid": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
-			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/variant1.png",
+			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/variant1.png",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAWlJREFUSEvtljGOR0AUxkclIhHRuIADSLQSrUSr0oljuIbWDZzFCRyATiIiopjNN7sjdoP1ppP8VQzvzTdv5vs9Gju5XNflcnhdVzaOo3b2HcZOX9i2zXVd32OGYaAlkAowOxL9m8DzPO77PkuShOV5ruF5miYRaJomn+f5XgEC4jhmfd+zpmk0KMDs27YxBN8lEbMheFkWFoahUIAaoAB3xZMFEgmiKGKGYbCqqi6lXu5ClmXccRyhAEmCIBAqrgL+jv9SIJNQlIiZjssgK5CSkAT3lmWxtm2fL+HpWklHmZL0sdSXKXgpD8qy3D2gxAMABSzAdinx4OgBJR7Uda10qDTJA0inOlFgXVoZDypU2nkALiopOPKAyoLLzvSxM6UCF+39pTzoum43E5kHaZpyyQIlHqC9H+1M5gGMROnIx40WPICN5d8J7RT88AAKcKmoEJUvioIrK5A/GCos+PDge8OVmsnxrHwB9Qv5MWUVcdsAAAAASUVORK5CYII="
 		},
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/butterfly/variant2.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant2.png",
 			"name": "variant2.png",
 			"folder": "",
 			"namespace": "",
@@ -395,7 +395,7 @@
 			"mode": "bitmap",
 			"saved": true,
 			"uuid": "c12f60ff-f104-ef0d-7315-6268236b02e5",
-			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/butterfly/variant2.png",
+			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/variant2.png",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAXRJREFUSEvtljGOhDAMRZOKAgnRcQEuACVH4QxchItwBloaCgokOoS4AA1CIIQQRVbOylFmdoZNvN1qpszEPx8nfjZnL35BEAhcPs+TLcvCX+2DtYc/wjAU4zhy3/eF4zgqZpqm3wUwGKLQAZwOQsYCEAwOQGzbNhnouq7Y9/3eAQR4nsfWdZUC4ABOv66LQfCdCE/TVCas73slADmAtbvkYYJ4lmVinmfWNI08/V22394CCugObER4nudiGAZ2HId0gYk0FZGW4zgWSZKwuq5VHqwEUASD2rY1zoXxRqOnbGpb3/dfHZB4oJcziQfwmPD+yTzAYiLxQK8BEg/0cibxoCgK0qP6O1CQB1VVWbNA9QW4wiiKGIjYYk19N4iAog0LfnSmTzlTMvDU3lGCxAP9fGse6DAhzQfPAtY80GmEDqzmA+jM+hO25kFZltZF9DBgQFe2LSIlADzouo4+oYASTCnUz1ADBoUFHx58XySpmeiV+wWMx09ALug3mQAAAABJRU5ErkJggg=="
 		}
 	]

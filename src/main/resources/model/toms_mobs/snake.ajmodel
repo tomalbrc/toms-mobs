@@ -364,7 +364,7 @@
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAvlJREFUWEftVk1IVFEUPi8QwiTLZgybhYXBJNRk0lBEESgVIYTgpk0EUWDQyo2hKIEQBdKiTQXRpk2bAVuEZGaLIouicoosaPoRxkFnshS1wOrFd+UM99557933MndzNu/+vXu++53vnHut3KcL9lzmG93rH6LmEy0E67uRoLqdjbQxtka0Mf45+Z1ePb8v2rw+WrJfrGerPRZS+qFNZy1lwKFjAQDGn959QltjUVpVtVa0dx3aLZxOZN4pbXnN6snNSwfw5XG7nc1ayuneJN+7OgUwMIA1AFBRukKAmJr/Q//EwOzstGCALTX6iGpq94qu3Nb7mJvpf6AA2NHWVbCPvEdZWXlBSKzrXXH7wOEGQT3Hm3XAmuCQ6KGaSEwpIahu7SwAbgRw52qzLdOKNjvSx3WxegHAHtvjTWYRAoAuPo6xPO60Zmzwt2sIAMCJcj0RLNaAW7z1cVkLLy/1KAD2dfeKE2NP/OeLAWQB4s+2MnxaEd/X5HkxhUwJh23CqWVjp6Z8d5sXdQCUwwAEAPiU+C6MPxSOGcSPkV//FwA0wDtm0mk62j6oOGAGGODozZwj7UtiAD+DBWYA8YOhHvzMXsnPYUwHoBcfBsKl+2TPM89MsKABPh2+6dy2fCFCHwBk01Pv2nCCuntP0a2Pw3Sm8TYNzC3eJ9GRxTJdveeiNwAUoqpIRCx2CoEJwPqWCvEv6whihbFujACcskAWYST0mspLS2h6fkFs7BQCVEoYCpefG1BmNH8b4gQbairp7diWfPydQqADmKn8IBzDAKSptc9Y/RQAXiFwupj0kOj3RGAAbnXALa10AHLdQNb4Kb+OIWAhrYt1FFzD/AMYgSa8LLAG9BDEj5wTaci1QHbG7wR5rON4PR1sqBdDA0Mv6HIiFUwDch2AEMGAl7EumGp+0nEhC8wANkCajacmlbtAB8GM+LnhPE+gTYoXkVyIEAKY/CyT+0FFZgJjjJf8ZvR7x5ucKlkQZPFyrDUysBxOiwwUGSgyIDPwFy1/9TA35dCfAAAAAElFTkSuQmCC"
 		},
 		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/provim/provim_rp/assets/animated_java/textures/item/snake/snake_hurt.png",
+			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/assets/animated_java/textures/item/snake/snake_hurt.png",
 			"name": "snake_hurt",
 			"folder": "",
 			"namespace": "",
@@ -380,7 +380,7 @@
 			"mode": "bitmap",
 			"saved": true,
 			"uuid": "ccb8d734-591c-0f47-3a5d-39b61c191e6b",
-			"relative_path": "../../../../provim_rp/assets/animated_java/textures/item/snake/snake_hurt.png",
+			"relative_path": "../../../../assets/animated_java/textures/item/snake/snake_hurt.png",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAvBJREFUWEftVr9rFEEUfitBDzWnG80FFS5cCreImMIoJ5jm8EepIgTFRlQwio2VVhb+AzYiWohpxMrCzqgoGMEoF0nEQE7BYCQJrnirG3+cwXjyTXjHzNzuzq4x3b1m58fbmW++9703Y/kPzlV/uT6VBodo66G9BHt15z5t2pKndU5atDH+ueTT1OsFH/Zvbdou/Nk27LeVfnrPZUsZCOhYAIDxicFR2ujkaEUmLdq5ni6xqe9OKG3ZJ1XOLh7Ap1snqt88Uk43XQrfFMDAAHwAYFVqmQDxvfKH/omBSvGFYIDNfTdMmY5toiu39T7mfj55rgBoP3ambh15jVT3jrqQWE/7OqtOT15Qz/FmHbAmOCR6qPyBr0oI1h/uqwNuBDB6sVCVaUWbN9LHdbFGAcAa2d7TZhECgC4+jrE8HuRTfjYfGgIACKJcTwSLNRAWb31c1sL7/qsKAOdKvzgx1sR/sRhAFiD+bMvtI4r4ZkvXxRQyZbVNhFPLxpua8j1sXtQBUA4DEADgU+I77xbFxgxibvw/A4AGGN2s+5G6T95UwDIDDHDmrhdI+6IYwM9ggRlA/GCoB3Pe7docxnQAevFhIFy6d10bi8wECxrg0+H7xdtcK0ToA4BseuoVRwaocL6XXn4YobfHH9PO4d3CvW28XXxbj96IBoBC1JxpE85BITABSO9bI/5lHUGsMNaNEUBQFsgiXGu/oZWpJvpR+S0WDgoBKiUMhSvODSgzWrsNcQI720LTMx21+AeFQAdQaZkUG8MApOvSI2P1UwBEhSDoYtJDot8TiQGE1QFFeVJHByDXDWRNnPIbGAIWUrNzqu4a5h/ACDQRZYk1oIcgWzgr0pBrgbwZvxPksXsXDlIu37mggaExOvBwKpkG5DoAIYKBKGNdMNX8pONClpgBLIA08ybLyl2gg2BG4txwkSfQJsWLSC5ECAFMfpbJ/aQiM4Exxkt+M8a9402bKlmQxHkpfI0MLMWmDQYaDDQYkBn4C0uN8jC9A19tAAAAAElFTkSuQmCC"
 		}
 	],
