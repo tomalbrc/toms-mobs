@@ -27,9 +27,7 @@ public class AnimatedMeleeAttackGoal extends AnimatedGoal {
 
         this.meleeAttackGoal = new MeleeAttackGoal(pathfinderMob, d, bl) {
             @Override
-            protected boolean canPerformAttack(LivingEntity livingEntity) {
-                return false;
-            }
+            protected void checkAndPerformAttack(LivingEntity livingEntity, double d) {}
         };
         this.mob = pathfinderMob;
     }
