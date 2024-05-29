@@ -57,7 +57,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         for (int i = 0; i < 5; i++) {
             Vector3f v = rot.mul(i).add(position);
             holder.sendPacket(new ClientboundLevelParticlesPacket(
-                    ParticleTypes.ENTITY_EFFECT, false, v.x, v.y, v.z, 0.3f, 0.3f, 0.95f, 2.f, 0
+                    ParticleTypes.EFFECT, false, v.x, v.y, v.z, 0.3f, 0.3f, 0.95f, 2.f, 0
             ));
         }
     };

@@ -7,6 +7,7 @@ import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -30,7 +32,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.CREATURE)
                     .dimensions(EntityDimensions.scalable(0.6f, 0.95f))
                     .defaultAttributes(Penguin::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
     );
 
     public static final EntityType<Elephant> ELEPHANT = register(
@@ -40,7 +42,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.CREATURE)
                     .dimensions(EntityDimensions.scalable(3.f, 3.65f))
                     .defaultAttributes(Elephant::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
                     .trackRangeChunks(8)
     );
 
@@ -51,7 +53,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.AMBIENT)
                     .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
                     .defaultAttributes(Firemoth::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules)
     );
 
     public static final EntityType<Butterfly> BUTTERFLY = register(
@@ -61,7 +63,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.AMBIENT)
                     .dimensions(EntityDimensions.scalable(0.25f, 0.25f))
                     .defaultAttributes(Butterfly::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules)
     );
 
     public static final EntityType<Snake> SNAKE = register(
@@ -71,7 +73,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.MONSTER)
                     .dimensions(EntityDimensions.scalable(1.f, 0.4f))
                     .defaultAttributes(Snake::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Snake::checkSnakeSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Snake::checkSnakeSpawnRules)
     );
 
     public static final EntityType<Sculkling> SCULKLING = register(
@@ -81,7 +83,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.MONSTER)
                     .dimensions(EntityDimensions.scalable(0.5f, 0.9f))
                     .defaultAttributes(Snake::createAttributes)
-                    .spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules)
     );
 
     public static final EntityType<Showmaster> STENEL = register(

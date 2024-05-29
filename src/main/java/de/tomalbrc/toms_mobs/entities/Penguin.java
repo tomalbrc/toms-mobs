@@ -1,12 +1,9 @@
 package de.tomalbrc.toms_mobs.entities;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
-import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.bil.file.importer.AjModelImporter;
-import de.tomalbrc.bil.file.loader.AjModelLoader;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.registries.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -40,7 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +47,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     private final EntityHolder<Penguin> holder;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
@@ -62,12 +59,12 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     public Penguin(EntityType<? extends Penguin> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
 
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new LivingEntityHolder(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
     }
 
@@ -156,12 +153,6 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     @Override
     protected void playStepSound(BlockPos blockPos, BlockState blockState) {
         this.playSound(SoundEvents.FROG_STEP, 0.15F, 1.0F);
-    }
-
-    @Override
-    @NotNull
-    public MobType getMobType() {
-        return MobType.WATER;
     }
 
     @Override

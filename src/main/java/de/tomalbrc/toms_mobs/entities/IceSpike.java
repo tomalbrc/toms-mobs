@@ -8,6 +8,7 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -47,6 +48,10 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
         this.holder.getAnimator().playAnimation("up", 10);
 
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 
     @Override
@@ -145,9 +150,5 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     @Nullable
     public LivingEntity getOwner() {
         return this.owner;
-    }
-
-    @Override
-    protected void defineSynchedData() {
     }
 }

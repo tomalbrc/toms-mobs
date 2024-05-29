@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -53,6 +54,11 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack) {
+        return Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO).test(itemStack);
     }
 
     @Override
