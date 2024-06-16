@@ -52,7 +52,7 @@ public class BiomeHelper {
     private static ResourceLocation[] toResourceLocation(String[] strings) {
         ResourceLocation[] locations = new ResourceLocation[strings.length];
         for (int i = 0; i < strings.length; i++) {
-            locations[i] = new ResourceLocation(strings[i]);
+            locations[i] = ResourceLocation.parse(strings[i]);
         }
         return locations;
     }

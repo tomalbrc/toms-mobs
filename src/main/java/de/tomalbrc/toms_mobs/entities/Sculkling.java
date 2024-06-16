@@ -110,7 +110,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public int getExperienceReward() {
+    public int getBaseExperienceReward() {
         return (int) ((stolenXP * 1.25) + 2);
     }
 }

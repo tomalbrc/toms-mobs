@@ -14,6 +14,7 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -98,6 +99,11 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     }
 
     @Override
+    public void applyRaidBuffs(ServerLevel serverLevel, int i, boolean bl) {
+
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -131,10 +137,6 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     @NotNull
     protected SoundEvent getCastingSoundEvent() {
         return SoundEvents.ILLUSIONER_CAST_SPELL;
-    }
-
-    @Override
-    public void applyRaidBuffs(int i, boolean bl) {
     }
 
     @Override

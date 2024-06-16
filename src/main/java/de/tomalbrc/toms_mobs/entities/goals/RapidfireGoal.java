@@ -58,7 +58,7 @@ public class RapidfireGoal extends AnimatedGoal {
             count--;
 
             if (count % 2 == 0) {
-                Arrow arrow = new Arrow(this.mob.level(), this.mob, new ItemStack(Items.ARROW));
+                Arrow arrow = new Arrow(this.mob.level(), this.mob, new ItemStack(Items.ARROW), null);
                 double d = this.mob.getTarget().getX() - this.mob.getX();
                 double e = this.mob.getTarget().getY(1.f / 3.f) - arrow.getY();
                 double g = this.mob.getTarget().getZ() - this.mob.getZ();

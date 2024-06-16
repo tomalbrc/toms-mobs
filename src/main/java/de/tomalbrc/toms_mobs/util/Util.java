@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class Util {
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(TomsMobs.MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, path);
     }
 
     public static Model loadModel(ResourceLocation resourceLocation) {

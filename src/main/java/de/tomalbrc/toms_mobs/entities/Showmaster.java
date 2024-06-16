@@ -8,6 +8,7 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -72,6 +73,11 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     }
 
     @Override
+    public void applyRaidBuffs(ServerLevel serverLevel, int i, boolean bl) {
+        // TODO
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -91,10 +97,6 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     @NotNull
     protected SoundEvent getCastingSoundEvent() {
         return SoundEvents.ILLUSIONER_CAST_SPELL;
-    }
-
-    @Override
-    public void applyRaidBuffs(int i, boolean bl) {
     }
 
     @Override
