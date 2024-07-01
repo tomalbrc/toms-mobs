@@ -10,8 +10,6 @@ public class TomsMobs implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        System.out.println(System.getProperty("os.name"));
-
         PolymerResourcePackUtils.addModAssets(MODID);
         PolymerResourcePackUtils.markAsRequired();
 

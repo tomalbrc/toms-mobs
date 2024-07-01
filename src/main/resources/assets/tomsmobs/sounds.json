@@ -1,22 +1,22 @@
 {
     "penguin.ambient": {
       "sounds": [
-        "bil:penguin/penguin_call1",
-        "bil:penguin/penguin_call2",
-        "bil:penguin/penguin_call3"
+        "tomsmobs:penguin/penguin_call1",
+        "tomsmobs:penguin/penguin_call2",
+        "tomsmobs:penguin/penguin_call3"
       ],
       "subtitle": "subtitles.penguin.ambient"
     },
     "penguin.hurt": {
       "sounds": [
-        "bil:penguin/penguin_hurt1"
+        "tomsmobs:penguin/penguin_hurt1"
       ],
       "subtitle": "subtitles.penguin.hurt"
     },
     "penguin.death": {
       "sounds": [
-          "bil:penguin/penguin_death1",
-          "bil:penguin/penguin_death2"
+          "tomsmobs:penguin/penguin_death1",
+          "tomsmobs:penguin/penguin_death2"
       ],
       "subtitle": "subtitles.penguin.death"
     }

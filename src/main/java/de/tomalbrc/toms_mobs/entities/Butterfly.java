@@ -7,7 +7,6 @@ import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -55,7 +54,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     public static boolean checkButterflySpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return random.nextInt(20) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return random.nextInt(10) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
     }
 
     @Override
