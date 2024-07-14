@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entities;
+package de.tomalbrc.toms_mobs.entities.hostile;
 
 import com.mojang.math.Axis;
 import de.tomalbrc.bil.api.AnimatedEntity;

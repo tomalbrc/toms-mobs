@@ -6,7 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
-import de.tomalbrc.toms_mobs.entities.Penguin;
+import de.tomalbrc.toms_mobs.entities.passive.Penguin;
 
 // todo, unused
 public class PenguinSwimGoal extends Goal {

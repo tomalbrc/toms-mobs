@@ -1,6 +1,6 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import de.tomalbrc.toms_mobs.entities.Showmaster;
+import de.tomalbrc.toms_mobs.entities.hostile.Showmaster;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

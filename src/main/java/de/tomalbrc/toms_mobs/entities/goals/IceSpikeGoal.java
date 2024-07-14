@@ -1,7 +1,7 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import de.tomalbrc.toms_mobs.entities.IceSpike;
-import de.tomalbrc.toms_mobs.entities.IceSpikeSmall;
+import de.tomalbrc.toms_mobs.entities.hostile.IceSpike;
+import de.tomalbrc.toms_mobs.entities.hostile.IceSpikeSmall;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +13,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import de.tomalbrc.toms_mobs.entities.Iceologer;
+import de.tomalbrc.toms_mobs.entities.hostile.Iceologer;
 
 public class IceSpikeGoal extends AnimatedGoal {
     @Nullable

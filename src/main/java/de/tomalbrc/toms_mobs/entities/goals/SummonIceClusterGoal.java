@@ -1,12 +1,12 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import de.tomalbrc.toms_mobs.entities.IceCluster;
+import de.tomalbrc.toms_mobs.entities.hostile.IceCluster;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
 import org.jetbrains.annotations.Nullable;
-import de.tomalbrc.toms_mobs.entities.Iceologer;
+import de.tomalbrc.toms_mobs.entities.hostile.Iceologer;
 
 public class SummonIceClusterGoal extends AnimatedGoal {
     @Nullable

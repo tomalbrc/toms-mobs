@@ -1,22 +1,20 @@
-package de.tomalbrc.toms_mobs.entities;
+package de.tomalbrc.toms_mobs.entities.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -33,34 +31,41 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
-import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
 
-public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
-    public static final ResourceLocation ID = Util.id("firemoth");
+public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
+    public static final ResourceLocation ID = Util.id("butterfly");
     public static final Model MODEL = Util.loadModel(ID);
-    private final EntityHolder<Firemoth> holder;
+    private final EntityHolder<Butterfly> holder;
+
+    private int color;
+    private String variant;
+
+    private final String[] variants = new String[]{
+            "default",
+            "1",
+            "2"
+    };
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4.0)
-                .add(Attributes.FLYING_SPEED, 0.8)
+                .add(Attributes.MAX_HEALTH, 1.0)
+                .add(Attributes.FLYING_SPEED, 0.4)
                 .add(Attributes.MOVEMENT_SPEED, 0.1);
     }
 
-    public static boolean checkFiremothSpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return random.nextInt(20) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
+    public static boolean checkButterflySpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return random.nextInt(10) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
     }
 
     @Override
-    public EntityHolder<Firemoth> getHolder() {
+    public EntityHolder<Butterfly> getHolder() {
         return this.holder;
     }
 
-    public Firemoth(EntityType<? extends Animal> entityType, Level level) {
+    public Butterfly(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
 
-        this.moveControl = new FlyingMoveControl(this, 0, false);
+        this.moveControl = new FlyingMoveControl(this, 1, true);
 
         this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
         this.setPathfindingMalus(PathType.WATER, -1.0F);
@@ -69,28 +74,30 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
-        this.holder.getAnimator().playAnimation("idle");
-
         EntityAttachment.ofTicking(this.holder, this);
+
+        this.setColor(this.random.nextInt(0xFFFFFF));
+        this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
+    }
+
+    private void setColor(int color) {
+        if (this.color == color) return;
+
+        this.color = color;
+        this.holder.setColor(color);
+    }
+
+    private void setVariant(String variant) {
+        if (this.variant != null && this.variant.equals(variant)) return;
+
+        this.variant = variant;
+        this.holder.getVariantController().setVariant(variant);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FlyingWanderGoal(this));
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateHurtVariant(this, this.holder);
-        }
-
-        if (this.tickCount % 8 == 3 && this.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new DustParticleOptions(new Vector3f(1.f, .4f, 0.f), 0.9f), getX(), getY() + 0.2, getZ(), 4, 0.04, 0.04, 0.04, 0.3);
-        }
     }
 
     @Override
@@ -121,11 +128,6 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
-    @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
@@ -135,5 +137,43 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     @Override
     public boolean isFlying() {
         return !this.onGround();
+    }
+
+    @Override
+    protected int getBaseExperienceReward() {
+        return 0;
+    }
+    
+    @Override
+    public boolean isFood(ItemStack itemStack) {
+        return itemStack.is(ItemTags.FLOWERS);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains("Color")) this.setColor(tag.getInt("Color"));
+        if (tag.contains("Variant")) {
+            String v = tag.getString("Variant");
+            if (this.containsVariant(v)) this.setVariant(v);
+        }
+    }
+
+    private boolean containsVariant(String target) {
+        for (String variant : this.variants) {
+            if (variant.equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+
+        tag.putInt("Color", this.color);
+        tag.putString("Variant", this.variant);
     }
 }

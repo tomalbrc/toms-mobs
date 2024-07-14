@@ -1,13 +1,16 @@
 package de.tomalbrc.toms_mobs.registries;
 
-import de.tomalbrc.toms_mobs.entities.*;
+import de.tomalbrc.toms_mobs.entities.hostile.*;
+import de.tomalbrc.toms_mobs.entities.passive.Butterfly;
+import de.tomalbrc.toms_mobs.entities.passive.Elephant;
+import de.tomalbrc.toms_mobs.entities.passive.Firemoth;
+import de.tomalbrc.toms_mobs.entities.passive.Penguin;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,7 +18,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;

@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entities;
+package de.tomalbrc.toms_mobs.entities.hostile;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
@@ -24,35 +24,40 @@ import de.tomalbrc.toms_mobs.util.Util;
 
 import java.util.List;
 
-public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity {
-    public static final ResourceLocation ID = Util.id("ice_spike");
+public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEntity {
+    public static final ResourceLocation ID = Util.id("ice_spike_small");
     public static final Model MODEL = Util.loadModel(ID);
-    private final EntityHolder<IceSpike> holder;
+    private final EntityHolder<IceSpikeSmall> holder;
 
     @Nullable
     private LivingEntity owner;
     private boolean didAttack;
 
     @Override
-    public EntityHolder<IceSpike> getHolder() {
+    public EntityHolder<IceSpikeSmall> getHolder() {
         return this.holder;
     }
 
-    public IceSpike(EntityType<? extends Entity> entityType, Level level) {
+    public IceSpikeSmall(EntityType<? extends Entity> entityType, Level level) {
         super(entityType, level);
 
         this.setInvisible(true);
         this.setNoGravity(true);
 
         this.holder = new SimpleEntityHolder<>(this, MODEL);
-        this.holder.getAnimator().playAnimation("up", 10);
+        this.holder.getAnimator().playAnimation("up", 10, () -> {
+            this.level().playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, .6f, .75f);
+            this.holder.getAnimator().playAnimation("down", 10, this::discard);
+        });
 
         EntityAttachment.ofTicking(this.holder, this);
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+
     }
+
 
     @Override
     public void setYRot(float f) {
@@ -60,7 +65,7 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
 
         this.holder.getElements().forEach(element -> {
             if (element instanceof DisplayElement displayElement) {
-                //displayElement.setYaw(f);
+                displayElement.setYaw(f);
             }
         });
     }
@@ -69,17 +74,11 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     public void tick() {
         super.tick();
 
-        if (this.tickCount == 2) {
-            this.level().playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, .6f, .75f);
-        } else if (this.tickCount == 6) {
-            this.level().playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, 0.8f, 0.9f);
-        }
-
         if (this.tickCount > 8 && !this.didAttack) {
             this.spawnParticles();
 
             this.didAttack = true;
-            List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.8, 0.8, 0.8));
+            List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.8, 0.25, 0.8));
 
             for (LivingEntity livingEntity : list) {
                 if (livingEntity != this.owner)
@@ -87,20 +86,13 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
             }
         }
 
-        if (this.tickCount < 40 && this.tickCount % 2 == 0 && level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, position().x, position().y, position().z, 10, 0.3, 1, 0.3, 0);
-        }
-
-        if (this.tickCount == 40) {
-            this.holder.getAnimator().playAnimation("down", 12);
-        } else if (this.tickCount > 45) {
-            this.discard();
+        if (this.tickCount < 24 && this.tickCount % 3 == 0 && level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, position().x, position().y, position().z, 10, 0.25, 0.25, 0.25, 0);
         }
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
-        this.setNoGravity(true);
     }
 
     @Override
@@ -110,18 +102,18 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     private void dealDamageTo(LivingEntity livingEntity) {
         if (livingEntity.isAlive() && !livingEntity.isInvulnerable() && livingEntity != this.owner) {
             if (this.owner == null) {
-                livingEntity.hurt(this.damageSources().magic(), 8.0F);
+                livingEntity.hurt(this.damageSources().magic(), 4.0F);
             } else if (!this.owner.isAlliedTo(livingEntity)) {
-                livingEntity.hurt(this.damageSources().indirectMagic(this, this.owner), 8.0F);
+                livingEntity.hurt(this.damageSources().indirectMagic(this, this.owner), 6.0F);
             }
 
-            livingEntity.setTicksFrozen(10 * 20);
-            float scale = 4;
-            livingEntity.setDeltaMovement(Math.cos(Math.toRadians(this.getYRot())) * scale, 1, Math.sin(Math.toRadians(this.getYRot())) * scale);
+            float scale = 2;
+            livingEntity.setDeltaMovement(Math.cos(Math.toRadians(this.getYRot() + 90)) * scale, 0.75, Math.sin(Math.toRadians(this.getYRot() + 90)) * scale);
         }
     }
 
     private void spawnParticles() {
+        // spawn particles
         int particleCount = 20;
         float radius = 2;
 

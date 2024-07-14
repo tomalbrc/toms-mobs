@@ -1,6 +1,6 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import de.tomalbrc.toms_mobs.entities.Showmaster;
+import de.tomalbrc.toms_mobs.entities.hostile.Showmaster;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;

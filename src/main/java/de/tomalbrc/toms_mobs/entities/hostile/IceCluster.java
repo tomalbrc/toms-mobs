@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entities;
+package de.tomalbrc.toms_mobs.entities.hostile;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
