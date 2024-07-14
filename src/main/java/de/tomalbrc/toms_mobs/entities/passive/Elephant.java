@@ -4,7 +4,9 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,6 +37,8 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Elephant> holder;
 
+    private static final Ingredient tempting = Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
@@ -58,14 +62,15 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO).test(itemStack);
+        return this.tempting.test(itemStack);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO), true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this.tempting, true));
+        this.goalSelector.addGoal(4, new BreedGoal(this, 0.3));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -82,10 +87,37 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         }
     }
 
-    @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+    public void setInLove(@Nullable Player player) {
+        if (this.level() instanceof ServerLevel level) {
+            for (int i = 0; i < 7; ++i) {
+                double xOffset = this.random.nextGaussian() * 0.02;
+                double yOffset = this.random.nextGaussian() * 0.02;
+                double zOffset = this.random.nextGaussian() * 0.02;
+                level.sendParticles(ParticleTypes.HEART, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0, xOffset, yOffset, zOffset, 0);
+            }
+        }
+
+        super.setInLove(player);
+    }
+
+    @Override
+    public void customServerAiStep() {
+        super.customServerAiStep();
+
+        if (this.forcedAgeTimer > 0) {
+            if (this.forcedAgeTimer % 4 == 0) {
+                ServerLevel serverLevel = (ServerLevel) this.level();
+                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0, 0.0, 0.0, 0.0, 0.0);
+            }
+
+            --this.forcedAgeTimer;
+        }
+    }
+
+    @Override
+    public Elephant getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        return MobRegistry.ELEPHANT.create(serverLevel);
     }
 
     @Override

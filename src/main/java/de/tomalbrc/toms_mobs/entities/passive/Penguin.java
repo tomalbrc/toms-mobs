@@ -96,6 +96,8 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     public void customServerAiStep() {
+        super.customServerAiStep();
+
         if (this.forcedAgeTimer > 0) {
             if (this.forcedAgeTimer % 4 == 0) {
                 ServerLevel serverLevel = (ServerLevel) this.level();
