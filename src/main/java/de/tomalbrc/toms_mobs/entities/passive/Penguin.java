@@ -69,6 +69,16 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
+    public void setBaby(boolean bl) {
+        super.setBaby(bl);
+        if (bl) {
+            this.holder.setScale(0.75f);
+        } else {
+            this.holder.setScale(1.f);
+        }
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0.75, 20, 10.0F));

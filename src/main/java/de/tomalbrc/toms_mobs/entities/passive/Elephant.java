@@ -4,6 +4,7 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entities.goals.LargeAnimalBreedGoal;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
@@ -61,6 +62,16 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
+    public void setBaby(boolean bl) {
+        super.setBaby(bl);
+        if (bl) {
+            this.holder.setScale(0.5f);
+        } else {
+            this.holder.setScale(1.f);
+        }
+    }
+
+    @Override
     public boolean isFood(ItemStack itemStack) {
         return this.tempting.test(itemStack);
     }
@@ -69,8 +80,8 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this.tempting, true));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 0.3));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, this.tempting, true));
+        this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
