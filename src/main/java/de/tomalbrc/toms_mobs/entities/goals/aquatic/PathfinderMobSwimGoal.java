@@ -1,20 +1,21 @@
-package de.tomalbrc.toms_mobs.entities.goals;
+package de.tomalbrc.toms_mobs.entities.goals.aquatic;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.phys.Vec3;
 
 // todo, unused
-public class AnimalSwimGoal extends Goal {
-    private final Animal animal;
+public class PathfinderMobSwimGoal extends Goal {
+    private final PathfinderMob animal;
     private final double speedModifier;
     private boolean stuck;
 
-    public AnimalSwimGoal(Animal animal, double d) {
+    public PathfinderMobSwimGoal(PathfinderMob animal, double d) {
         this.animal = animal;
         this.speedModifier = d;
     }
@@ -64,6 +65,10 @@ public class AnimalSwimGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.animal.getNavigation().isDone() && !this.stuck && !this.animal.isInLove();
+        var pathfinderCan = !this.animal.getNavigation().isDone() && !this.stuck;
+        if (pathfinderCan && this.animal instanceof Animal animal) {
+            return !animal.isInLove();
+        }
+        return pathfinderCan;
     }
 }

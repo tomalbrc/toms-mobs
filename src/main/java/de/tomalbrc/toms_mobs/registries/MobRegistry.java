@@ -1,15 +1,13 @@
 package de.tomalbrc.toms_mobs.registries;
 
 import de.tomalbrc.toms_mobs.entities.hostile.*;
-import de.tomalbrc.toms_mobs.entities.passive.Butterfly;
-import de.tomalbrc.toms_mobs.entities.passive.Elephant;
-import de.tomalbrc.toms_mobs.entities.passive.Firemoth;
-import de.tomalbrc.toms_mobs.entities.passive.Penguin;
+import de.tomalbrc.toms_mobs.entities.passive.*;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -45,7 +43,72 @@ public class MobRegistry {
                     .dimensions(EntityDimensions.scalable(3.f, 3.65f))
                     .defaultAttributes(Elephant::createAttributes)
                     .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
-                    .trackRangeChunks(8)
+    );
+
+    public static final EntityType<Capybara> CAPYBARA = register(
+            Capybara.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Capybara::new)
+                    .spawnGroup(MobCategory.CREATURE)
+                    .dimensions(EntityDimensions.scalable(0.8f, 1.1f))
+                    .defaultAttributes(Capybara::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+    );
+
+    /*public static final EntityType<Vulture> VULTURE = register(
+            Vulture.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Vulture::new)
+                    .spawnGroup(MobCategory.CREATURE)
+                    .dimensions(EntityDimensions.scalable(1.f, 1.f))
+                    .defaultAttributes(Vulture::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+    );
+
+    public static final EntityType<Seagull> SEAGULL = register(
+            Seagull.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Seagull::new)
+                    .spawnGroup(MobCategory.CREATURE)
+                    .dimensions(EntityDimensions.scalable(1.f, 1.f))
+                    .defaultAttributes(Seagull::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+    );*/
+
+    public static final EntityType<Nautilus> NAUTILUS = register(
+            Nautilus.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Nautilus::new)
+                    .spawnGroup(MobCategory.WATER_AMBIENT)
+                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
+                    .defaultAttributes(Nautilus::createAttributes)
+    );
+
+    public static final EntityType<Mantaray> MANTARAY = register(
+            Mantaray.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Mantaray::new)
+                    .spawnGroup(MobCategory.WATER_AMBIENT)
+                    .dimensions(EntityDimensions.scalable(1.4f, 0.4f))
+                    .defaultAttributes(Mantaray::createAttributes)
+    );
+
+    public static final EntityType<Tuna> TUNA = register(
+            Tuna.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Tuna::new)
+                    .spawnGroup(MobCategory.WATER_AMBIENT)
+                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
+                    .defaultAttributes(Tuna::createAttributes)
+    );
+
+    public static final EntityType<Jellyfish> JELLYFISH = register(
+            Jellyfish.ID,
+            FabricEntityTypeBuilder.createMob()
+                    .entityFactory(Jellyfish::new)
+                    .spawnGroup(MobCategory.WATER_AMBIENT)
+                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
+                    .defaultAttributes(Jellyfish::createAttributes)
     );
 
     public static final EntityType<Firemoth> FIREMOTH = register(
@@ -88,7 +151,7 @@ public class MobRegistry {
                     .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules)
     );
 
-    public static final EntityType<Showmaster> STENEL = register(
+    public static final EntityType<Showmaster> SHOWMASTER = register(
             Showmaster.ID,
             FabricEntityTypeBuilder.createMob()
                     .entityFactory(Showmaster::new)
@@ -137,30 +200,29 @@ public class MobRegistry {
     }
 
     public static void registerMobs() {
-        BiomeHelper.addSpawn(PENGUIN, 3, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+        BiomeHelper.addSpawn(PENGUIN, 3, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
                 .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
                 .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
                 .or(BiomeHelper.includeByLocation("c:icy"))
         );
 
-        BiomeHelper.addSpawn(SNAKE, 50, 1, 3, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
+        BiomeHelper.addSpawn(SNAKE, 50, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
                 .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
                 .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
                 .or(BiomeHelper.includeByLocation("c:desert", "c:swamp", "c:jungle"))
         );
 
-        BiomeHelper.addSpawn(ELEPHANT, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU)
+        BiomeHelper.addSpawn(ELEPHANT, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU)
                 .or(BiomeHelper.includeByLocation("c:savanna"))
         );
 
-        BiomeHelper.addSpawn(SCULKLING, 30, 1, 3, BiomeSelectors.foundInOverworld()
-                .and(BiomeSelectors.includeByKey(Biomes.DEEP_DARK))
+        BiomeHelper.addSpawn(SCULKLING, 30, 2, 4, BiomeSelectors.foundInOverworld()
+                .and(BiomeHelper.includeByLocation("c:caves"))
+                .and(BiomeHelper.excludeByLocation("minecraft:lush_caves"))
         );
 
-        BiomeHelper.addSpawn(FIREMOTH, 1, 1, 1, BiomeSelectors.foundInOverworld()
-                .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
-                .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
-                .and(BiomeHelper.excludeByLocation("c:icy", "c:snowy"))
+        BiomeHelper.addSpawn(FIREMOTH, 15, 1, 2, BiomeSelectors.foundInTheNether()
+                .and(BiomeHelper.excludeByLocation("minecraft:basalt_deltas"))
         );
 
         BiomeHelper.addSpawn(BUTTERFLY, 10, 1, 3, BiomeSelectors.foundInOverworld()
@@ -170,13 +232,18 @@ public class MobRegistry {
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
-        addSpawnEgg(SNAKE, Items.PANDA_SPAWN_EGG);
         addSpawnEgg(ELEPHANT, Items.DOLPHIN_SPAWN_EGG);
-        addSpawnEgg(SCULKLING, Items.WARDEN_SPAWN_EGG);
         addSpawnEgg(FIREMOTH, Items.PARROT_SPAWN_EGG);
         addSpawnEgg(BUTTERFLY, Items.PARROT_SPAWN_EGG);
+        addSpawnEgg(CAPYBARA, Items.DONKEY_SPAWN_EGG);
+        //addSpawnEgg(SEAGULL, Items.DONKEY_SPAWN_EGG);
+        //addSpawnEgg(VULTURE, Items.DONKEY_SPAWN_EGG);
 
-        addSpawnEgg(STENEL, Items.ENDERMITE_SPAWN_EGG);
+        addSpawnEgg(SCULKLING, Items.WARDEN_SPAWN_EGG);
+        addSpawnEgg(SNAKE, Items.PANDA_SPAWN_EGG);
+
+        addSpawnEgg(SHOWMASTER, Items.ENDERMITE_SPAWN_EGG);
+
         addSpawnEgg(ICEOLOGER, Items.VEX_SPAWN_EGG);
         addSpawnEgg(ICE_SPIKE, Items.SNOW_GOLEM_SPAWN_EGG);
         addSpawnEgg(ICE_SPIKE_SMALL, Items.SNOW_GOLEM_SPAWN_EGG);

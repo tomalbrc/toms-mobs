@@ -8,6 +8,7 @@ import de.tomalbrc.toms_mobs.entities.goals.LargeAnimalBreedGoal;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,9 +63,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public void setBaby(boolean bl) {
-        super.setBaby(bl);
-        if (bl) {
+    public void setAge(int age) {
+        super.setAge(age);
+        if (age < 0) {
             this.holder.setScale(0.5f);
         } else {
             this.holder.setScale(1.f);
@@ -83,6 +84,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, this.tempting, true));
         this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.6));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));

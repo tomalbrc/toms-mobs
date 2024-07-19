@@ -22,6 +22,29 @@ public class AnimationHelper {
         }
     }
 
+    public static void updateAquaticWalkAnimation(LivingEntity entity, AnimatedHolder holder) {
+        Animator animator = holder.getAnimator();
+        if (entity.isInWater()) {
+            if ((entity.getDeltaMovement().length() > 0.05 || entity.walkAnimation.speed() > 0.02)) {
+                animator.pauseAnimation("walk");
+                animator.playAnimation("swim");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("idle");
+            }
+        } else {
+            if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
+                animator.pauseAnimation("swim");
+                animator.playAnimation("walk");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("idle");
+            }
+        }
+    }
+
     public static void updateHurtVariant(LivingEntity entity, AnimatedHolder holder) {
         updateHurtColor(entity, holder);
     }

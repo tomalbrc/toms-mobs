@@ -4,6 +4,11 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entities.goals.PenguinSlideGoal;
+import de.tomalbrc.toms_mobs.entities.goals.aquatic.AquaticRandomLookAroundGoal;
+import de.tomalbrc.toms_mobs.entities.goals.aquatic.AquaticRandomStrollGoal;
+import de.tomalbrc.toms_mobs.entities.goals.aquatic.PathfinderMobSwimGoal;
+import de.tomalbrc.toms_mobs.entities.navigation.SemiAmphibiousPathNavigation;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.registries.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -11,6 +16,7 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -23,6 +29,7 @@ import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -45,6 +52,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     public static final ResourceLocation ID = Util.id("penguin");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Penguin> holder;
+    private boolean sliding;
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createMobAttributes()
@@ -59,7 +67,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     public Penguin(EntityType<? extends Penguin> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 1.0F);
 
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
@@ -69,10 +77,10 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    public void setBaby(boolean bl) {
-        super.setBaby(bl);
-        if (bl) {
-            this.holder.setScale(0.75f);
+    public void setAge(int age) {
+        super.setAge(age);
+        if (age < 0) {
+            this.holder.setScale(0.5f);
         } else {
             this.holder.setScale(1.f);
         }
@@ -80,16 +88,18 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0.75, 20, 10.0F));
         this.goalSelector.addGoal(1, new PanicGoal(this, 0.9));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.7));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.65, Ingredient.of(Items.SALMON, Items.COD), false));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.9));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Monster.class, 8.0F, 0.7, 0.85));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, PolarBear.class, 16.0F, 0.7, 0.85));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.59));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new AquaticRandomStrollGoal(this, 0.59));
+        this.goalSelector.addGoal(5, new PathfinderMobSwimGoal(this, 2));
+        this.goalSelector.addGoal(8, new AquaticRandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(12, new PenguinSlideGoal(this, 0.9));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Skeleton.class, Penguin.class));
     }
@@ -99,7 +109,14 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateWalkAnimation(this, this.holder);
+            if (this.sliding) {
+                this.holder.getAnimator().pauseAnimation("walk");
+                this.holder.getAnimator().pauseAnimation("idle");
+                this.holder.getAnimator().playAnimation("slide");
+            } else {
+                this.holder.getAnimator().stopAnimation("slide");
+                AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
+            }
             AnimationHelper.updateHurtVariant(this, this.holder);
         }
     }
@@ -170,7 +187,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     @Override
     @NotNull
     protected PathNavigation createNavigation(Level level) {
-        return new GroundPathNavigation(this, level);
+        return new SemiAmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -185,5 +202,9 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         snowball.shoot(e, g + i, h, 1.6F, 12.0F);
         this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.random.nextFloat() * 0.4F + 0.8F));
         this.level().addFreshEntity(snowball);
+    }
+
+    public void setSliding(boolean b) {
+        this.sliding = b;
     }
 }

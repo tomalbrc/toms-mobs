@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "toms_mobs:capybara",
+    "toms_mobs:mantaray",
+    "toms_mobs:tuna",
+    "toms_mobs:penguin"
+  ]
+}
