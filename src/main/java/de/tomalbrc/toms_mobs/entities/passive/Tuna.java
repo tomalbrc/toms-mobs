@@ -60,22 +60,22 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PUFFER_FISH_AMBIENT;
+        return SoundEvents.SALMON_AMBIENT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PUFFER_FISH_DEATH;
+        return SoundEvents.SALMON_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.PUFFER_FISH_HURT;
+        return SoundEvents.SALMON_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.PUFFER_FISH_FLOP;
+        return SoundEvents.SALMON_FLOP;
     }
 
     @Override

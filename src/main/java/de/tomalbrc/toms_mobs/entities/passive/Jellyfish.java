@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class Jellyfish extends AbstractFish implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("squid");
+    public static final ResourceLocation ID = Util.id("jellyfish");
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Jellyfish> holder;
 
@@ -81,5 +81,10 @@ public class Jellyfish extends AbstractFish implements AnimatedEntity {
     @Override
     public ItemStack getBucketItemStack() {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
     }
 }

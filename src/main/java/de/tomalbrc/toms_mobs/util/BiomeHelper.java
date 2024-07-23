@@ -3,7 +3,14 @@ package de.tomalbrc.toms_mobs.util;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.fabricmc.fabric.api.tag.FabricTagKey;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.BiomeTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -46,7 +53,19 @@ public class BiomeHelper {
     }
 
     public static Predicate<BiomeSelectionContext> includeByLocation(Collection<ResourceLocation> locations) {
-        return context -> locations.contains(context.getBiomeKey().location());
+        return context -> {
+            for (var l : locations) {
+                if (context.getBiomeRegistryEntry().is(of(l))) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+
+    private static TagKey<Biome> of(ResourceLocation id) {
+        var tagKey = TagKey.create(Registries.BIOME, id);
+        return tagKey;
     }
 
     private static ResourceLocation[] toResourceLocation(String[] strings) {

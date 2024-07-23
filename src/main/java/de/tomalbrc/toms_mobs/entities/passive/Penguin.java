@@ -5,10 +5,9 @@ import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entities.goals.PenguinSlideGoal;
-import de.tomalbrc.toms_mobs.entities.goals.aquatic.AquaticRandomLookAroundGoal;
-import de.tomalbrc.toms_mobs.entities.goals.aquatic.AquaticRandomStrollGoal;
-import de.tomalbrc.toms_mobs.entities.goals.aquatic.PathfinderMobSwimGoal;
+import de.tomalbrc.toms_mobs.entities.goals.aquatic.*;
 import de.tomalbrc.toms_mobs.entities.navigation.SemiAmphibiousPathNavigation;
+import de.tomalbrc.toms_mobs.entities.move.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.registries.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -16,33 +15,29 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
@@ -67,9 +62,13 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     public Penguin(EntityType<? extends Penguin> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(PathType.WATER, 1.0F);
 
-        this.moveControl = new MoveControl(this);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, -1.0F);
+        this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, -1.0F);
+        this.setPathfindingMalus(PathType.DOOR_OPEN, -1.0F);
+
+        this.moveControl = new SemiAquaticMoveControl(this);
         this.jumpControl = new JumpControl(this);
 
         this.holder = new LivingEntityHolder(this, MODEL);
@@ -88,20 +87,30 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0.75, 20, 10.0F));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 0.9));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 0.7));
+        this.goalSelector.addGoal(1, new AquaticRangedAttackGoal(this, 0.75, 20, 10.0F));
+        this.goalSelector.addGoal(1, new AquaticPanicGoal(this, 0.9));
+        this.goalSelector.addGoal(2, new AquaticBreedGoal(this, 0.7));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.65, Ingredient.of(Items.SALMON, Items.COD), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.9));
+        this.goalSelector.addGoal(4, new AquaticFollowParentGoal(this, 0.65));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Monster.class, 8.0F, 0.7, 0.85));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, PolarBear.class, 16.0F, 0.7, 0.85));
-        this.goalSelector.addGoal(5, new AquaticRandomStrollGoal(this, 0.59));
-        this.goalSelector.addGoal(5, new PathfinderMobSwimGoal(this, 2));
+        this.goalSelector.addGoal(5, new AquaticWaterAvoidingRandomStrollGoal(this, 0.59));
+        this.goalSelector.addGoal(5, new PathfinderMobSwimGoal(this, 3));
         this.goalSelector.addGoal(8, new AquaticRandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(12, new PenguinSlideGoal(this, 0.9));
 
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Skeleton.class, Penguin.class));
+
+        //this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Skeleton.class, Penguin.class));
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+        if (levelReader.getFluidState(blockPos).is(FluidTags.WATER)) {
+            return 1;
+        } else {
+            return levelReader.getPathfindingCostFromLightLevels(blockPos);
+        }
     }
 
     @Override
@@ -206,5 +215,10 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     public void setSliding(boolean b) {
         this.sliding = b;
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
     }
 }

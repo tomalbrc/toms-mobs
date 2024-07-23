@@ -4,8 +4,9 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entities.goals.CapybaraRelaxGoal;
 import de.tomalbrc.toms_mobs.entities.navigation.SemiAmphibiousPathNavigation;
-import de.tomalbrc.toms_mobs.entities.navigation.SwimMoveControl;
+import de.tomalbrc.toms_mobs.entities.move.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.entities.goals.aquatic.*;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -26,7 +27,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -49,6 +49,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     private static final Ingredient tempting = Ingredient.of(Items.APPLE, Items.MELON, Items.PUMPKIN, Items.SUGAR_CANE);
 
     private ItemStack apple = ItemStack.EMPTY;
+    private boolean relaxing;
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -64,12 +65,12 @@ public class Capybara extends Animal implements AnimatedEntity {
     public Capybara(EntityType<? extends Animal> type, Level level) {
         super(type, level);
 
-        this.setPathfindingMalus(PathType.WATER, 0.5F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_OPEN, -1.0F);
 
-        this.moveControl = new SwimMoveControl(this);
+        this.moveControl = new SemiAquaticMoveControl(this);
         this.jumpControl = new JumpControl(this);
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
@@ -79,6 +80,10 @@ public class Capybara extends Animal implements AnimatedEntity {
     @Override
     @NotNull
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        if (this.isBaby()) {
+            return super.mobInteract(player, interactionHand);
+        }
+
         var item = player.getItemInHand(interactionHand);
         if (item.isEmpty() && !this.apple.isEmpty()) {
             if (!this.apple.has(DataComponents.LORE) || this.apple.get(DataComponents.LORE).lines().isEmpty()) {
@@ -91,7 +96,7 @@ public class Capybara extends Animal implements AnimatedEntity {
             this.holder.getVariantController().setDefaultVariant();
 
             return InteractionResult.SUCCESS_NO_ITEM_USED;
-        } else if (player.getMainHandItem().is(Items.APPLE) && this.apple.isEmpty()) {
+        } else if (player.getMainHandItem().is(Items.APPLE) && this.apple.isEmpty() && player.isShiftKeyDown()) {
             this.apple = item.copyWithCount(1);
             item.shrink(1);
             this.holder.getVariantController().setVariant("apple");
@@ -123,14 +128,17 @@ public class Capybara extends Animal implements AnimatedEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new AquaticPanicGoal(this, 0.6));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, this.tempting, true));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1));
-        this.goalSelector.addGoal(3, new PathfinderMobSwimGoal(this, 3));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(4, new AquaticRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(5, new AnimalGoToWaterGoal(this, 1));
-        this.goalSelector.addGoal(6, new AquaticRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(0, new AquaticPanicGoal(this, 0.35));
+        this.goalSelector.addGoal(1, new TemptGoal(this, 0.3, this.tempting, false));
+        this.goalSelector.addGoal(2, new AquaticBreedGoal(this, 0.3));
+        this.goalSelector.addGoal(2, new AquaticFollowParentGoal(this, 0.25));
+        this.goalSelector.addGoal(3, new PathfinderMobSwimGoal(this, 2.5));
+        this.goalSelector.addGoal(4, new CapybaraRelaxGoal(this));
+
+        this.goalSelector.addGoal(5, new AquaticRandomStrollGoal(this, 0.25));
+
+        this.goalSelector.addGoal(6, new AnimalGoToWaterGoal(this, 0.25));
+        this.goalSelector.addGoal(7, new AquaticRandomLookAroundGoal(this));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
 
@@ -139,7 +147,7 @@ public class Capybara extends Animal implements AnimatedEntity {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
+            AnimationHelper.updateCapybaraWalkAnimation(this, this.holder);
             AnimationHelper.updateHurtVariant(this, this.holder);
         }
     }
@@ -210,5 +218,21 @@ public class Capybara extends Animal implements AnimatedEntity {
         super.addAdditionalSaveData(tag);
         if (!this.apple.isEmpty())
             tag.put("Apple", this.apple.save(this.registryAccess()));
+    }
+
+    public void setRelaxing(boolean b) {
+        if (this.relaxing == b)
+            return;
+
+        this.relaxing = b;
+        if (this.relaxing) {
+            this.holder.getAnimator().playAnimation("relax");
+        } else {
+            this.holder.getAnimator().stopAnimation("relax");
+        }
+    }
+
+    public boolean isRelaxing() {
+        return this.relaxing;
     }
 }

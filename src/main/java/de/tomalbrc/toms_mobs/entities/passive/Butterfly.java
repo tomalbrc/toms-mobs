@@ -54,7 +54,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     public static boolean checkButterflySpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return random.nextInt(10) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return level.canSeeSky(pos);
     }
 
     @Override
@@ -76,7 +76,10 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         this.holder = new LivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
 
-        this.setColor(this.random.nextInt(0xFFFFFF));
+        var r = (Math.min(this.random.nextInt(0x7F)+140, 255)&0xFF);
+        var g = (Math.min(this.random.nextInt(0x7F)+140, 255)&0xFF);
+        var b = (Math.min(this.random.nextInt(0x7F)+140, 255)&0xFF);
+        this.setColor(r<<16|g<<8|b);
         this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
     }
 

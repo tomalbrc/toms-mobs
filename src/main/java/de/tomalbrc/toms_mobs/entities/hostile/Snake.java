@@ -40,7 +40,7 @@ public class Snake extends Monster implements AnimatedEntity {
     }
 
     public static boolean checkSnakeSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnType, pos, random);
+        return checkMonsterSpawnRules(type, level, spawnType, pos, random);
     }
 
     @Override

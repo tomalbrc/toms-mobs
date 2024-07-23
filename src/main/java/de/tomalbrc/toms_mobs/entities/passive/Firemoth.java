@@ -49,7 +49,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     public static boolean checkFiremothSpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return random.nextInt(20) == 0 && level.canSeeSky(pos) && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return checkMobSpawnRules(type, level, spawnType, pos, random);
     }
 
     @Override

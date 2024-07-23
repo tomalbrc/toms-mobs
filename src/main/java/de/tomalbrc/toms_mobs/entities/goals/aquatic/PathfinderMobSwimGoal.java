@@ -40,35 +40,32 @@ public class PathfinderMobSwimGoal extends Goal {
 
             BlockPos blockPos = BlockPos.containing((double) k + this.animal.getX(), (double) l + this.animal.getY(), (double) m + this.animal.getZ());
 
-            Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
-            Vec3 vec32 = DefaultRandomPos.getPosTowards(this.animal, 16, 3, vec3, Mth.PI / 10);
-            if (vec32 == null) {
-                vec32 = DefaultRandomPos.getPosTowards(this.animal, 8, 7, vec3, Mth.PI / 2);
+            Vec3 pos = Vec3.atBottomCenterOf(blockPos);
+            Vec3 posTowards = DefaultRandomPos.getPosTowards(this.animal, 16, 3, pos, Mth.PI / 10);
+            if (posTowards == null) {
+                posTowards = DefaultRandomPos.getPosTowards(this.animal, 8, 7, pos, Mth.PI / 2);
             }
 
-            if (vec32 != null) {
-                int i = Mth.floor(vec32.x);
-                int j = Mth.floor(vec32.z);
-                if (!this.animal.level().hasChunksAt(i - 34, j - 34, i + 34, j + 34)) {
-                    vec32 = null;
+            if (posTowards != null) {
+                int x = Mth.floor(posTowards.x);
+                int z = Mth.floor(posTowards.z);
+                if (!this.animal.level().hasChunksAt(x - 34, z - 34, x + 34, z + 34)) {
+                    posTowards = null;
                 }
             }
 
-            if (vec32 == null) {
+            if (posTowards == null) {
                 this.stuck = true;
                 return;
             }
 
-            this.animal.getNavigation().moveTo(vec32.x, vec32.y, vec32.z, this.speedModifier);
+            this.animal.getNavigation().moveTo(posTowards.x, posTowards.y, posTowards.z, this.speedModifier);
         }
     }
 
     @Override
     public boolean canContinueToUse() {
         var pathfinderCan = !this.animal.getNavigation().isDone() && !this.stuck;
-        if (pathfinderCan && this.animal instanceof Animal animal) {
-            return !animal.isInLove();
-        }
         return pathfinderCan;
     }
 }
