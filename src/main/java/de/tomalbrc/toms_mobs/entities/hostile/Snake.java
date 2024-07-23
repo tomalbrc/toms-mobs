@@ -5,6 +5,8 @@ import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.file.loader.AjModelLoader;
+import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -24,8 +26,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import de.tomalbrc.toms_mobs.util.AnimationHelper;
-import de.tomalbrc.toms_mobs.util.Util;
 
 public class Snake extends Monster implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("snake");

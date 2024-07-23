@@ -4,6 +4,10 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entities.goals.CircularFangGoal;
+import de.tomalbrc.toms_mobs.entities.goals.IceSpikeGoal;
+import de.tomalbrc.toms_mobs.entities.goals.RapidfireGoal;
+import de.tomalbrc.toms_mobs.entities.goals.ThrowPotionsUpwardGoal;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -24,10 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import de.tomalbrc.toms_mobs.entities.goals.CircularFangGoal;
-import de.tomalbrc.toms_mobs.entities.goals.IceSpikeGoal;
-import de.tomalbrc.toms_mobs.entities.goals.RapidfireGoal;
-import de.tomalbrc.toms_mobs.entities.goals.ThrowPotionsUpwardGoal;
 
 import java.util.ArrayList;
 

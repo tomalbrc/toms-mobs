@@ -3,8 +3,6 @@ package de.tomalbrc.toms_mobs.entities.goals.aquatic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
 
 public class AquaticPanicGoal extends PanicGoal {
 

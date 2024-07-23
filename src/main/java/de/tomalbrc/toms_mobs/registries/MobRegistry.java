@@ -2,12 +2,13 @@ package de.tomalbrc.toms_mobs.registries;
 
 import de.tomalbrc.toms_mobs.entities.hostile.*;
 import de.tomalbrc.toms_mobs.entities.passive.*;
+import de.tomalbrc.toms_mobs.util.BiomeHelper;
+import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -19,11 +20,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
-import de.tomalbrc.toms_mobs.util.BiomeHelper;
-import de.tomalbrc.toms_mobs.util.Util;
 
 public class MobRegistry {
     public static final EntityType<Penguin> PENGUIN = register(

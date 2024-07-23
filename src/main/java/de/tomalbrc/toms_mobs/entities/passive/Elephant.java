@@ -5,10 +5,12 @@ import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entities.goals.LargeAnimalBreedGoal;
+import de.tomalbrc.toms_mobs.entities.navigation.LessSpinnyGroundPathNavigation;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
+import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,9 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import de.tomalbrc.toms_mobs.entities.navigation.LessSpinnyGroundPathNavigation;
-import de.tomalbrc.toms_mobs.util.AnimationHelper;
-import de.tomalbrc.toms_mobs.util.Util;
 
 public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final ResourceLocation ID = Util.id("elephant");

@@ -1,15 +1,7 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.List;
 
 public class LargeAnimalBreedGoal extends BreedGoal {
 
