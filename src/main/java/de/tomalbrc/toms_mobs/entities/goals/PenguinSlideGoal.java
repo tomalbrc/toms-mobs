@@ -16,7 +16,7 @@ public class PenguinSlideGoal extends RandomStrollGoal {
     }
 
     @Override
-    protected Vec3 getPosition() { return LandRandomPos.getPos(this.mob, 11, 0); }
+    protected Vec3 getPosition() { return LandRandomPos.getPos(this.mob, 15, 2); }
 
     @Override
     public boolean canUse() {

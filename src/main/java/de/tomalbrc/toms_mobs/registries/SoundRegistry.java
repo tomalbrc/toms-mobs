@@ -13,7 +13,7 @@ public class SoundRegistry {
     public static final SoundEvent PENGUIN_DEATH = register("penguin.death", SoundEvents.TURTLE_DEATH);
 
     private static SoundEvent register(String name, SoundEvent soundEvent) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("tomsmobs", name);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("toms_mobs", name);
         return Registry.register(BuiltInRegistries.SOUND_EVENT, id, PolymerSoundEvent.of(id, soundEvent));
     }
 

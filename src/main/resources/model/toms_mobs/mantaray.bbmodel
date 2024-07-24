@@ -473,7 +473,7 @@
 			"name": "swim",
 			"loop": "loop",
 			"override": false,
-			"length": 5,
+			"length": 3,
 			"snapping": 20,
 			"selected": true,
 			"anim_time_update": "",
@@ -509,7 +509,7 @@
 								}
 							],
 							"uuid": "a22fb8b3-ac92-97a3-a25a-8ef16086ae1f",
-							"time": 2.5,
+							"time": 1.5,
 							"color": -1,
 							"interpolation": "catmullrom"
 						},
@@ -523,7 +523,7 @@
 								}
 							],
 							"uuid": "4943c400-fdd5-841a-a417-6e3845ddac16",
-							"time": 5,
+							"time": 3,
 							"color": -1,
 							"interpolation": "catmullrom"
 						}
@@ -557,7 +557,7 @@
 								}
 							],
 							"uuid": "03b2d8a8-77a2-ca3e-b13f-3962b4e939e1",
-							"time": 2.5,
+							"time": 1.5,
 							"color": -1,
 							"interpolation": "catmullrom"
 						},
@@ -571,7 +571,7 @@
 								}
 							],
 							"uuid": "c8d87192-caf5-cef9-b6db-4b63440b64a3",
-							"time": 5,
+							"time": 3,
 							"color": -1,
 							"interpolation": "catmullrom"
 						}
@@ -605,7 +605,7 @@
 								}
 							],
 							"uuid": "438c9580-abe9-9ba8-f351-15f557238e26",
-							"time": 2.5,
+							"time": 1.5,
 							"color": -1,
 							"interpolation": "catmullrom"
 						},
@@ -619,7 +619,7 @@
 								}
 							],
 							"uuid": "2bf632f8-6b1f-4cc4-7f16-35faab3292ce",
-							"time": 5,
+							"time": 3,
 							"color": -1,
 							"interpolation": "catmullrom"
 						}
@@ -653,7 +653,7 @@
 								}
 							],
 							"uuid": "2b1d0051-7c9e-3fcc-5921-96d7311178bb",
-							"time": 2.5,
+							"time": 1.5,
 							"color": -1,
 							"interpolation": "catmullrom"
 						},
@@ -667,7 +667,7 @@
 								}
 							],
 							"uuid": "80d44937-ff1a-adda-44ae-70a7a4302a0b",
-							"time": 5,
+							"time": 3,
 							"color": -1,
 							"interpolation": "catmullrom"
 						}
@@ -701,7 +701,7 @@
 								}
 							],
 							"uuid": "3329ca0b-32da-666f-f1cd-c0d57ba76d0a",
-							"time": 2.5,
+							"time": 1.5,
 							"color": -1,
 							"interpolation": "catmullrom"
 						},
@@ -715,7 +715,7 @@
 								}
 							],
 							"uuid": "bb743103-53d4-25af-b1fd-9b47818ca383",
-							"time": 5,
+							"time": 3,
 							"color": -1,
 							"interpolation": "catmullrom"
 						}

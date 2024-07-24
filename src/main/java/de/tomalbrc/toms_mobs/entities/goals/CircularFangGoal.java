@@ -6,11 +6,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
 
 public class CircularFangGoal extends AnimatedGoal {
 
@@ -23,6 +26,7 @@ public class CircularFangGoal extends AnimatedGoal {
 
     public CircularFangGoal(Monster monster) {
         super(200, 35, 60);
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Flag.LOOK));
         this.mob = monster;
     }
 
@@ -30,7 +34,7 @@ public class CircularFangGoal extends AnimatedGoal {
     public boolean canUse() {
         goalUseDelay--;
         LivingEntity livingEntity = this.mob.getTarget();
-        return super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceToSqr(this.mob) < 10.f && this.mob instanceof Showmaster showmaster && showmaster.canCast();
+        return !this.mob.getNavigation().isInProgress() && super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceToSqr(this.mob) < 10.f && this.mob instanceof Showmaster showmaster && showmaster.canCast();
     }
 
     public boolean canContinueToUse() {
@@ -58,20 +62,14 @@ public class CircularFangGoal extends AnimatedGoal {
         target = null;
     }
 
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
     @Override
     public void tick() {
-        this.mob.getNavigation().stop();
         super.tick();
     }
 
     @Override
     protected void customTick() {
         if (!this.hasWarmupDelay() && useCount > 0) {
-            this.mob.getNavigation().stop();
             useCount--;
 
             this.mob.getLookControl().setLookAt(this.mob.position().add(0, 20, 0));

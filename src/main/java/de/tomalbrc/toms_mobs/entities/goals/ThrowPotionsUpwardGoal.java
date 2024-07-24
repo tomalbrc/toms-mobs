@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +13,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
 
 public class ThrowPotionsUpwardGoal extends AnimatedGoal {
     @Nullable
@@ -22,7 +25,8 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
     private int count = 0;
 
     public ThrowPotionsUpwardGoal(Monster monster) {
-        super(200, 30, 70);
+        super(200, 40, 70);
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Flag.LOOK));
         this.mob = monster;
     }
 
@@ -61,7 +65,6 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
 
     @Override
     public void tick() {
-        this.mob.getNavigation().stop();
         super.tick();
     }
 

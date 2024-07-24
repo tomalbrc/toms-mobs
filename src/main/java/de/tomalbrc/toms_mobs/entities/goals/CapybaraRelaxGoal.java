@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import java.util.EnumSet;
 
 public class CapybaraRelaxGoal extends Goal {
-    private static final int WAIT_TIME_BEFORE_SLEEP = reducedTickDelay(140);
+    private static final int WAIT_TIME_BEFORE_SLEEP = reducedTickDelay(200);
     private int countdown;
 
     private int useTime;
@@ -23,7 +23,7 @@ public class CapybaraRelaxGoal extends Goal {
     }
 
     public boolean canUse() {
-        if (this.entity.getRandom().nextInt(50) == 0 && this.entity.xxa == 0.0F && this.entity.yya == 0.0F && this.entity.zza == 0.0F) {
+        if (this.entity.getRandom().nextInt(30) == 0 && this.entity.xxa == 0.0F && this.entity.yya == 0.0F && this.entity.zza == 0.0F) {
             return this.canSleep() && !this.entity.isRelaxing();
         } else {
             return false;
@@ -40,7 +40,7 @@ public class CapybaraRelaxGoal extends Goal {
             --this.countdown;
             return false;
         } else {
-            return this.entity.level().isNight() && this.canRelax();
+            return this.canRelax();
         }
     }
 

@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.SpellcasterIllager;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -38,10 +39,10 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 140.0)
-                .add(Attributes.FOLLOW_RANGE, 40.0)
+                .add(Attributes.MAX_HEALTH, 50.0)
+                .add(Attributes.FOLLOW_RANGE, 30.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
-                .add(Attributes.MOVEMENT_SPEED, 0.3);
+                .add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
     @Override
@@ -58,18 +59,21 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
+
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.7));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
 
         this.goalSelector.addGoal(1, new ThrowPotionsUpwardGoal(this));
         this.goalSelector.addGoal(2, new RapidfireGoal(this));
         this.goalSelector.addGoal(3, new CircularFangGoal(this));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 0.75, true));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.05, true));
 
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Villager.class, false));
     }
 
     @Override

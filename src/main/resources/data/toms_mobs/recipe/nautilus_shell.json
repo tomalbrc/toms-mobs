@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "toms_mobs:nautilus_shell_fragment"
+        }
+    },
+    "result": {
+        "id": "minecraft:nautilus_shell",
+        "count": 1
+    }
+}

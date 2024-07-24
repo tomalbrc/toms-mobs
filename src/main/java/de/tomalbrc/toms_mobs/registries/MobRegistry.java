@@ -111,6 +111,7 @@ public class MobRegistry {
                     .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, (x,y,z,t,r) -> true)
     );
 
+    /*
     public static final EntityType<Jellyfish> JELLYFISH = register(
             Jellyfish.ID,
             FabricEntityTypeBuilder.createMob()
@@ -119,6 +120,8 @@ public class MobRegistry {
                     .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
                     .defaultAttributes(Jellyfish::createAttributes)
     );
+    */
+
 
     public static final EntityType<Firemoth> FIREMOTH = register(
             Firemoth.ID,
@@ -176,6 +179,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.MONSTER)
                     .dimensions(EntityDimensions.scalable(0.7f, 1.8f))
                     .defaultAttributes(Iceologer::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules)
     );
 
     public static final EntityType<IceSpike> ICE_SPIKE = register(
@@ -212,42 +216,42 @@ public class MobRegistry {
         BiomeHelper.addSpawn(PENGUIN, 3, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
                 .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
                 .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
-                .or(BiomeHelper.includeByLocation("c:icy"))
         );
 
-        BiomeHelper.addSpawn(SNAKE, 10, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
+        BiomeHelper.addSpawn(SNAKE, 5, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
                 .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
+                .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
+                .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
+                .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
                 .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
-                .or(BiomeHelper.includeByLocation("c:desert", "c:swamp", "c:jungle"))
         );
 
-        BiomeHelper.addSpawn(ELEPHANT, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU)
-                .or(BiomeHelper.includeByLocation("c:savanna"))
-        );
+        BiomeHelper.addSpawn(ELEPHANT, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU));
 
         BiomeHelper.addSpawn(SCULKLING, 10, 2, 4, BiomeSelectors.foundInOverworld()
-                .and(BiomeHelper.includeByLocation("c:caves"))
-                .and(BiomeHelper.excludeByLocation("minecraft:lush_caves"))
+                .and(BiomeHelper.includeTag(BiomeTags.IS_BEACH))
+                .and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES))
         );
 
         BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
-                .and(BiomeHelper.excludeByLocation("minecraft:basalt_deltas"))
+                .and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS))
         );
 
         BiomeHelper.addSpawn(BUTTERFLY, 1, 2, 5, BiomeSelectors.foundInOverworld()
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
-                .and(BiomeHelper.excludeByLocation("c:icy", "c:snowy"))
+                .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
         );
 
-        BiomeHelper.addSpawn(CAPYBARA, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER)
-                .or(BiomeHelper.includeByLocation("c:swamp"))
-        );
+        BiomeHelper.addSpawn(CAPYBARA, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
+
+        // Icy
+        BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
 
         BiomeHelper.addSpawn(MANTARAY, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         BiomeHelper.addSpawn(TUNA, 20, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         BiomeHelper.addSpawn(NAUTILUS, 40, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(JELLYFISH, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        //BiomeHelper.addSpawn(JELLYFISH, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
                         .or(BiomeSelectors.tag(BiomeTags.IS_BEACH))
@@ -260,12 +264,10 @@ public class MobRegistry {
         addSpawnEgg(FIREMOTH, Items.PARROT_SPAWN_EGG);
         addSpawnEgg(BUTTERFLY, Items.PARROT_SPAWN_EGG);
         addSpawnEgg(CAPYBARA, Items.DONKEY_SPAWN_EGG);
-        //addSpawnEgg(SEAGULL, Items.DONKEY_SPAWN_EGG);
-        //addSpawnEgg(VULTURE, Items.DONKEY_SPAWN_EGG);
 
         addSpawnEgg(MANTARAY, Items.WARDEN_SPAWN_EGG);
         addSpawnEgg(NAUTILUS, Items.HORSE_SPAWN_EGG);
-        addSpawnEgg(JELLYFISH, Items.SALMON_SPAWN_EGG);
+        //addSpawnEgg(JELLYFISH, Items.SALMON_SPAWN_EGG);
         addSpawnEgg(LOBSTER, Items.PARROT_SPAWN_EGG);
 
         addSpawnEgg(SCULKLING, Items.WARDEN_SPAWN_EGG);

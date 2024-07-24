@@ -15,22 +15,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.PathType;
+import org.jetbrains.annotations.NotNull;
 
 public class Mantaray extends AbstractFish implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("mantaray");
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Mantaray> holder;
 
+    @NotNull
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 1.0)
@@ -94,11 +99,13 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
+    @NotNull
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     @Override
+    @NotNull
     public ItemStack getBucketItemStack() {
         return ItemStack.EMPTY;
     }
@@ -106,5 +113,11 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     @Override
     public boolean isPushedByFluid() {
         return false;
+    }
+
+    @Override
+    @NotNull
+    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        return InteractionResult.PASS;
     }
 }
