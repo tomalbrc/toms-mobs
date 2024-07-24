@@ -47,7 +47,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     public static boolean checkSculklingSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnType, pos, random);
+        return pos.getY() < 10 && !level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnType, pos, random);
     }
 
     @Override

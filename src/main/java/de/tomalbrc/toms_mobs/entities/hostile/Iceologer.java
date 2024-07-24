@@ -71,10 +71,10 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         }
     };
 
-    public static boolean checkIceologerSpawnRules(EntityType<? extends Mob> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkIceologerSpawnRules(EntityType<? extends Monster> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
         BlockPos blockPos2 = blockPos.below();
         var bs = levelAccessor.getBlockState(blockPos2);
-        return blockPos2.getY() > 150 && (bs.is(BlockTags.ICE) || bs.is(BlockTags.SNOW));
+        return blockPos2.getY() > 150 && (bs.is(BlockTags.ICE) || bs.is(BlockTags.SNOW)) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, randomSource);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

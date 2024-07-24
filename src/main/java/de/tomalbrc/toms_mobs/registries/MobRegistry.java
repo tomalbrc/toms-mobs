@@ -213,12 +213,13 @@ public class MobRegistry {
     }
 
     public static void registerMobs() {
-        BiomeHelper.addSpawn(PENGUIN, 3, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+        BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+                .or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
                 .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
         );
 
-        BiomeHelper.addSpawn(SNAKE, 5, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
+        BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
                 .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
@@ -226,38 +227,34 @@ public class MobRegistry {
                 .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
         );
 
-        BiomeHelper.addSpawn(ELEPHANT, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU));
+        BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
 
-        BiomeHelper.addSpawn(SCULKLING, 10, 2, 4, BiomeSelectors.foundInOverworld()
-                .and(BiomeHelper.includeTag(BiomeTags.IS_BEACH))
-                .and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES))
-        );
+        BiomeHelper.addSpawn(SCULKLING, 50, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
 
         BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
                 .and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS))
         );
 
-        BiomeHelper.addSpawn(BUTTERFLY, 1, 2, 5, BiomeSelectors.foundInOverworld()
+        BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeSelectors.foundInOverworld()
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
                 .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
         );
 
-        BiomeHelper.addSpawn(CAPYBARA, 10, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
+        BiomeHelper.addSpawn(CAPYBARA, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
 
         // Icy
         BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
 
-        BiomeHelper.addSpawn(MANTARAY, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(TUNA, 20, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(NAUTILUS, 40, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        BiomeHelper.addSpawn(MANTARAY, 20, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        BiomeHelper.addSpawn(TUNA, 10, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        BiomeHelper.addSpawn(NAUTILUS, 10, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         //BiomeHelper.addSpawn(JELLYFISH, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
+        BiomeHelper.addSpawn(LOBSTER, 15, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
                         .or(BiomeSelectors.tag(BiomeTags.IS_BEACH))
                         .or(BiomeSelectors.tag(BiomeTags.IS_OCEAN))
         );
-
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
         addSpawnEgg(ELEPHANT, Items.DOLPHIN_SPAWN_EGG);
@@ -267,6 +264,7 @@ public class MobRegistry {
 
         addSpawnEgg(MANTARAY, Items.WARDEN_SPAWN_EGG);
         addSpawnEgg(NAUTILUS, Items.HORSE_SPAWN_EGG);
+        addSpawnEgg(TUNA, Items.COD_SPAWN_EGG);
         //addSpawnEgg(JELLYFISH, Items.SALMON_SPAWN_EGG);
         addSpawnEgg(LOBSTER, Items.PARROT_SPAWN_EGG);
 
@@ -296,7 +294,7 @@ public class MobRegistry {
 
     public static final Object2ObjectOpenHashMap<ResourceLocation, Item> SPAWN_EGGS = new Object2ObjectOpenHashMap<>();
     public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab.Builder(null, -1)
-            .title(Component.literal("Tom's Mobs").withStyle(ChatFormatting.DARK_GREEN))
+            .title(Component.literal("Toms Mobs").withStyle(ChatFormatting.DARK_GREEN))
             .icon(Items.BAT_SPAWN_EGG::getDefaultInstance)
             .displayItems((parameters, output) -> SPAWN_EGGS.values().forEach(output::accept))
             .build();
