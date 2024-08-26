@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs.registries;
 
+import de.tomalbrc.toms_mobs.ModConfig;
 import de.tomalbrc.toms_mobs.entities.hostile.*;
 import de.tomalbrc.toms_mobs.entities.passive.*;
 import de.tomalbrc.toms_mobs.util.BiomeHelper;
@@ -216,13 +217,13 @@ public class MobRegistry {
     }
 
     public static void registerMobs() {
-        BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+        if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID)) BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
                 .or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
                 .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
         );
 
-        BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
+        if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID)) BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
                 .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
                 .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
@@ -230,30 +231,30 @@ public class MobRegistry {
                 .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
         );
 
-        BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID)) BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
 
-        BiomeHelper.addSpawn(SCULKLING, 50, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID)) BiomeHelper.addSpawn(SCULKLING, 50, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
 
-        BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
+        if (!ModConfig.getInstance().disabledMobs.contains(Firemoth.ID)) BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
                 .and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS))
         );
 
-        BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeSelectors.foundInOverworld()
+        if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID)) BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeSelectors.foundInOverworld()
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
                 .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
                 .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
         );
 
-        BiomeHelper.addSpawn(CAPYBARA, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
+        if (!ModConfig.getInstance().disabledMobs.contains(Capybara.ID)) BiomeHelper.addSpawn(CAPYBARA, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
 
         // Icy
-        BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Iceologer.ID)) BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
 
-        BiomeHelper.addSpawn(MANTARAY, 20, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(TUNA, 10, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(NAUTILUS, 10, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID)) BiomeHelper.addSpawn(MANTARAY, 20, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID)) BiomeHelper.addSpawn(TUNA, 10, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID)) BiomeHelper.addSpawn(NAUTILUS, 10, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         //BiomeHelper.addSpawn(JELLYFISH, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        BiomeHelper.addSpawn(LOBSTER, 15, 1, 3,
+        if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 15, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
                         .or(BiomeSelectors.tag(BiomeTags.IS_BEACH))
                         .or(BiomeSelectors.tag(BiomeTags.IS_OCEAN))
