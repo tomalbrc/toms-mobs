@@ -35,8 +35,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
-
 public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("butterfly");
     public static final Model MODEL = Util.loadModel(ID);

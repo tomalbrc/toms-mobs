@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -90,6 +91,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.WATER_CREATURE)
                     .dimensions(EntityDimensions.scalable(1.4f, 0.4f))
                     .defaultAttributes(Mantaray::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
     );
 
     public static final EntityType<Tuna> TUNA = register(
@@ -99,6 +101,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.WATER_CREATURE)
                     .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
                     .defaultAttributes(Tuna::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
     );
 
     public static final EntityType<Lobster> LOBSTER = register(
