@@ -83,6 +83,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.WATER_CREATURE)
                     .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
                     .defaultAttributes(Nautilus::createAttributes)
+                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
     );
 
     public static final EntityType<Mantaray> MANTARAY = register(
@@ -112,7 +113,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.WATER_AMBIENT)
                     .dimensions(EntityDimensions.scalable(0.65f, 0.35f))
                     .defaultAttributes(Lobster::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, (x,y,z,t,r) -> true)
+                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (x,y,z,t,r) -> true)
     );
 
     /*
