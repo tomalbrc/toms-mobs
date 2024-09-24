@@ -15,16 +15,15 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class ModConfig {
-    private static Path CONFIG_FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve(TomsMobs.MODID + ".json");
+    private static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve(TomsMobs.MODID + ".json");
     private static ModConfig instance;
 
-    private static Gson gson = new GsonBuilder()
+    private static final Gson gson = new GsonBuilder()
             .registerTypeHierarchyAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
             .setPrettyPrinting()
             .create();
 
     // entries
-    public boolean forceAutohost = true;
 
     public List<ResourceLocation> disabledMobs = new ObjectArrayList<>();
 
@@ -34,6 +33,7 @@ public class ModConfig {
         }
         return instance;
     }
+
     public static void load() {
         if (!CONFIG_FILE_PATH.toFile().exists()) {
             instance = new ModConfig();
