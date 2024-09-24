@@ -1,13 +1,11 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
-import de.tomalbrc.toms_mobs.entities.Showmaster;
+import de.tomalbrc.toms_mobs.entities.hostile.Showmaster;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class RapidfireGoal extends AnimatedGoal {
     private static final int MAX_GOAL_USE_DELAY = 100;
@@ -57,7 +55,7 @@ public class RapidfireGoal extends AnimatedGoal {
         if (!this.hasWarmupDelay() && count > 0 && this.mob.getTarget() != null) {
             count--;
 
-            if (count % 2 == 0) {
+            if (count % 3 == 0) {
                 Arrow arrow = new Arrow(this.mob.level(), this.mob);
                 double d = this.mob.getTarget().getX() - this.mob.getX();
                 double e = this.mob.getTarget().getY(1.f / 3.f) - arrow.getY();

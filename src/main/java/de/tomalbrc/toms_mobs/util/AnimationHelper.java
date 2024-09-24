@@ -2,7 +2,7 @@ package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
-import de.tomalbrc.bil.api.VariantController;
+import de.tomalbrc.toms_mobs.entities.passive.Capybara;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper {
@@ -19,6 +19,63 @@ public class AnimationHelper {
         } else {
             animator.pauseAnimation("walk");
             animator.playAnimation("idle", priority, true);
+        }
+    }
+
+    public static void updateAquaticWalkAnimation(LivingEntity entity, AnimatedHolder holder) {
+        Animator animator = holder.getAnimator();
+        if (entity.isInWater()) {
+            if ((entity.getDeltaMovement().length() > 0.05 || entity.walkAnimation.speed() > 0.02)) {
+                animator.pauseAnimation("idle");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("swim");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("idle");
+            }
+        } else {
+            if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
+                animator.pauseAnimation("idle");
+                animator.pauseAnimation("swim");
+                animator.playAnimation("walk");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("idle");
+            }
+        }
+    }
+
+    public static void updateCapybaraWalkAnimation(Capybara entity, AnimatedHolder holder) {
+        if (entity.isRelaxing()) return;
+
+        Animator animator = holder.getAnimator();
+        if (entity.isInWater()) {
+            if ((entity.getDeltaMovement().length() > 0.05 || entity.walkAnimation.speed() > 0.02)) {
+                animator.pauseAnimation("idle");
+                animator.pauseAnimation("relax");
+                animator.pauseAnimation("walk");
+                animator.playAnimation("swim");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.pauseAnimation("relax");
+                animator.playAnimation("idle");
+            }
+        } else {
+            if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
+                animator.pauseAnimation("idle");
+                animator.pauseAnimation("relax");
+                animator.pauseAnimation("swim");
+                animator.playAnimation("walk");
+            } else {
+                animator.pauseAnimation("swim");
+                animator.pauseAnimation("walk");
+                animator.pauseAnimation("relax");
+                animator.pauseAnimation("idle");
+                animator.playAnimation(entity.isRelaxing() ? "relax":"idle");
+            }
         }
     }
 

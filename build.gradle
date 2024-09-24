@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -11,8 +11,7 @@ loom {
 }
 
 repositories {
-    mavenLocal()
-    //maven { url 'https://maven.tomalbrc.de' }
+    maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
 }
 
@@ -52,7 +51,7 @@ jar {
 
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release.set(17)
+    it.options.release.set(21)
 }
 
 java {

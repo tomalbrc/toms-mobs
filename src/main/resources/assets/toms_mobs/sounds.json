@@ -1,0 +1,38 @@
+{
+    "penguin.ambient": {
+      "sounds": [
+<<<<<<<< HEAD:src/main/resources/assets/tomsmobs/sounds.json
+        "tomsmobs:penguin/penguin_call1",
+        "tomsmobs:penguin/penguin_call2",
+        "tomsmobs:penguin/penguin_call3"
+========
+        "toms_mobs:penguin/penguin_call1",
+        "toms_mobs:penguin/penguin_call2",
+        "toms_mobs:penguin/penguin_call3"
+>>>>>>>> 1.21:src/main/resources/assets/toms_mobs/sounds.json
+      ],
+      "subtitle": "subtitles.penguin.ambient"
+    },
+    "penguin.hurt": {
+      "sounds": [
+<<<<<<<< HEAD:src/main/resources/assets/tomsmobs/sounds.json
+        "tomsmobs:penguin/penguin_hurt1"
+========
+        "toms_mobs:penguin/penguin_hurt1"
+>>>>>>>> 1.21:src/main/resources/assets/toms_mobs/sounds.json
+      ],
+      "subtitle": "subtitles.penguin.hurt"
+    },
+    "penguin.death": {
+      "sounds": [
+<<<<<<<< HEAD:src/main/resources/assets/tomsmobs/sounds.json
+          "tomsmobs:penguin/penguin_death1",
+          "tomsmobs:penguin/penguin_death2"
+========
+          "toms_mobs:penguin/penguin_death1",
+          "toms_mobs:penguin/penguin_death2"
+>>>>>>>> 1.21:src/main/resources/assets/toms_mobs/sounds.json
+      ],
+      "subtitle": "subtitles.penguin.death"
+    }
+}

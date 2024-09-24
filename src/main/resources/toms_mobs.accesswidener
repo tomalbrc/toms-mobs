@@ -1,1 +1,3 @@
 accessWidener   v2  named
+accessible field net/minecraft/world/entity/ai/goal/BreedGoal loveTime I
+accessible field net/minecraft/world/entity/ai/goal/BreedGoal speedModifier D

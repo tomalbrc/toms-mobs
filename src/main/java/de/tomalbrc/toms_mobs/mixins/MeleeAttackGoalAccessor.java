@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(MeleeAttackGoal.class)
 public interface MeleeAttackGoalAccessor {
     @Invoker("getTicksUntilNextAttack")
-    int am_getTicksUntilNextAttack();
+    int tomsmobs_getTicksUntilNextAttack();
 }
