@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,7 +47,7 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
 
         this.holder = new SimpleEntityHolder<>(this, MODEL);
         this.holder.getAnimator().playAnimation("up", 10, () -> {
-            this.level().playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, .6f, .75f);
+            level.playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, .6f, .75f);
             this.holder.getAnimator().playAnimation("down", 10, this::discard);
         });
 
@@ -58,6 +59,10 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
 
     }
 
+    @Override
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+        return false;
+    }
 
     @Override
     public void setYRot(float f) {

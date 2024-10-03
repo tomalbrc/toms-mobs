@@ -3,6 +3,8 @@ package de.tomalbrc.toms_mobs.entities.goals;
 import de.tomalbrc.toms_mobs.entities.hostile.Showmaster;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -74,7 +76,8 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
             count--;
 
             if (count % 2 == 0) {
-                ThrownPotion potion = new ThrownPotion(this.mob.level(), this.mob);
+                ThrownPotion potion = EntityType.POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
+                potion.setOwner(this.mob);
                 ItemStack itemStack = new ItemStack(Items.SPLASH_POTION);
                 itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.SLOWNESS));
                 potion.setItem(itemStack);

@@ -1,6 +1,7 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
 import de.tomalbrc.toms_mobs.entities.passive.Capybara;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -58,6 +59,6 @@ public class CapybaraRelaxGoal extends Goal {
     }
 
     protected boolean canRelax() {
-        return !this.entity.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat().selector(x -> !(x instanceof Capybara)), this.entity, this.entity.getBoundingBox().inflate(6.0, 3.0, 6.0)).isEmpty();
+        return !((ServerLevel) this.entity.level()).getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat().selector((livingEntity,serverLevel) -> !(livingEntity instanceof Capybara)), this.entity, this.entity.getBoundingBox().inflate(6.0, 3.0, 6.0)).isEmpty();
     }
 }

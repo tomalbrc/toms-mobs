@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs.entities.goals;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -43,9 +44,7 @@ public class AnimatedMeleeAttackGoal extends AnimatedGoal {
 
     @Override
     public boolean canContinueToUse() {
-        boolean canContinueToUse1 = this.meleeAttackGoal.canContinueToUse();
-        boolean canContinueToUse2 = super.canContinueToUse();
-        return canContinueToUse1;
+        return this.meleeAttackGoal.canContinueToUse();
     }
 
     @Override
@@ -90,14 +89,14 @@ public class AnimatedMeleeAttackGoal extends AnimatedGoal {
         if (this.warmupDelay == 1 && this.cooldownDelay == COOLDOWN_TIME && !attack) {
             attack = true;
             played = false;
-            this.performAttack(this.mob.getTarget());
+            this.performAttack(this.getServerLevel(this.mob.level()), this.mob.getTarget());
         }
 
     }
 
-    protected void performAttack(LivingEntity livingEntity) {
+    protected void performAttack(ServerLevel serverLevel, LivingEntity livingEntity) {
         if (this.canAttack()) {
-            this.mob.doHurtTarget(livingEntity);
+            this.mob.doHurtTarget(serverLevel, livingEntity);
         }
         attack = false;
     }

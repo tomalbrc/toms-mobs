@@ -22,6 +22,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -36,6 +37,7 @@ import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -56,6 +58,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0)
+                .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
@@ -135,12 +138,11 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    public void customServerAiStep() {
-        super.customServerAiStep();
+    public void customServerAiStep(ServerLevel serverLevel) {
+        super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
             if (this.forcedAgeTimer % 4 == 0) {
-                ServerLevel serverLevel = (ServerLevel) this.level();
                 serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0, 0.0, 0.0, 0.0, 0.0);
             }
 
@@ -150,7 +152,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     public Penguin getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return MobRegistry.PENGUIN.create(serverLevel);
+        return MobRegistry.PENGUIN.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
@@ -205,16 +207,17 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     public void performRangedAttack(LivingEntity livingEntity, float f) {
-        // via SnowGolem.performRangedAttack:
-        Snowball snowball = new Snowball(this.level(), this);
-        double d = livingEntity.getEyeY() - 1.1;
-        double e = livingEntity.getX() - this.getX();
-        double g = d - snowball.getY();
-        double h = livingEntity.getZ() - this.getZ();
-        double i = Math.sqrt(e * e + h * h) * 0.2;
-        snowball.shoot(e, g + i, h, 1.6F, 12.0F);
+        double dx = livingEntity.getX() - this.getX();
+        double y = livingEntity.getEyeY() - 1.1;
+        double dz = livingEntity.getZ() - this.getZ();
+        double val = Math.sqrt(dx * dx + dz * dz) * 0.2;
+
+        ItemStack itemStack = new ItemStack(Items.SNOWBALL);
+        Projectile.spawnProjectile(new Snowball(level(), this, itemStack), (ServerLevel) level(), itemStack, (snowball) -> {
+            snowball.shoot(dx, y + val - snowball.getY(), dz, 1.6F, 12.0F);
+        });
+
         this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.random.nextFloat() * 0.4F + 0.8F));
-        this.level().addFreshEntity(snowball);
     }
 
     public void setSliding(boolean b) {

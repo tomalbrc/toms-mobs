@@ -43,6 +43,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
+                .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 28.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6);
     }
@@ -114,12 +115,11 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public void customServerAiStep() {
-        super.customServerAiStep();
+    public void customServerAiStep(ServerLevel serverLevel) {
+        super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
             if (this.forcedAgeTimer % 4 == 0) {
-                ServerLevel serverLevel = (ServerLevel) this.level();
                 serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0, 0.0, 0.0, 0.0, 0.0);
             }
 
@@ -129,7 +129,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public Elephant getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return MobRegistry.ELEPHANT.create(serverLevel);
+        return MobRegistry.ELEPHANT.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         if (!this.isBaby() && interactionHand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty()) {
             this.doPlayerRide(player);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(player, interactionHand);
         }

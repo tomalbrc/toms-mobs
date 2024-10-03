@@ -7,14 +7,15 @@ import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
-import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.*;
@@ -25,6 +26,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+import java.util.function.Function;
+
+@SuppressWarnings("deprecation")
 public class MobRegistry {
     public static final EntityType<Penguin> PENGUIN = register(
             Penguin.ID,
@@ -135,7 +139,7 @@ public class MobRegistry {
                     .spawnGroup(MobCategory.AMBIENT)
                     .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
                     .defaultAttributes(Firemoth::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkMobSpawnRules)
+                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules)
     );
 
     public static final EntityType<Butterfly> BUTTERFLY = register(
@@ -212,7 +216,7 @@ public class MobRegistry {
     );
 
     private static <T extends Entity> EntityType<T> register(ResourceLocation id, FabricEntityTypeBuilder<T> builder) {
-        EntityType<T> type = builder.build();
+        EntityType<T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
         PolymerEntityUtils.registerType(type);
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
@@ -279,22 +283,18 @@ public class MobRegistry {
         addSpawnEgg(SHOWMASTER, Items.ENDERMITE_SPAWN_EGG);
 
         addSpawnEgg(ICEOLOGER, Items.VEX_SPAWN_EGG);
-        addSpawnEgg(ICE_SPIKE, Items.SNOW_GOLEM_SPAWN_EGG);
-        addSpawnEgg(ICE_SPIKE_SMALL, Items.SNOW_GOLEM_SPAWN_EGG);
-        addSpawnEgg(ICE_CLUSTER, Items.SNOW_GOLEM_SPAWN_EGG);
 
         PolymerItemGroupUtils.registerPolymerItemGroup(Util.id("spawn-eggs"), ITEM_GROUP);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static void addSpawnEgg(EntityType type, Item item) {
-        Item spawnEgg = new PolymerSpawnEggItem(type, item, new Item.Properties());
-        registerItem(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), spawnEgg);
+    private static void addSpawnEgg(EntityType<? extends Mob> type, Item vanillaItem) {
+        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new FixedPolymerSpawnEggItem(type, vanillaItem, properties));
     }
 
-    private static void registerItem(ResourceLocation identifier, Item item) {
-        Registry.register(BuiltInRegistries.ITEM, identifier, item);
-        SPAWN_EGGS.putIfAbsent(identifier, item);
+    static public <T extends Item> void register(ResourceLocation identifier, Function<Item.Properties, T> function) {
+        var x = function.apply(new Item.Properties().stacksTo(64).setId(ResourceKey.create(Registries.ITEM, identifier)));
+        Registry.register(BuiltInRegistries.ITEM, identifier, x);
+        SPAWN_EGGS.putIfAbsent(identifier, x);
     }
 
     public static final Object2ObjectOpenHashMap<ResourceLocation, Item> SPAWN_EGGS = new Object2ObjectOpenHashMap<>();

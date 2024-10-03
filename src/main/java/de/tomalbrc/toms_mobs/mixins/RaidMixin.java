@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.biome.Biome;
@@ -26,9 +26,9 @@ public class RaidMixin {
             Holder<Biome> biome = raid.getLevel().getBiome(blockPos);
             Raider mob;
             if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES) && biome.is(BiomeTags.IS_MOUNTAIN)) {
-                mob = MobRegistry.SHOWMASTER.create(raid.getLevel());
+                mob = MobRegistry.SHOWMASTER.create(raid.getLevel(), EntitySpawnReason.MOB_SUMMONED);
             } else {
-                mob = MobRegistry.ICEOLOGER.create(raid.getLevel());
+                mob = MobRegistry.ICEOLOGER.create(raid.getLevel(), EntitySpawnReason.MOB_SUMMONED);
             }
 
             tomsmobs$spawn(raid.getGroupsSpawned(), mob, blockPos);
@@ -46,7 +46,7 @@ public class RaidMixin {
             raider.setTicksOutsideRaid(0);
             if (blockPos != null) {
                 raider.setPos((double)blockPos.getX() + 0.5, (double)blockPos.getY() + 1.0, (double)blockPos.getZ() + 0.5);
-                raider.finalizeSpawn((ServerLevel) raid.getLevel(), raid.getLevel().getCurrentDifficultyAt(blockPos), MobSpawnType.EVENT, null);
+                raider.finalizeSpawn((ServerLevel) raid.getLevel(), raid.getLevel().getCurrentDifficultyAt(blockPos), EntitySpawnReason.EVENT, null);
                 raider.applyRaidBuffs((ServerLevel) raid.getLevel(), wave, false);
                 raider.setOnGround(true);
                 raid.getLevel().addFreshEntity(raider);

@@ -10,14 +10,15 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
@@ -46,8 +47,8 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
                 .add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
-    public static boolean checkSculklingSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return pos.getY() < 10 && !level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnType, pos, random);
+    public static boolean checkSculklingSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() < 10 && !level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnReason, pos, random);
     }
 
     @Override
@@ -76,8 +77,9 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public boolean hurt(DamageSource damageSource, float f) {
-        return !damageSource.is(DamageTypeTags.IS_FIRE) && !damageSource.is(DamageTypeTags.IS_DROWNING) && super.hurt(damageSource, f);
+    @Override
+    public boolean isInvulnerableTo(ServerLevel serverLevel, DamageSource damageSource) {
+        return damageSource.is(DamageTypeTags.IS_FIRE) && damageSource.is(DamageTypeTags.IS_DROWNING);
     }
 
     @Override
@@ -96,8 +98,8 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public boolean doHurtTarget(Entity entity) {
-        boolean result = super.doHurtTarget(entity);
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+        boolean result = super.doHurtTarget(serverLevel, entity);
 
         if (result && entity instanceof ServerPlayer player) {
             if (player.totalExperience > 0) {
@@ -110,7 +112,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public int getBaseExperienceReward() {
+    public int getBaseExperienceReward(ServerLevel serverLevel) {
         return (int) ((stolenXP * 1.25) + 2);
     }
 }

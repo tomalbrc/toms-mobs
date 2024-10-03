@@ -23,6 +23,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -57,6 +58,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.6)
+                .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 16.0);
     }
 
@@ -98,7 +100,7 @@ public class Capybara extends Animal implements AnimatedEntity {
 
             this.holder.getVariantController().setDefaultVariant();
 
-            return InteractionResult.SUCCESS_NO_ITEM_USED;
+            return InteractionResult.SUCCESS;
         } else if (player.getMainHandItem().is(Items.APPLE) && this.apple.isEmpty() && player.isShiftKeyDown()) {
             this.apple = item.copyWithCount(1);
             item.shrink(1);
@@ -170,12 +172,11 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void customServerAiStep() {
-        super.customServerAiStep();
+    public void customServerAiStep(ServerLevel serverLevel) {
+        super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
             if (this.forcedAgeTimer % 4 == 0) {
-                ServerLevel serverLevel = (ServerLevel) this.level();
                 serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0, 0.0, 0.0, 0.0, 0.0);
             }
 
@@ -195,7 +196,7 @@ public class Capybara extends Animal implements AnimatedEntity {
 
     @Override
     public Capybara getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return MobRegistry.CAPYBARA.create(serverLevel);
+        return MobRegistry.CAPYBARA.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
@@ -207,7 +208,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("Apple")) this.apple = ItemStack.parse(this.registryAccess(), tag.get("Apple")).get();
+        if (tag.contains("Apple")) this.apple = ItemStack.parse(this.registryAccess(), tag.get("Apple")).orElseThrow();
 
         if (!this.apple.isEmpty()) {
             this.holder.getVariantController().setVariant("apple");

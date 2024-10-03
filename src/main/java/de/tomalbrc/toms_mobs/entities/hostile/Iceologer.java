@@ -20,10 +20,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -71,10 +70,10 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         }
     };
 
-    public static boolean checkIceologerSpawnRules(EntityType<? extends Monster> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkIceologerSpawnRules(EntityType<? extends Monster> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnReason, BlockPos blockPos, RandomSource randomSource) {
         BlockPos blockPos2 = blockPos.below();
         var bs = levelAccessor.getBlockState(blockPos2);
-        return blockPos2.getY() > 150 && (bs.is(BlockTags.ICE) || bs.is(BlockTags.SNOW)) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, randomSource);
+        return blockPos2.getY() > 150 && (bs.is(BlockTags.ICE) || bs.is(BlockTags.SNOW)) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnReason, blockPos, randomSource);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
