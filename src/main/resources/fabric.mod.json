@@ -28,7 +28,7 @@
     "polymer-resource-pack": "*",
     "polymer-core": "*",
     "polymer-virtual-entity": "*",
-    "bil": ">=1.1.11"
+    "bil": ">=1.1.12"
   },
   "accessWidener": "toms_mobs.accesswidener"
 }
