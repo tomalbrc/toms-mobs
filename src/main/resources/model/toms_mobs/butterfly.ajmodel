@@ -360,7 +360,7 @@
 		},
 		{
 			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant1.png",
-			"name": "variant1.png",
+			"name": "variant1",
 			"folder": "",
 			"namespace": "",
 			"id": "1",
@@ -380,7 +380,7 @@
 		},
 		{
 			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant2.png",
-			"name": "variant2.png",
+			"name": "variant2",
 			"folder": "",
 			"namespace": "",
 			"id": "2",
