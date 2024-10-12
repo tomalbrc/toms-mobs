@@ -7,6 +7,7 @@ import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
+import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -288,7 +289,7 @@ public class MobRegistry {
     }
 
     private static void addSpawnEgg(EntityType<? extends Mob> type, Item vanillaItem) {
-        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new FixedPolymerSpawnEggItem(type, vanillaItem, properties));
+        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new PolymerSpawnEggItem(type, vanillaItem, properties));
     }
 
     static public <T extends Item> void register(ResourceLocation identifier, Function<Item.Properties, T> function) {

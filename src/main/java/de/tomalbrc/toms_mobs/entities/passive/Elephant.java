@@ -74,14 +74,14 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return this.tempting.test(itemStack);
+        return tempting.test(itemStack);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, this.tempting, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, tempting, false));
         this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.6));
@@ -153,7 +153,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     protected float getRiddenSpeed(Player player) {
-        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) / 2.f;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.4f;
     }
 
     @Override
@@ -177,8 +177,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     @Override
     @NotNull
     protected Vec3 getRiddenInput(Player player, Vec3 vec3) {
-        float x = player.xxa * 0.5F;
-        float z = player.zza;
+        ServerPlayer p = (ServerPlayer) player;
+        float x = p.getLastClientInput().left() ? 1 : p.getLastClientInput().right() ? -1 : 0;
+        float z = p.getLastClientInput().forward() ? 1 : p.getLastClientInput().backward() ? -1 : 0;
         if (z <= 0.0F) {
             z *= 0.25F;
         }

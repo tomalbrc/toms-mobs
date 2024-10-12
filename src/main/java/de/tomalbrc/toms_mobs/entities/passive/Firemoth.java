@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("firemoth");
@@ -89,7 +89,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         }
 
         if (this.tickCount % 8 == 3 && this.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new DustParticleOptions(new Vector3f(1.f, .4f, 0.f), 0.9f), getX(), getY() + 0.2, getZ(), 4, 0.04, 0.04, 0.04, 0.3);
+            serverLevel.sendParticles(new DustParticleOptions(ARGB.colorFromFloat(1.f, 1.f, .4f, 0.f), 0.9f), getX(), getY() + 0.2, getZ(), 4, 0.04, 0.04, 0.04, 0.3);
         }
     }
 
