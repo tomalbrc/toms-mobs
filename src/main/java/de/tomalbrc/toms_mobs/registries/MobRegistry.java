@@ -1,5 +1,7 @@
 package de.tomalbrc.toms_mobs.registries;
 
+import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.types.Type;
 import de.tomalbrc.toms_mobs.ModConfig;
 import de.tomalbrc.toms_mobs.entities.hostile.*;
 import de.tomalbrc.toms_mobs.entities.passive.*;
@@ -10,8 +12,9 @@ import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.ChatFormatting;
+import net.minecraft.SharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +22,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.datafix.DataFixers;
+import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,38 +32,32 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+import java.util.Map;
 import java.util.function.Function;
 
-@SuppressWarnings("deprecation")
 public class MobRegistry {
     public static final EntityType<Penguin> PENGUIN = register(
             Penguin.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Penguin::new)
-                    .spawnGroup(MobCategory.CREATURE)
-                    .dimensions(EntityDimensions.scalable(0.6f, 0.95f))
-                    .defaultAttributes(Penguin::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+            FabricEntityType.Builder.createMob(Penguin::new, MobCategory.CREATURE, x -> x
+                            .defaultAttributes(Penguin::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules))
+                    .sized(0.6f, 1.05f)
     );
 
     public static final EntityType<Elephant> ELEPHANT = register(
             Elephant.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Elephant::new)
-                    .spawnGroup(MobCategory.CREATURE)
-                    .dimensions(EntityDimensions.scalable(3.f, 3.65f))
-                    .defaultAttributes(Elephant::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+            FabricEntityType.Builder.createMob(Elephant::new, MobCategory.CREATURE, x -> x
+                            .defaultAttributes(Elephant::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules))
+                    .sized(3.0f, 3.65f)
     );
 
     public static final EntityType<Capybara> CAPYBARA = register(
             Capybara.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Capybara::new)
-                    .spawnGroup(MobCategory.CREATURE)
-                    .dimensions(EntityDimensions.scalable(0.8f, 1.1f))
-                    .defaultAttributes(Capybara::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
+            FabricEntityType.Builder.createMob(Capybara::new, MobCategory.CREATURE, x -> x
+                            .defaultAttributes(Capybara::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules))
+                    .sized(0.8f, 1.1f)
     );
 
     /*public static final EntityType<Vulture> VULTURE = register(
@@ -83,42 +82,34 @@ public class MobRegistry {
 
     public static final EntityType<Nautilus> NAUTILUS = register(
             Nautilus.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Nautilus::new)
-                    .spawnGroup(MobCategory.WATER_CREATURE)
-                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
-                    .defaultAttributes(Nautilus::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
+            FabricEntityType.Builder.createMob(Nautilus::new, MobCategory.WATER_CREATURE, x -> x
+                            .defaultAttributes(Nautilus::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules))
+                    .sized(0.5f, 0.5f)
     );
 
     public static final EntityType<Mantaray> MANTARAY = register(
             Mantaray.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Mantaray::new)
-                    .spawnGroup(MobCategory.WATER_CREATURE)
-                    .dimensions(EntityDimensions.scalable(1.4f, 0.4f))
-                    .defaultAttributes(Mantaray::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
+            FabricEntityType.Builder.createMob(Mantaray::new, MobCategory.WATER_CREATURE, x -> x
+                            .defaultAttributes(Mantaray::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules))
+                    .sized(1.4f, 0.4f)
     );
 
     public static final EntityType<Tuna> TUNA = register(
             Tuna.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Tuna::new)
-                    .spawnGroup(MobCategory.WATER_CREATURE)
-                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
-                    .defaultAttributes(Tuna::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
+            FabricEntityType.Builder.createMob(Tuna::new, MobCategory.WATER_AMBIENT, x -> x
+                            .defaultAttributes(Tuna::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, WaterAnimal::checkSurfaceWaterAnimalSpawnRules))
+                    .sized(0.55f, 0.55f)
     );
 
     public static final EntityType<Lobster> LOBSTER = register(
             Lobster.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Lobster::new)
-                    .spawnGroup(MobCategory.WATER_AMBIENT)
-                    .dimensions(EntityDimensions.scalable(0.65f, 0.35f))
-                    .defaultAttributes(Lobster::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (x,y,z,t,r) -> true)
+            FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_AMBIENT, x -> x
+                            .defaultAttributes(Lobster::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (xx,y,z,t,r) -> true))
+                    .sized(0.65f, 0.35f)
     );
 
     /*
@@ -132,93 +123,79 @@ public class MobRegistry {
     );
     */
 
-
     public static final EntityType<Firemoth> FIREMOTH = register(
             Firemoth.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Firemoth::new)
-                    .spawnGroup(MobCategory.AMBIENT)
-                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
-                    .defaultAttributes(Firemoth::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules)
+            FabricEntityType.Builder.createMob(Firemoth::new, MobCategory.AMBIENT, x -> x
+                            .defaultAttributes(Firemoth::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules))
+                    .sized(0.5f, 0.5f)
     );
 
     public static final EntityType<Butterfly> BUTTERFLY = register(
             Butterfly.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Butterfly::new)
-                    .spawnGroup(MobCategory.AMBIENT)
-                    .dimensions(EntityDimensions.scalable(0.25f, 0.25f))
-                    .defaultAttributes(Butterfly::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules)
+            FabricEntityType.Builder.createMob(Butterfly::new, MobCategory.AMBIENT, x -> x
+                            .defaultAttributes(Butterfly::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules))
+                    .sized(0.25f, 0.25f)
     );
 
     public static final EntityType<Snake> SNAKE = register(
             Snake.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Snake::new)
-                    .spawnGroup(MobCategory.MONSTER)
-                    .dimensions(EntityDimensions.scalable(1.f, 0.4f))
-                    .defaultAttributes(Snake::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Snake::checkSnakeSpawnRules)
+            FabricEntityType.Builder.createMob(Snake::new, MobCategory.MONSTER, x -> x
+                            .defaultAttributes(Snake::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Snake::checkSnakeSpawnRules))
+                    .sized(0.9f, 0.4f)
     );
 
     public static final EntityType<Sculkling> SCULKLING = register(
             Sculkling.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Sculkling::new)
-                    .spawnGroup(MobCategory.MONSTER)
-                    .dimensions(EntityDimensions.scalable(0.5f, 0.9f))
-                    .defaultAttributes(Snake::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Sculkling::checkSculklingSpawnRules)
+            FabricEntityType.Builder.createMob(Sculkling::new, MobCategory.MONSTER, x -> x
+                            .defaultAttributes(Sculkling::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules))
+                    .sized(0.5f, 0.9f)
     );
 
     public static final EntityType<Showmaster> SHOWMASTER = register(
             Showmaster.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Showmaster::new)
-                    .spawnGroup(MobCategory.MONSTER)
-                    .dimensions(EntityDimensions.scalable(0.7f, 1.8f))
-                    .defaultAttributes(Showmaster::createAttributes)
+            FabricEntityType.Builder.createMob(Showmaster::new, MobCategory.MONSTER, x -> x
+                            .defaultAttributes(Showmaster::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Showmaster::checkMobSpawnRules))
+                    .sized(0.7f, 1.8f)
     );
 
     public static final EntityType<Iceologer> ICEOLOGER = register(
             Iceologer.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Iceologer::new)
-                    .spawnGroup(MobCategory.MONSTER)
-                    .dimensions(EntityDimensions.scalable(0.7f, 1.8f))
-                    .defaultAttributes(Iceologer::createAttributes)
-                    .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules)
+            FabricEntityType.Builder.createMob(Iceologer::new, MobCategory.MONSTER, x -> x
+                        .defaultAttributes(Iceologer::createAttributes)
+                        .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules))
+                    .sized(0.7f, 1.8f)
     );
 
     public static final EntityType<IceSpike> ICE_SPIKE = register(
             IceSpike.ID,
-            FabricEntityTypeBuilder.create()
-                    .entityFactory(IceSpike::new)
-                    .spawnGroup(MobCategory.MISC)
-                    .dimensions(EntityDimensions.scalable(1.f, 2.f))
+            EntityType.Builder.of(IceSpike::new, MobCategory.MISC)
+                    .sized(1.f, 2.f)
     );
 
     public static final EntityType<IceSpikeSmall> ICE_SPIKE_SMALL = register(
             IceSpikeSmall.ID,
-            FabricEntityTypeBuilder.create()
-                    .entityFactory(IceSpikeSmall::new)
-                    .spawnGroup(MobCategory.MISC)
-                    .dimensions(EntityDimensions.scalable(1.2f, 0.8f))
+            EntityType.Builder.of(IceSpikeSmall::new, MobCategory.MISC)
+                    .sized(1.2f, 0.8f)
     );
 
     public static final EntityType<IceCluster> ICE_CLUSTER = register(
             IceCluster.ID,
-            FabricEntityTypeBuilder.create()
-                    .entityFactory(IceCluster::new)
-                    .spawnGroup(MobCategory.MISC)
-                    .dimensions(EntityDimensions.scalable(2, 1))
+            EntityType.Builder.of(IceCluster::new, MobCategory.MISC)
+                    .sized(2, 1)
     );
 
-    private static <T extends Entity> EntityType<T> register(ResourceLocation id, FabricEntityTypeBuilder<T> builder) {
+    private static <T extends Entity> EntityType<T> register(ResourceLocation id, EntityType.Builder<T> builder) {
         EntityType<T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
         PolymerEntityUtils.registerType(type);
+
+        @SuppressWarnings("unchecked") Map<String, Type<?>> types = (Map<String, Type<?>>) DataFixers.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().getDataVersion().getVersion())).findChoiceType(References.ENTITY).types();
+        types.put(id.toString(), types.get(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIE).toString()));
+
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
 
@@ -259,7 +236,7 @@ public class MobRegistry {
         if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID)) BiomeHelper.addSpawn(MANTARAY, 20, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID)) BiomeHelper.addSpawn(TUNA, 10, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID)) BiomeHelper.addSpawn(NAUTILUS, 10, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        //BiomeHelper.addSpawn(JELLYFISH, 30, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 15, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
                         .or(BiomeSelectors.tag(BiomeTags.IS_BEACH))
