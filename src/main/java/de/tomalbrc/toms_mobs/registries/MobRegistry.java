@@ -190,11 +190,11 @@ public class MobRegistry {
     );
 
     private static <T extends Entity> EntityType<T> register(ResourceLocation id, EntityType.Builder<T> builder) {
-        EntityType<T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
-        PolymerEntityUtils.registerType(type);
-
         @SuppressWarnings("unchecked") Map<String, Type<?>> types = (Map<String, Type<?>>) DataFixers.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().getDataVersion().getVersion())).findChoiceType(References.ENTITY).types();
         types.put(id.toString(), types.get(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIE).toString()));
+
+        EntityType<T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        PolymerEntityUtils.registerType(type);
 
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
