@@ -57,7 +57,7 @@ public class MobRegistry {
             FabricEntityType.Builder.createMob(Capybara::new, MobCategory.CREATURE, x -> x
                             .defaultAttributes(Capybara::createAttributes)
                             .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules))
-                    .sized(0.8f, 1.1f)
+                    .sized(0.9f, 1.1f)
     );
 
     /*public static final EntityType<Vulture> VULTURE = register(
