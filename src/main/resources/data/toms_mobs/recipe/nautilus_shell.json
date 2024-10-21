@@ -6,9 +6,7 @@
         "###"
     ],
     "key": {
-        "#": {
-            "item": "toms_mobs:nautilus_shell_fragment"
-        }
+        "#": "toms_mobs:nautilus_shell_fragment"
     },
     "result": {
         "id": "minecraft:nautilus_shell",
