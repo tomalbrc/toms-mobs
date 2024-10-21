@@ -20,7 +20,7 @@ import java.util.function.Function;
 public class ItemRegistry {
     public static final Object2ObjectLinkedOpenHashMap<ResourceLocation, Item> CUSTOM_ITEMS = new Object2ObjectLinkedOpenHashMap<>();
 
-    public static final Item NAUTILUS_SHELL_FRAGMENT = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "nautilus_shell_fragment"), (x) -> new TexturedPolymerItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "item/nautilus_shell_fragment")));
+    public static final Item NAUTILUS_SHELL_FRAGMENT = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "nautilus_shell_fragment"), (x) -> new TexturedPolymerItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "nautilus_shell_fragment")));
 
     public static void registerItems() {
         CreativeModeTab ITEM_GROUP = new CreativeModeTab.Builder(null, -1)

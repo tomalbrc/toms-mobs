@@ -3,13 +3,13 @@ package de.tomalbrc.toms_mobs.registries;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
 import de.tomalbrc.toms_mobs.ModConfig;
+import de.tomalbrc.toms_mobs.item.VanillaPolymerSpawnEggItem;
 import de.tomalbrc.toms_mobs.entities.hostile.*;
 import de.tomalbrc.toms_mobs.entities.passive.*;
 import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
-import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
@@ -266,7 +266,7 @@ public class MobRegistry {
     }
 
     private static void addSpawnEgg(EntityType<? extends Mob> type, Item vanillaItem) {
-        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new PolymerSpawnEggItem(type, vanillaItem, properties));
+        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new VanillaPolymerSpawnEggItem(type, vanillaItem, properties));
     }
 
     static public <T extends Item> void register(ResourceLocation identifier, Function<Item.Properties, T> function) {
