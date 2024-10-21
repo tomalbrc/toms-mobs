@@ -12,7 +12,7 @@ public class SoundRegistry {
 
     private static SoundEvent register(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath("toms_mobs", name);
-        return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
+        return SoundEvent.createVariableRangeEvent(id);
     }
 
     public static void registerSounds() {
