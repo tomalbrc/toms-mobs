@@ -122,7 +122,6 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         };
         flyingPathNavigation.setCanOpenDoors(false);
         flyingPathNavigation.setCanFloat(false);
-        flyingPathNavigation.setCanPassDoors(false);
         return flyingPathNavigation;
     }
 
@@ -149,7 +148,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(ItemTags.FLOWERS);
+        return itemStack.is(ItemTags.BEE_FOOD);
     }
 
     @Override

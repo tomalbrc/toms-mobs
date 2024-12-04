@@ -112,7 +112,6 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         };
         flyingPathNavigation.setCanOpenDoors(false);
         flyingPathNavigation.setCanFloat(false);
-        flyingPathNavigation.setCanPassDoors(false);
         return flyingPathNavigation;
     }
 
