@@ -41,7 +41,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     private static final Ingredient tempting = Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 28.0)

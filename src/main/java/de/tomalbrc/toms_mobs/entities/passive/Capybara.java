@@ -56,7 +56,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     private boolean relaxing;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.6)
                 .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 16.0);

@@ -41,7 +41,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     int stolenXP = 0;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Monster.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
                 .add(Attributes.MAX_HEALTH, 6.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.2);
