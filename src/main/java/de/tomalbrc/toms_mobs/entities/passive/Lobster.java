@@ -35,7 +35,7 @@ public class Lobster extends Animal implements AnimatedEntity {
     private final EntityHolder<Lobster> holder;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.MAX_HEALTH, 8.0);
     }
