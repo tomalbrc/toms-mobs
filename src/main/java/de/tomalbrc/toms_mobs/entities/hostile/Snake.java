@@ -34,7 +34,7 @@ public class Snake extends Monster implements AnimatedEntity {
     private final EntityHolder<Snake> holder;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Monster.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4);

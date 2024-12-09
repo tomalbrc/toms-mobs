@@ -37,7 +37,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
 
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return AbstractFish.createAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 1.0)
                 .add(Attributes.MAX_HEALTH, 16.0);
     }
