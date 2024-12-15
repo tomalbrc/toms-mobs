@@ -24,7 +24,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
@@ -55,7 +54,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     private boolean relaxing;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createAnimalAttributes()
+        return Animal.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.6)
                 .add(Attributes.MAX_HEALTH, 16.0);
     }
