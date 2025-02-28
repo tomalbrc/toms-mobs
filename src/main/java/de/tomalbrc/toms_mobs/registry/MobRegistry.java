@@ -3,9 +3,9 @@ package de.tomalbrc.toms_mobs.registry;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
 import de.tomalbrc.toms_mobs.ModConfig;
-import de.tomalbrc.toms_mobs.item.VanillaPolymerSpawnEggItem;
 import de.tomalbrc.toms_mobs.entity.hostile.*;
 import de.tomalbrc.toms_mobs.entity.passive.*;
+import de.tomalbrc.toms_mobs.item.VanillaPolymerSpawnEggItem;
 import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
@@ -108,7 +108,7 @@ public class MobRegistry {
             Lobster.ID,
             FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_AMBIENT, x -> x
                             .defaultAttributes(Lobster::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (xx,y,z,t,r) -> true))
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (xx, y, z, t, r) -> true))
                     .sized(0.65f, 0.35f)
     );
 
@@ -166,8 +166,8 @@ public class MobRegistry {
     public static final EntityType<Iceologer> ICEOLOGER = register(
             Iceologer.ID,
             FabricEntityType.Builder.createMob(Iceologer::new, MobCategory.MONSTER, x -> x
-                        .defaultAttributes(Iceologer::createAttributes)
-                        .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules))
+                            .defaultAttributes(Iceologer::createAttributes)
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules))
                     .sized(0.7f, 1.8f)
     );
 
@@ -200,42 +200,53 @@ public class MobRegistry {
     }
 
     public static void registerMobs() {
-        if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID)) BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
-                .or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES))
-                .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
-                .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
-        );
+        if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID))
+            BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+                    .or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES))
+                    .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
+                    .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
+            );
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID)) BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
-                .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
-                .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
-                .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
-                .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
-                .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
-        );
+        if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID))
+            BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
+                    .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
+                    .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
+                    .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
+                    .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
+                    .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
+            );
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID)) BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID))
+            BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID)) BiomeHelper.addSpawn(SCULKLING, 20, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID))
+            BiomeHelper.addSpawn(SCULKLING, 20, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Firemoth.ID)) BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
-                .and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS))
-        );
+        if (!ModConfig.getInstance().disabledMobs.contains(Firemoth.ID))
+            BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether()
+                    .and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS))
+            );
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID)) BiomeHelper.addSpawn(BUTTERFLY, 20, 2, 5, BiomeSelectors.foundInOverworld()
-                .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
-                .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
-                .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
-        );
+        if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID))
+            BiomeHelper.addSpawn(BUTTERFLY, 20, 2, 5, BiomeSelectors.foundInOverworld()
+                    .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
+                    .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
+                    .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
+            );
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Capybara.ID)) BiomeHelper.addSpawn(CAPYBARA, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
+        if (!ModConfig.getInstance().disabledMobs.contains(Capybara.ID))
+            BiomeHelper.addSpawn(CAPYBARA, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
 
         // Icy
-        if (!ModConfig.getInstance().disabledMobs.contains(Iceologer.ID)) BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
+        if (!ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
+            BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID)) BiomeHelper.addSpawn(MANTARAY, 15, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID)) BiomeHelper.addSpawn(TUNA, 8, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
-        if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID)) BiomeHelper.addSpawn(NAUTILUS, 6, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID))
+            BiomeHelper.addSpawn(MANTARAY, 15, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID))
+            BiomeHelper.addSpawn(TUNA, 8, 1, 3, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+        if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID))
+            BiomeHelper.addSpawn(NAUTILUS, 6, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
@@ -266,7 +277,7 @@ public class MobRegistry {
     }
 
     private static void addSpawnEgg(EntityType<? extends Mob> type, Item vanillaItem) {
-        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties-> new VanillaPolymerSpawnEggItem(type, vanillaItem, properties));
+        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new VanillaPolymerSpawnEggItem(type, vanillaItem, properties));
     }
 
     static public <T extends Item> void register(ResourceLocation identifier, Function<Item.Properties, T> function) {
