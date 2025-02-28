@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -57,7 +56,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
+            AnimationHelper.updateFishAnimation(this, this.holder);
             AnimationHelper.updateHurtVariant(this, this.holder);
         }
     }

@@ -47,6 +47,19 @@ public class AnimationHelper {
         }
     }
 
+    public static void updateFishAnimation(LivingEntity entity, AnimatedHolder holder) {
+        Animator animator = holder.getAnimator();
+        if (entity.isInWater()) {
+            animator.pauseAnimation("idle");
+            animator.pauseAnimation("walk");
+            animator.playAnimation("swim");
+        } else {
+            animator.pauseAnimation("idle");
+            animator.pauseAnimation("swim");
+            animator.playAnimation("walk");
+        }
+    }
+
     public static void updateCapybaraWalkAnimation(Capybara entity, AnimatedHolder holder) {
         if (entity.isRelaxing()) return;
 
