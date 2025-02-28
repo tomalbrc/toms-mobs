@@ -56,7 +56,7 @@ public class Nautilus extends AbstractFish implements AnimatedEntity {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
+            AnimationHelper.updateFishAnimation(this, this.holder);
             AnimationHelper.updateHurtVariant(this, this.holder);
         }
     }
