@@ -1,8 +1,8 @@
 package de.tomalbrc.toms_mobs;
 
-import de.tomalbrc.toms_mobs.registries.ItemRegistry;
-import de.tomalbrc.toms_mobs.registries.MobRegistry;
-import de.tomalbrc.toms_mobs.registries.SoundRegistry;
+import de.tomalbrc.toms_mobs.registry.ItemRegistry;
+import de.tomalbrc.toms_mobs.registry.MobRegistry;
+import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 

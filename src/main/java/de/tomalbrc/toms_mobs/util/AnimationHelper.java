@@ -2,7 +2,7 @@ package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
-import de.tomalbrc.toms_mobs.entities.passive.Capybara;
+import de.tomalbrc.toms_mobs.entity.passive.Capybara;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper {

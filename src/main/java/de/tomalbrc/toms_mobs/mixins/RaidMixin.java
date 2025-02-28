@@ -1,6 +1,6 @@
 package de.tomalbrc.toms_mobs.mixins;
 
-import de.tomalbrc.toms_mobs.registries.MobRegistry;
+import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
