@@ -39,7 +39,7 @@ public class Snake extends Monster implements AnimatedEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.MAX_HEALTH, 8.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.4);
+                .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
     public static boolean checkSnakeSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -90,7 +90,7 @@ public class Snake extends Monster implements AnimatedEntity {
 
         if (result) {
             if (entity instanceof LivingEntity livingEntity && this.random.nextInt(5) == 1) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, level().getDifficulty().getId() * 2 * 20, 1));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, level().getDifficulty().getId() * 2 * 20, 0));
             }
         }
 
