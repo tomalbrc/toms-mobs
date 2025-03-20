@@ -2,12 +2,12 @@ package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entity.goal.LargeAnimalBreedGoal;
 import de.tomalbrc.toms_mobs.entity.navigation.LessSpinnyGroundPathNavigation;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.LivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
@@ -39,6 +39,8 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     private final EntityHolder<Elephant> holder;
 
     private static final Ingredient tempting = Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
+
+    private int attackCooldown = -1;
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
@@ -81,13 +83,13 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, tempting, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.55, tempting, false));
         this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
-        this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.6));
+        this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
     }
 
     @Override
@@ -148,7 +150,14 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
             player.setYRot(this.getYRot());
             player.setXRot(this.getXRot());
             player.startRiding(this);
+            this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
         }
+    }
+
+    @Override
+    public void stopRiding() {
+        super.stopRiding();
+        this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
     }
 
     @Override
@@ -162,8 +171,8 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         return passenger instanceof ServerPlayer || this.isEffectiveAi();
     }
 
-    @Nullable
     @Override
+    @Nullable
     public LivingEntity getControllingPassenger() {
         Entity passenger = this.getFirstPassenger();
         if (passenger instanceof ServerPlayer player) {
@@ -177,6 +186,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     @Override
     @NotNull
     protected Vec3 getRiddenInput(Player player, Vec3 vec3) {
+        if (attackCooldown != -1)
+            return Vec3.ZERO;
+
         ServerPlayer p = (ServerPlayer) player;
         float x = p.getLastClientInput().left() ? 1 : p.getLastClientInput().right() ? -1 : 0;
         float z = p.getLastClientInput().forward() ? 1 : p.getLastClientInput().backward() ? -1 : 0;
@@ -189,8 +201,35 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     protected void tickRidden(Player player, Vec3 vec3) {
+        if (attackCooldown >= 0) attackCooldown--;
+
         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
-        this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+        this.yRotO = this.yBodyRot = this.yBodyRotO = this.yHeadRot = this.yHeadRotO = this.getYRot();
+
+
+        if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.getLastClientInput().jump()) {
+            attackCooldown += 30;
+            this.holder.getAnimator().playAnimation("attack");
+        } else if (attackCooldown == 20) {
+
+            var entities = level().getEntities(player, this.getBoundingBox().move(this.getForward().normalize().scale(1.5f)));
+            var factor = (1.0f/6.0f);
+            for (Entity entity : entities) {
+                if (entity instanceof LivingEntity) {
+                    if (entity == this || entity == player) {
+                        continue;
+                    }
+
+                    float applyKnockbackResistance = 0;
+                    if (entity instanceof LivingEntity) {
+                        entity.hurtServer((ServerLevel)level(), entity.damageSources().mobAttack(this), Math.abs((factor * 5.0f + 1.0f) * 2.0f));
+                        applyKnockbackResistance = (float) ((LivingEntity) entity).getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                    }
+                    var v = this.getForward().multiply(1.0, 0.0, 1.0).add(0, 1, 0);
+                    entity.setDeltaMovement(entity.getDeltaMovement().add(v.scale(1.0-applyKnockbackResistance)));
+                }
+            }
+        }
     }
 
     @Override
