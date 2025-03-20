@@ -103,6 +103,10 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
+    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    }
+
+    @Override
     @NotNull
     protected PathNavigation createNavigation(Level level) {
         FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
