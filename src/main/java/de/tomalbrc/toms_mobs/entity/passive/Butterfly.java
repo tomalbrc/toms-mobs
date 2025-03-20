@@ -220,7 +220,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         }
     }
 
-    public class CustomModelHolder extends LivingEntityHolder<Butterfly> {
+    public static class CustomModelHolder extends LivingEntityHolder<Butterfly> {
 
         public CustomModelHolder(Butterfly parent, Model model) {
             super(parent, model);
