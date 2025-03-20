@@ -36,14 +36,13 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     public static final ResourceLocation ID = Util.id("sculkling");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Sculkling> holder;
-
-    int stolenXP = 0;
+    private int stolenXP = 0;
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
                 .add(Attributes.MAX_HEALTH, 6.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.2);
+                .add(Attributes.MOVEMENT_SPEED, 0.4);
     }
 
     public static boolean checkSculklingSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
