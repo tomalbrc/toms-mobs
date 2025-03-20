@@ -37,7 +37,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
     @Override
     protected void applyPose(Pose pose, DisplayWrapper<?> display) {
         var tr = new Transformation(
-                pose.readOnlyTranslation().sub(0f, parent.getBbHeight(), 0f, new Vector3f()), pose.readOnlyLeftRotation().get(new Quaternionf()),
+                pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()), pose.readOnlyLeftRotation().get(new Quaternionf()),
                 new Vector3f(1.f), pose.readOnlyRightRotation().get(new Quaternionf())
         );
         var matrix4f = tr.getMatrix();
@@ -65,12 +65,14 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
             matrix4f.rotateLocalZ(-this.deathAngle * ((float)Math.PI / 2F));
             matrix4f.translateLocal(0, -this.parent.getBbHeight(), 0);
         }
+        matrix4f.scaleLocal(this.entityScale);
 
         if (this.entityScale != 1.0F) {
-            matrix4f.scale(pose.readOnlyScale().mul(this.entityScale, new Vector3f()));
+            matrix4f.scale(pose.readOnlyScale());
         } else {
             matrix4f.scale(pose.readOnlyScale());
         }
+
 
         display.element().setTransformation(matrix4f);
         display.element().startInterpolationIfDirty();
