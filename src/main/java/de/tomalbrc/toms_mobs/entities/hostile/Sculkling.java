@@ -11,6 +11,8 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +33,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.NotNull;
 
 public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeAttackGoal.IMeleeAttackAnimatable {
     public static final ResourceLocation ID = Util.id("sculkling");
@@ -82,6 +85,28 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     @Override
     public void meleeAttackAnimation() {
         this.holder.getAnimator().playAnimation("melee", 10);
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 500;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SCULK_CATALYST_BLOOM;
+    }
+
+    @Override
+    @NotNull
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.SCULK_CLICKING;
+    }
+
+    @Override
+    @NotNull
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SCULK_SHRIEKER_SHRIEK;
     }
 
     @Override
