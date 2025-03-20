@@ -3,7 +3,9 @@ package de.tomalbrc.toms_mobs.entities.passive;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
+import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.bil.core.model.Pose;
 import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -12,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -34,6 +37,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("butterfly");
@@ -76,7 +81,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         this.setPathfindingMalus(PathType.COCOA, -1.0F);
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new CustomModelHolder(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
 
         this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.5f));
@@ -213,6 +218,43 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
             if (t < 2f/3f)
                 return p + (q - p) * (2f/3f - t) * 6f;
             return p;
+        }
+    }
+
+    public class CustomModelHolder extends LivingEntityHolder<Butterfly> {
+
+        public CustomModelHolder(Butterfly parent, Model model) {
+            super(parent, model);
+        }
+
+        @Override
+        protected void applyPose(Pose pose, DisplayWrapper display) {
+            var translation = new Vector3f(0,0.03f,0);
+            Matrix4f matrix4f = new Matrix4f().translate(translation);
+
+            Vector3f movement = parent.getDeltaMovement().toVector3f();
+            if (movement.lengthSquared() > 0.0001f) {
+                movement.normalize();
+                float movementYaw = (float) Math.atan2(-movement.x, movement.z); // Negative X because of coordinate system
+                float movementPitch = (float) Math.asin(movement.y); // Vertical tilt
+
+                matrix4f
+                        .rotateLocalZ(0)
+                        .rotateLocalX(movementPitch)
+                        .rotateLocalY(-movementYaw+Mth.PI);
+
+                display.element().setTransformation(matrix4f);
+                display.element().startInterpolationIfDirty();
+            }
+        }
+
+        @Override
+        public void updateElement(DisplayWrapper display, @Nullable Pose pose) {
+            if (pose == null) {
+                this.applyPose(display.getLastPose(), display);
+            } else {
+                this.applyPose(pose, display);
+            }
         }
     }
 }
