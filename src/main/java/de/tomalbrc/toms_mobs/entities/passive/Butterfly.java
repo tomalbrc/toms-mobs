@@ -113,6 +113,10 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
+    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    }
+
+    @Override
     @NotNull
     protected PathNavigation createNavigation(Level level) {
         FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
@@ -180,7 +184,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         tag.putString("Variant", this.variant);
     }
 
-    class Color {
+    static class Color {
         public static int hslToRgb(float h, float s, float l){
             float r, g, b;
 
@@ -193,8 +197,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
                 g = hueToRgb(p, q, h);
                 b = hueToRgb(p, q, h - 1f/3f);
             }
-            int rgb = to255(r) << 16 | to255(g) << 8 | to255(b);
-            return rgb;
+            return to255(r) << 16 | to255(g) << 8 | to255(b);
         }
         public static int to255(float v) { return (int)Math.min(255,256*v); }
         /** Helper method that converts hue to rgb */
