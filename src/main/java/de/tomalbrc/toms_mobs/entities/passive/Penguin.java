@@ -75,7 +75,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         this.moveControl = new SemiAquaticMoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new LivingEntityHolder(this, MODEL);
+        this.holder = new LivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
     }
 
