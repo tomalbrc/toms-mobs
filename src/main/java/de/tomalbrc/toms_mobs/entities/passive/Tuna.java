@@ -50,10 +50,6 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
         this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
-
-        var scaleVal = this.getRandom().nextInt(1,4);
-        var scale = this.getAttribute(Attributes.SCALE);
-        if (scale != null) scale.setBaseValue(0.75f + scaleVal * 0.125f);
     }
 
     @Override
@@ -136,10 +132,9 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
-        var scaleVal = this.getRandom().nextInt(2);
+        var scaleVal = this.getRandom().nextInt(1,4);
         var scale = this.getAttribute(Attributes.SCALE);
-        if (scale != null)
-            scale.setBaseValue(0.5f + scaleVal * 0.25f);
+        if (scale != null) scale.setBaseValue(0.75f + scaleVal * 0.125f);
 
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, entitySpawnReason, spawnGroupData);
     }
