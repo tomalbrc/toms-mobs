@@ -81,6 +81,16 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.WIND_CHARGE_BURST.value();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.BREEZE_WIND_CHARGE_BURST.value();
+    }
+
+    @Override
     public void tick() {
         super.tick();
 

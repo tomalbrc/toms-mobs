@@ -95,7 +95,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.TROPICAL_FISH_DEATH;
+        return SoundEvents.GUARDIAN_DEATH;
     }
 
     @Override
