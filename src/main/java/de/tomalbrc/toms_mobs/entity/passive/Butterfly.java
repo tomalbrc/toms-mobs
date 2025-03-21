@@ -11,6 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -81,6 +83,16 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
 
         this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.5f));
         this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.WIND_CHARGE_BURST.value();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.BREEZE_WIND_CHARGE_BURST.value();
     }
 
     private void setColor(int color) {
