@@ -123,9 +123,9 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
         boolean result = super.doHurtTarget(serverLevel, entity);
 
         if (result && entity instanceof ServerPlayer player) {
-            if (player.totalExperience > 0) {
-                player.setExperiencePoints(player.totalExperience--);
-                stolenXP++;
+            if (player.totalExperience >= 4) {
+                player.setExperiencePoints(player.totalExperience-4);
+                stolenXP += 4;
             }
         }
 
