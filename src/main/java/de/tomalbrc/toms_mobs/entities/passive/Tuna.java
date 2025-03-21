@@ -11,17 +11,22 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Tuna extends AbstractFish implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("tuna");
@@ -114,9 +119,6 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
             if (compoundTag.contains("CustomScale")) {
                 scale.setBaseValue(compoundTag.getFloat("CustomScale"));
-            } else {
-                var scaleVal = this.getRandom().nextInt(2);
-                scale.setBaseValue(0.5f + scaleVal * 0.25f);
             }
         }
     }
@@ -130,5 +132,15 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
             assert scale != null;
             compoundTag.putDouble("CustomScale", scale.getBaseValue());
         }
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
+        var scaleVal = this.getRandom().nextInt(2);
+        var scale = this.getAttribute(Attributes.SCALE);
+        if (scale != null)
+            scale.setBaseValue(0.5f + scaleVal * 0.25f);
+
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, entitySpawnReason, spawnGroupData);
     }
 }
