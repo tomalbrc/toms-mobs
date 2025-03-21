@@ -9,6 +9,7 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -135,5 +136,19 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     @Override
     public int getBaseExperienceReward(ServerLevel serverLevel) {
         return (int) ((stolenXP * 1.25) + 2);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+
+        if (compoundTag.contains("XP")) this.stolenXP = compoundTag.getInt("XP");
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+
+        compoundTag.putInt("XP", this.stolenXP);
     }
 }
