@@ -58,6 +58,11 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
+    public int getMaxSpawnClusterSize() {
+        return 1;
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new AquaticPanicGoal(this, 0.6));
         this.goalSelector.addGoal(1, new PathfinderMobSwimGoal(this, 1));

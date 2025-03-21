@@ -2,11 +2,12 @@ package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.NoDeathRotationLivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,8 +43,17 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     public Tuna(EntityType<? extends AbstractFish> type, Level level) {
         super(type, level);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+
+        var scaleVal = this.getRandom().nextInt(1,4);
+        var scale = this.getAttribute(Attributes.SCALE);
+        if (scale != null) scale.setBaseValue(0.75f + scaleVal * 0.125f);
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 3;
     }
 
     @Override
@@ -92,5 +102,33 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     @NotNull
     protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         return InteractionResult.PASS;
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+
+        if (this.getAttribute(Attributes.SCALE) != null) {
+            var scale = this.getAttribute(Attributes.SCALE);
+            assert scale != null;
+
+            if (compoundTag.contains("CustomScale")) {
+                scale.setBaseValue(compoundTag.getFloat("CustomScale"));
+            } else {
+                var scaleVal = this.getRandom().nextInt(2);
+                scale.setBaseValue(0.5f + scaleVal * 0.25f);
+            }
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+
+        if (this.getAttribute(Attributes.SCALE) != null) {
+            var scale = this.getAttribute(Attributes.SCALE);
+            assert scale != null;
+            compoundTag.putDouble("CustomScale", scale.getBaseValue());
+        }
     }
 }

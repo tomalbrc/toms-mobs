@@ -2,9 +2,9 @@ package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.NoDeathRotationLivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.resources.ResourceLocation;
@@ -42,8 +42,13 @@ public class Nautilus extends AbstractFish implements AnimatedEntity {
     public Nautilus(EntityType<? extends AbstractFish> type, Level level) {
         super(type, level);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 1;
     }
 
     @Override
