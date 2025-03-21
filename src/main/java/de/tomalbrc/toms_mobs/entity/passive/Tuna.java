@@ -31,7 +31,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
         return AbstractFish.createAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.6)
+                .add(Attributes.MOVEMENT_SPEED, 0.7)
                 .add(Attributes.MAX_HEALTH, 16.0);
     }
 
