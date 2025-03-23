@@ -6,10 +6,7 @@ import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Node;
 import de.tomalbrc.bil.core.model.Pose;
-import de.tomalbrc.bil.util.Utils;
-import net.minecraft.network.protocol.game.ClientboundBundlePacket;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
@@ -25,7 +22,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
     private Node getRotationParent(Node node) {
         var currentNode = node;
         while (currentNode != null) {
-            if (currentNode.name().startsWith("head"))
+            if (currentNode.headTag())
                 return currentNode;
 
             currentNode = currentNode.parent();
@@ -73,16 +70,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
             matrix4f.scale(pose.readOnlyScale());
         }
 
-
         display.element().setTransformation(matrix4f);
         display.element().startInterpolationIfDirty();
-    }
-
-    @Override
-    public void onDimensionsUpdated(EntityDimensions dimensions) {
-        this.updateEntityScale(this.scale);
-        super.onDimensionsUpdated(dimensions);
-        this.collisionElement.setSize(Math.max(Utils.toSlimeSize(Math.min(dimensions.width(), dimensions.height())), 1));
-        this.sendPacket(new ClientboundBundlePacket(Utils.updateClientInteraction(this.hitboxInteraction, dimensions)));
     }
 }
