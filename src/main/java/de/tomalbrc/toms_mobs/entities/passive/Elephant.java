@@ -254,7 +254,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.yRotO = this.yBodyRot = this.yBodyRotO = this.yHeadRot = this.yHeadRotO = this.getYRot();
 
 
-        if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.yya != 0) {
+        if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.jumping) {
             attackCooldown += 30;
             this.holder.getAnimator().playAnimation("attack");
         } else if (attackCooldown == 20) {
