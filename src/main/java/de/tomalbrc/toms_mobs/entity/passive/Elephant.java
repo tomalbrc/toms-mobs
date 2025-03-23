@@ -107,6 +107,23 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         }
     }
 
+    @Override
+    public boolean causeFallDamage(float f, float g, DamageSource damageSource) {
+        int i = this.calculateFallDamage(f, g);
+        if (i <= 0) {
+            return false;
+        } else {
+            this.hurt(damageSource, (float)i);
+            if (this.isVehicle()) {
+                for(Entity entity : this.getIndirectPassengers()) {
+                    entity.hurt(damageSource, (float)i);
+                }
+            }
+
+            this.playBlockFallSound();
+            return true;
+        }
+    }
 
     @Override
     public int getAmbientSoundInterval() {
@@ -253,7 +270,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
                     float applyKnockbackResistance = 0;
                     if (entity instanceof LivingEntity) {
-                        entity.hurtServer((ServerLevel)level(), entity.damageSources().mobAttack(this), Math.abs((factor * 5.0f + 1.0f) * 2.0f));
+                        entity.hurt(player.damageSources().mobAttack(this), Math.abs((factor * 5.0f + 1.0f) * 2.0f));
                         applyKnockbackResistance = (float) ((LivingEntity) entity).getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
                     }
                     var v = this.getForward().multiply(1.0, 0.0, 1.0).add(0, 1, 0);
