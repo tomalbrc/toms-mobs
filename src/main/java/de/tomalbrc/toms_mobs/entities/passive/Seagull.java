@@ -1,21 +1,19 @@
-package de.tomalbrc.toms_mobs.entity.passive;
+package de.tomalbrc.toms_mobs.entities.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.toms_mobs.entity.goal.FlyingWanderGoal;
-import de.tomalbrc.toms_mobs.registry.MobRegistry;
+import de.tomalbrc.toms_mobs.entities.goals.FlyingWanderGoal;
+import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -36,7 +34,7 @@ public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Seagull> holder;
 
-    private final Ingredient tempting = Ingredient.of(BuiltInRegistries.ITEM.get(ItemTags.MEAT).orElseThrow());
+    private final Ingredient tempting = Ingredient.of(ItemTags.MEAT);
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -101,11 +99,11 @@ public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
-        super.customServerAiStep(serverLevel);
+    public void customServerAiStep() {
+        super.customServerAiStep();
 
         if (this.forcedAgeTimer > 0) {
-            if (this.forcedAgeTimer % 4 == 0) {
+            if (this.forcedAgeTimer % 4 == 0 && this.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0, 0.0, 0.0, 0.0, 0.0);
             }
 
@@ -115,7 +113,7 @@ public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
 
     @Override
     public Seagull getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return MobRegistry.SEAGULL.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.SEAGULL.create(serverLevel);
     }
 
     @Override

@@ -65,16 +65,16 @@ public class MobRegistry {
                     .defaultAttributes(Vulture::createAttributes)
                     .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
     );
-
+*/
     public static final EntityType<Seagull> SEAGULL = register(
             Seagull.ID,
             FabricEntityTypeBuilder.createMob()
                     .entityFactory(Seagull::new)
                     .spawnGroup(MobCategory.CREATURE)
-                    .dimensions(EntityDimensions.scalable(1.f, 1.f))
+                    .dimensions(EntityDimensions.scalable(0.8f, 0.75f))
                     .defaultAttributes(Seagull::createAttributes)
                     .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
-    );*/
+    );
 
     public static final EntityType<Nautilus> NAUTILUS = register(
             Nautilus.ID,
@@ -264,6 +264,7 @@ public class MobRegistry {
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
         addSpawnEgg(ELEPHANT, Items.DOLPHIN_SPAWN_EGG);
         addSpawnEgg(FIREMOTH, Items.PARROT_SPAWN_EGG);
+        addSpawnEgg(SEAGULL, Items.CAT_SPAWN_EGG);
         addSpawnEgg(BUTTERFLY, Items.PARROT_SPAWN_EGG);
         addSpawnEgg(CAPYBARA, Items.DONKEY_SPAWN_EGG);
 

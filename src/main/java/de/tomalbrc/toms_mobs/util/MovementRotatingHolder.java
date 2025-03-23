@@ -4,7 +4,7 @@ import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Pose;
-import de.tomalbrc.toms_mobs.entity.passive.Butterfly;
+import de.tomalbrc.toms_mobs.entities.passive.Butterfly;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -29,8 +29,8 @@ public class MovementRotatingHolder extends LivingEntityHolder<Butterfly> {
             float movementYaw = (float) Math.atan2(-movement.x, movement.z); // Negative X because of coordinate system
             float movementPitch = (float) Math.asin(movement.y); // Vertical tilt
 
-            lastPitch = Mth.rotLerpRad(0.5f, movementPitch, lastPitch);
-            lastYaw = Mth.rotLerpRad(0.5f, movementYaw, lastYaw);
+            lastPitch = Util.rotLerpRad(0.5f, movementPitch, lastPitch);
+            lastYaw = Util.rotLerpRad(0.5f, movementYaw, lastYaw);
 
             matrix4f
                     .rotateLocalZ(0)

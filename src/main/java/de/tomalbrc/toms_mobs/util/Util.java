@@ -18,4 +18,16 @@ public class Util {
     public static Model loadBbModel(ResourceLocation resourceLocation) {
         return BbModelLoader.load(resourceLocation);
     }
+
+    public static float rotLerpRad(float f, float g, float h) {
+        float i;
+        for(i = h - g; i < -(float)Math.PI; i += ((float)Math.PI * 2F)) {
+        }
+
+        while(i >= (float)Math.PI) {
+            i -= ((float)Math.PI * 2F);
+        }
+
+        return g + f * i;
+    }
 }

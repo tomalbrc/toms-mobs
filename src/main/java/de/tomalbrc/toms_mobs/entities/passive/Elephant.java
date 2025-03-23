@@ -80,14 +80,14 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return this.tempting.test(itemStack);
+        return tempting.test(itemStack);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.55, this.tempting, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.55, tempting, false));
         this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
@@ -254,7 +254,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.yRotO = this.yBodyRot = this.yBodyRotO = this.yHeadRot = this.yHeadRotO = this.getYRot();
 
 
-        if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.getLastClientInput().jump()) {
+        if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.yya != 0) {
             attackCooldown += 30;
             this.holder.getAnimator().playAnimation("attack");
         } else if (attackCooldown == 20) {
