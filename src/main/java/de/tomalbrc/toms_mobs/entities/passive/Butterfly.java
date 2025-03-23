@@ -81,7 +81,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         this.holder = new MovementRotatingHolder(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
 
-        this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.5f));
+        this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.65f));
         this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
     }
 
