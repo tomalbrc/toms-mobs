@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs.mixins;
 
+import de.tomalbrc.toms_mobs.ModConfig;
 import de.tomalbrc.toms_mobs.registries.MobRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -20,6 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class RaidMixin {
     @Inject(method = "spawnGroup", at = @At("TAIL"))
     void spawnGroup(BlockPos blockPos, CallbackInfo ci){
+        if (ModConfig.getInstance().noAdditionalRaidMobs) {
+            return;
+        }
+
         Raid raid = Raid.class.cast(this);
         // last wave
         if (raid.getGroupsSpawned() >= raid.getNumGroups(raid.getLevel().getDifficulty())) {

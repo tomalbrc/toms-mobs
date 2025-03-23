@@ -26,6 +26,7 @@ public class ModConfig {
     // entries
 
     public List<ResourceLocation> disabledMobs = new ObjectArrayList<>();
+    public boolean noAdditionalRaidMobs = true;
 
     public static ModConfig getInstance() {
         if (instance == null) {
