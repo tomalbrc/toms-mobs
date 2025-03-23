@@ -114,7 +114,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
             assert scale != null;
 
             if (compoundTag.contains("CustomScale")) {
-                scale.setBaseValue(compoundTag.getFloat("CustomScale"));
+                scale.setBaseValue(compoundTag.getFloat("CustomScale").orElseThrow());
             }
         }
     }

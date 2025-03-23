@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -72,7 +72,7 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
             count--;
 
             if (count % 2 == 0) {
-                ThrownPotion potion = EntityType.POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
+                ThrownSplashPotion potion = EntityType.SPLASH_POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
                 assert potion != null;
                 potion.setOwner(this.mob);
                 ItemStack itemStack = new ItemStack(Items.SPLASH_POTION);

@@ -41,8 +41,6 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-
 public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("iceologer");
     public static final Model MODEL = Util.loadModel(ID);
@@ -163,12 +161,6 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     @NotNull
     public SoundEvent getCelebrateSound() {
         return SoundEvents.EVOKER_CELEBRATE;
-    }
-
-    @Override
-    @NotNull
-    public Iterable<ItemStack> getArmorSlots() {
-        return new ArrayList<>();
     }
 
     @Override

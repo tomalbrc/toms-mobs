@@ -110,7 +110,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 

@@ -7,6 +7,7 @@ import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -140,11 +141,12 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
-        if (compoundTag.hasUUID("Owner")) {
-            this.ownerUUID = compoundTag.getUUID("Owner");
+        if (compoundTag.contains("Owner")) {
+            this.ownerUUID = compoundTag.read("Owner", UUIDUtil.CODEC).orElse(null);
         }
-        if (compoundTag.hasUUID("Target")) {
-            this.targetUUID = compoundTag.getUUID("Target");
+
+        if (compoundTag.contains("Target")) {
+            this.ownerUUID = compoundTag.read("Owner", UUIDUtil.CODEC).orElse(null);
         }
 
         this.setNoGravity(true);
@@ -153,10 +155,10 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
         if (this.ownerUUID != null) {
-            compoundTag.putUUID("Owner", this.ownerUUID);
+            compoundTag.storeNullable("Owner", UUIDUtil.CODEC, this.ownerUUID);
         }
         if (this.targetUUID != null) {
-            compoundTag.putUUID("Target", this.targetUUID);
+            compoundTag.storeNullable("Target", UUIDUtil.CODEC, this.targetUUID);
         }
     }
 
@@ -204,7 +206,7 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     @Override
     public LivingEntity getOwner() {
         if (this.owner == null && this.ownerUUID != null && this.level() instanceof ServerLevel) {
-            Entity entity = ((ServerLevel) this.level()).getEntity(this.ownerUUID);
+            Entity entity = this.level().getEntity(this.ownerUUID);
             if (entity instanceof LivingEntity) {
                 this.owner = (LivingEntity) entity;
             }
@@ -215,7 +217,7 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
 
     public LivingEntity getTarget() {
         if (this.target == null && this.targetUUID != null && this.level() instanceof ServerLevel) {
-            Entity entity = ((ServerLevel) this.level()).getEntity(this.targetUUID);
+            Entity entity = this.level().getEntity(this.targetUUID);
             if (entity instanceof LivingEntity) {
                 this.target = (LivingEntity) entity;
             }

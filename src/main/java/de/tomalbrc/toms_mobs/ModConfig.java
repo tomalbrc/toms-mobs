@@ -2,6 +2,7 @@ package de.tomalbrc.toms_mobs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.tomalbrc.bil.json.JSON;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
@@ -19,13 +20,14 @@ public class ModConfig {
     private static ModConfig instance;
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeHierarchyAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+            .registerTypeHierarchyAdapter(ResourceLocation.class, new JSON.ResourceLocationSerializer())
             .setPrettyPrinting()
             .create();
 
     // entries
 
     public List<ResourceLocation> disabledMobs = new ObjectArrayList<>();
+    public boolean noAdditionalRaidMobs = true;
 
     public static ModConfig getInstance() {
         if (instance == null) {

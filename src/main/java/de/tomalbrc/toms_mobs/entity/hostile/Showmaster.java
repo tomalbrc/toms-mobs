@@ -30,8 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
 public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("showmaster");
     public static final Model MODEL = Util.loadModel(ID);
@@ -128,12 +126,6 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
         }
 
         return true;
-    }
-
-    @Override
-    @NotNull
-    public Iterable<ItemStack> getArmorSlots() {
-        return new ArrayList<>();
     }
 
     @Override

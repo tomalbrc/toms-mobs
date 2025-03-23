@@ -108,7 +108,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public boolean causeFallDamage(float f, float g, DamageSource damageSource) {
+    public boolean causeFallDamage(double f, float g, DamageSource damageSource) {
         int i = this.calculateFallDamage(f, g);
         if (i <= 0) {
             return false;
@@ -211,12 +211,6 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     @Override
     protected float getRiddenSpeed(Player player) {
         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.4f;
-    }
-
-    @Override
-    public boolean isControlledByLocalInstance() {
-        LivingEntity passenger = this.getControllingPassenger();
-        return passenger instanceof ServerPlayer || this.isEffectiveAi();
     }
 
     @Override

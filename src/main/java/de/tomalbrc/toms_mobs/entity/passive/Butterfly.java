@@ -120,7 +120,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
@@ -171,9 +171,9 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
-        if (tag.contains("Color")) this.setColor(tag.getInt("Color"));
+        if (tag.contains("Color")) this.setColor(tag.getInt("Color").orElseThrow());
         if (tag.contains("Variant")) {
-            String v = tag.getString("Variant");
+            String v = tag.getString("Variant").orElseThrow();
             if (this.containsVariant(v)) this.setVariant(v);
         }
     }

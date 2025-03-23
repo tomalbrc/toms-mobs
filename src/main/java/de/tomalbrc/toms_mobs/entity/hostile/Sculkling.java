@@ -142,7 +142,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
 
-        if (compoundTag.contains("XP")) this.stolenXP = compoundTag.getInt("XP");
+        if (compoundTag.contains("XP")) this.stolenXP = compoundTag.getIntOr("XP", 0);
     }
 
     @Override

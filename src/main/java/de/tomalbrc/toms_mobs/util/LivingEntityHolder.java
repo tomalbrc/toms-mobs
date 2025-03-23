@@ -40,7 +40,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
                 pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()), pose.readOnlyLeftRotation().get(new Quaternionf()),
                 new Vector3f(1.f), pose.readOnlyRightRotation().get(new Quaternionf())
         );
-        var matrix4f = tr.getMatrix();
+        var matrix4f = tr.getMatrixCopy();
 
         var node = getRotationParent(display.node());
 

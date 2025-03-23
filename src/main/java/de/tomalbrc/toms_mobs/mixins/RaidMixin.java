@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs.mixins;
 
+import de.tomalbrc.toms_mobs.ModConfig;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -19,26 +20,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Raid.class)
 public class RaidMixin {
     @Inject(method = "spawnGroup", at = @At("TAIL"))
-    void spawnGroup(BlockPos blockPos, CallbackInfo ci){
+    void spawnGroup(ServerLevel serverLevel, BlockPos blockPos, CallbackInfo ci) {
+        if (ModConfig.getInstance().noAdditionalRaidMobs) {
+            return;
+        }
+
         Raid raid = Raid.class.cast(this);
         // last wave
-        if (raid.getGroupsSpawned() >= raid.getNumGroups(raid.getLevel().getDifficulty())) {
-            Holder<Biome> biome = raid.getLevel().getBiome(blockPos);
+        if (raid.getGroupsSpawned() >= raid.getNumGroups(serverLevel.getDifficulty())) {
+            Holder<Biome> biome = serverLevel.getBiome(blockPos);
             Raider mob;
             if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES) && biome.is(BiomeTags.IS_MOUNTAIN)) {
-                mob = MobRegistry.SHOWMASTER.create(raid.getLevel(), EntitySpawnReason.MOB_SUMMONED);
+                mob = MobRegistry.SHOWMASTER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             } else {
-                mob = MobRegistry.ICEOLOGER.create(raid.getLevel(), EntitySpawnReason.MOB_SUMMONED);
+                mob = MobRegistry.ICEOLOGER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             }
 
-            tomsmobs$spawn(raid.getGroupsSpawned(), mob, blockPos);
+            tomsmobs$spawn(serverLevel, raid.getGroupsSpawned(), mob, blockPos);
         }
     }
 
     @Unique
-    public void tomsmobs$spawn(int wave, Raider raider, @Nullable BlockPos blockPos) {
+    public void tomsmobs$spawn(ServerLevel level, int wave, Raider raider, @Nullable BlockPos blockPos) {
         Raid raid = Raid.class.cast(this);
-        boolean didAdd = raid.addWaveMob(wave, raider, true);
+        boolean didAdd = raid.addWaveMob(level, wave, raider, true);
         if (didAdd) {
             raider.setCurrentRaid(raid);
             raider.setWave(wave);
@@ -46,10 +51,10 @@ public class RaidMixin {
             raider.setTicksOutsideRaid(0);
             if (blockPos != null) {
                 raider.setPos((double)blockPos.getX() + 0.5, (double)blockPos.getY() + 1.0, (double)blockPos.getZ() + 0.5);
-                raider.finalizeSpawn((ServerLevel) raid.getLevel(), raid.getLevel().getCurrentDifficultyAt(blockPos), EntitySpawnReason.EVENT, null);
-                raider.applyRaidBuffs((ServerLevel) raid.getLevel(), wave, false);
+                raider.finalizeSpawn(level, level.getCurrentDifficultyAt(blockPos), EntitySpawnReason.EVENT, null);
+                raider.applyRaidBuffs(level, wave, false);
                 raider.setOnGround(true);
-                raid.getLevel().addFreshEntity(raider);
+                level.addFreshEntity(raider);
             }
         }
     }
