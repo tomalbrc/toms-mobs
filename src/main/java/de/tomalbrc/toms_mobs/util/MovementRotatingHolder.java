@@ -32,7 +32,7 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
         }
 
         var transformation = new Transformation(pose.translation(), pose.leftRotation(), pose.scale(), pose.rightRotation());
-        Matrix4f matrix4f = transformation.getMatrix();
+        Matrix4f matrix4f = transformation.getMatrixCopy();
         matrix4f.translateLocal(0, -this.parent.getBbHeight(), 0);
 
         Vector3f movement = parent.getDeltaMovement().toVector3f();
@@ -41,7 +41,7 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
             float movementYaw = (float) Math.atan2(-movement.x, movement.z);
             float movementPitch = (float) Math.asin(movement.y);
 
-            float movementRoll = 0f; // Default roll is zero
+            float movementRoll = 0.f; // Default roll is zero
 
             if (Math.abs(movementPitch) < Math.PI / 4) {
                 movementRoll = (float) Math.sin(movementYaw) * 0.1f;
@@ -52,9 +52,8 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
 
             matrix4f
                     .rotateLocalX(-lastPitch)
-                    .rotateLocalZ(lastRoll)
-;//                    .rotateLocalY(-lastYaw + Mth.PI);
-
+                    .rotateLocalZ(lastRoll);
+//                  .rotateLocalY(-lastYaw + Mth.PI);
         }
 
         display.element().setTransformation(matrix4f);

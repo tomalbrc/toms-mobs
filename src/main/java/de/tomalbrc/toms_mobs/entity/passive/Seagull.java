@@ -84,7 +84,7 @@ public class Seagull extends Animal implements AnimatedEntity, FlyingMobCircleAr
             return;
         }
 
-        if (this.isControlledByLocalInstance()) {
+        if (!this.hasControllingPassenger()) {
             if (this.isInWater()) {
                 this.moveRelative(0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());

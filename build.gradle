@@ -13,7 +13,6 @@ loom {
 repositories {
     maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
-    mavenLocal()
 }
 
 dependencies {

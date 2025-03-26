@@ -23,12 +23,12 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=1.21.2-",
+    "minecraft": ">=1.21.5",
     "fabric-api": "*",
     "polymer-resource-pack": "*",
     "polymer-core": "*",
     "polymer-virtual-entity": "*",
-    "bil": ">=1.1.12"
+    "bil": ">=1.2.2"
   },
   "accessWidener": "toms_mobs.accesswidener"
 }
