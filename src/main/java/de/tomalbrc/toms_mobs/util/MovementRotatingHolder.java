@@ -1,6 +1,5 @@
 package de.tomalbrc.toms_mobs.util;
 
-import com.mojang.math.Transformation;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
@@ -31,8 +30,12 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
             return;
         }
 
-        var transformation = new Transformation(pose.translation(), pose.leftRotation(), pose.scale(), pose.rightRotation());
-        Matrix4f matrix4f = transformation.getMatrixCopy();
+        Matrix4f matrix4f = new Matrix4f();
+        matrix4f.translate(pose.readOnlyTranslation());
+        matrix4f.rotate(pose.readOnlyLeftRotation());
+        matrix4f.scale(pose.readOnlyScale());
+        matrix4f.rotate(pose.readOnlyRightRotation());
+
         matrix4f.translateLocal(0, -this.parent.getBbHeight(), 0);
 
         Vector3f movement = parent.getDeltaMovement().toVector3f();

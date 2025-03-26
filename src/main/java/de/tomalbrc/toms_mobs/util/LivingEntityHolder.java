@@ -1,6 +1,5 @@
 package de.tomalbrc.toms_mobs.util;
 
-import com.mojang.math.Transformation;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
@@ -9,7 +8,7 @@ import de.tomalbrc.bil.core.model.Pose;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder<T> {
@@ -33,11 +32,11 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
 
     @Override
     protected void applyPose(Pose pose, DisplayWrapper<?> display) {
-        var tr = new Transformation(
-                pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()), pose.readOnlyLeftRotation().get(new Quaternionf()),
-                new Vector3f(1.f), pose.readOnlyRightRotation().get(new Quaternionf())
-        );
-        var matrix4f = tr.getMatrixCopy();
+        Matrix4f matrix4f = new Matrix4f();
+        matrix4f.translate(pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()));
+        matrix4f.rotate(pose.readOnlyLeftRotation());
+        matrix4f.scale(new Vector3f(1.f));
+        matrix4f.rotate(pose.readOnlyRightRotation());
 
         var node = getRotationParent(display.node());
 
