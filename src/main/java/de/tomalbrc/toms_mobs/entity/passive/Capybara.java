@@ -129,14 +129,14 @@ public class Capybara extends Animal implements AnimatedEntity {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return this.tempting.test(itemStack);
+        return tempting.test(itemStack);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new AquaticPanicGoal(this, 0.35));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 0.3, this.tempting, false));
-        this.goalSelector.addGoal(2, new AquaticBreedGoal(this, 0.3));
+        this.goalSelector.addGoal(1, new AquaticBreedGoal(this, 0.3));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 0.3, tempting, false));
         this.goalSelector.addGoal(2, new AquaticFollowParentGoal(this, 0.25));
         this.goalSelector.addGoal(3, new PathfinderMobSwimGoal(this, 2.5));
         this.goalSelector.addGoal(4, new CapybaraRelaxGoal(this));

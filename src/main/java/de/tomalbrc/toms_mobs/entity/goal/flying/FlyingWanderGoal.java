@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entity.goal;
+package de.tomalbrc.toms_mobs.entity.goal.flying;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

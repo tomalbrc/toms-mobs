@@ -57,10 +57,10 @@ public class Lobster extends Animal implements AnimatedEntity {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.5, Ingredient.of(Items.SEAGRASS, Items.SALMON, Items.TROPICAL_FISH, Items.COD), false));
-        this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
-        this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.6));
+        this.goalSelector.addGoal(3, new LargeAnimalBreedGoal(this, 0.5));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 0.5, Ingredient.of(Items.SEAGRASS, Items.SALMON, Items.TROPICAL_FISH, Items.COD), false));
+        this.goalSelector.addGoal(5, new PanicGoal(this, 0.6));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 0.6));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));

@@ -75,7 +75,7 @@ public class MobRegistry {
             FabricEntityType.Builder.createMob(Seagull::new, MobCategory.CREATURE, x -> x
                             .defaultAttributes(Seagull::createAttributes)
                             .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules))
-                    .sized(0.8f, 0.75f)
+                    .sized(0.8f, 0.9f)
     );
 
     public static final EntityType<Nautilus> NAUTILUS = register(

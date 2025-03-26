@@ -3,8 +3,8 @@ package de.tomalbrc.toms_mobs.entity.passive;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.toms_mobs.entity.goal.FlyingWanderGoal;
-import de.tomalbrc.toms_mobs.util.MovementRotatingHolder;
+import de.tomalbrc.toms_mobs.entity.goal.flying.FlyingWanderGoal;
+import de.tomalbrc.toms_mobs.util.SimpleMovementRotatingHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
@@ -78,7 +78,7 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         this.setPathfindingMalus(PathType.COCOA, -1.0F);
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
 
-        this.holder = new MovementRotatingHolder(this, MODEL);
+        this.holder = new SimpleMovementRotatingHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
 
         this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.65f));

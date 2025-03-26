@@ -3,12 +3,32 @@ package de.tomalbrc.toms_mobs.util;
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
 import de.tomalbrc.toms_mobs.entity.passive.Capybara;
+import de.tomalbrc.toms_mobs.entity.passive.Seagull;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper {
 
     public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder) {
         updateWalkAnimation(entity, holder, 0);
+    }
+
+    public static void updateBirdAnimation(Seagull entity, AnimatedHolder holder) {
+        Animator animator = holder.getAnimator();
+        if (!entity.canFlyCurrently() || entity.onGround()) {
+            if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
+                animator.playAnimation("walk", 0);
+                animator.pauseAnimation("idle");
+                animator.pauseAnimation("fly");
+            } else {
+                animator.pauseAnimation("walk");
+                animator.pauseAnimation("fly");
+                animator.playAnimation("idle", 0, true);
+            }
+        } else {
+            animator.playAnimation("fly", 0);
+            animator.pauseAnimation("idle");
+            animator.pauseAnimation("walk");
+        }
     }
 
     public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder, int priority) {
@@ -18,7 +38,7 @@ public class AnimationHelper {
             animator.pauseAnimation("idle");
         } else {
             animator.pauseAnimation("walk");
-            animator.playAnimation("idle", priority, true);
+            animator.playAnimation("idle", priority);
         }
     }
 

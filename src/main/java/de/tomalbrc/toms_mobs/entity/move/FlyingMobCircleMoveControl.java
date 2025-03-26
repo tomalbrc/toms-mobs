@@ -1,6 +1,6 @@
 package de.tomalbrc.toms_mobs.entity.move;
 
-import de.tomalbrc.toms_mobs.entity.goal.FlyingMobCircleAroundAnchorGoal;
+import de.tomalbrc.toms_mobs.entity.goal.flying.FlyingMobCircleAroundAnchorGoal;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -17,41 +17,46 @@ public class FlyingMobCircleMoveControl extends MoveControl {
     }
 
     public void tick() {
+        if (!this.flyingMob.canFlyCurrently()) {
+            super.tick();
+            return;
+        }
+
         if (this.mob.horizontalCollision) {
             this.mob.setYRot(this.mob.getYRot() + 180.0F);
             this.speed = 0.1F;
         }
 
-        double d = this.flyingMob.getMoveTargetPoint().x - this.flyingMob.getX();
-        double e = this.flyingMob.getMoveTargetPoint().y - this.flyingMob.getY();
-        double f = this.flyingMob.getMoveTargetPoint().z - this.flyingMob.getZ();
-        double g = Math.sqrt(d * d + f * f);
-        if (Math.abs(g) > 9.999999747378752E-6) {
-            double h = 1.0 - Math.abs(e * 0.699999988079071) / g;
-            d *= h;
-            f *= h;
-            g = Math.sqrt(d * d + f * f);
-            double i = Math.sqrt(d * d + f * f + e * e);
-            float j = this.mob.getYRot();
-            float k = (float) Mth.atan2(f, d);
+        double dx = this.flyingMob.getMoveTargetPoint().x - this.flyingMob.getX();
+        double dy = this.flyingMob.getMoveTargetPoint().y - this.flyingMob.getY();
+        double dz = this.flyingMob.getMoveTargetPoint().z - this.flyingMob.getZ();
+        double horizontalDeltaDist = Math.sqrt(dx * dx + dz * dz);
+        if (Math.abs(horizontalDeltaDist) > 0.00001) {
+            double h = 1.0 - Math.abs(dy * 0.9) / horizontalDeltaDist;
+            dx *= h;
+            dz *= h;
+            horizontalDeltaDist = Math.sqrt(dx * dx + dz * dz);
+            double deltaLen = Math.sqrt(dx * dx + dz * dz + dy * dy);
+            float yRotOld = this.mob.getYRot();
+            float dirAngRad = (float) Mth.atan2(dz, dx);
             float l = Mth.wrapDegrees(this.mob.getYRot() + 90.0F);
-            float m = Mth.wrapDegrees(k * 57.295776F);
+            float m = Mth.wrapDegrees(dirAngRad * 57.295776F);
             this.mob.setYRot(Mth.approachDegrees(l, m, 4.0F) - 90.0F);
             this.mob.yBodyRot = this.mob.getYRot();
-            if (Mth.degreesDifferenceAbs(j, this.mob.getYRot()) < 3.0F) {
+            if (Mth.degreesDifferenceAbs(yRotOld, this.mob.getYRot()) < 3.0F) {
                 this.speed = Mth.approach(this.speed, 1.8F, 0.005F * (1.8F / this.speed));
             } else {
                 this.speed = Mth.approach(this.speed, 0.2F, 0.025F);
             }
 
-            float n = (float)(-(Mth.atan2(-e, g) * 57.2957763671875));
+            float n = (float)(-(Mth.atan2(-dy, horizontalDeltaDist) * 57.295776F));
             this.mob.setXRot(n);
-            float o = this.mob.getYRot() + 90.0F;
-            double p = (double)(this.speed * Mth.cos(o * 0.017453292F)) * Math.abs(d / i);
-            double q = (double)(this.speed * Mth.sin(o * 0.017453292F)) * Math.abs(f / i);
-            double r = (double)(this.speed * Mth.sin(n * 0.017453292F)) * Math.abs(e / i);
+            float yaw = this.mob.getYRot() + 90.0F;
+            double moveX = (double)(this.speed * Mth.cos(yaw * 0.017453292F)) * Math.abs(dx / deltaLen);
+            double moveZ = (double)(this.speed * Mth.sin(yaw * 0.017453292F)) * Math.abs(dz / deltaLen);
+            double moveY = (double)(this.speed * Mth.sin(n * 0.017453292F)) * Math.abs(dy / deltaLen);
             Vec3 vec3 = this.mob.getDeltaMovement();
-            this.mob.setDeltaMovement(vec3.add((new Vec3(p, r, q)).subtract(vec3).scale(0.2)));
+            this.mob.setDeltaMovement(vec3.add((new Vec3(moveX, moveY, moveZ)).subtract(vec3).scale(0.2)));
         }
     }
 }
