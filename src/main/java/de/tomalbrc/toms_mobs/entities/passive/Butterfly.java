@@ -228,4 +228,8 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         }
     }
 
+    @Override
+    public boolean removeWhenFarAway(double d) {
+        return !this.isLeashed() && !this.hasCustomName();
+    }
 }
