@@ -24,7 +24,6 @@ public class RaidMixin {
         if (ModConfig.getInstance().noAdditionalRaidMobs) {
             return;
         }
-
         Raid raid = Raid.class.cast(this);
         // last wave
         if (raid.getGroupsSpawned() >= raid.getNumGroups(serverLevel.getDifficulty())) {

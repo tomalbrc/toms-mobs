@@ -88,9 +88,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.55, tempting, false));
-        this.goalSelector.addGoal(4, new LargeAnimalBreedGoal(this, 0.5));
+        this.goalSelector.addGoal(3, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 0.55, tempting, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));

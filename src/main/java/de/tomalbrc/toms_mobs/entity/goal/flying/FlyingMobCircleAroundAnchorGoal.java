@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entity.goal;
+package de.tomalbrc.toms_mobs.entity.goal.flying;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -10,13 +10,17 @@ import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 
 public class FlyingMobCircleAroundAnchorGoal extends Goal {
+    static final int MAX_FLYTIME = 20*20;
+    static final int RETURN_TIME = 15*20;
+
     private float angle;
     private float distance;
     private float height;
     private float clockwise;
 
-    private final FlyCirclingMob flyingMob;
+    private boolean active = false;
 
+    private final FlyCirclingMob flyingMob;
 
     protected boolean touchingTarget() {
         return this.flyingMob.getMoveTargetPoint().distanceToSqr(this.flyingMob.getX(), this.flyingMob.getY(), this.flyingMob.getZ()) < 4.0;
@@ -28,20 +32,41 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
         this.flyingMob = mob;
     }
 
+    @Override
     public boolean canUse() {
-        return true;
+        return flyingMob.flytime() <= 0;
     }
 
+    @Override
+    public boolean canContinueToUse() {
+        var tooOld = flyingMob.flytime() > MAX_FLYTIME;
+        return !(tooOld || (flyingMob.flytime() > RETURN_TIME && this.flyingMob.getAnchorPoint().getCenter().distanceTo(this.flyingMob.position()) <= 2.5));
+    }
+
+    @Override
     public void start() {
+        this.active = true;
         this.distance = 5.0F + this.flyingMob.getRandom().nextFloat() * 10.0F;
-        this.height = -4.0F + this.flyingMob.getRandom().nextFloat() * 9.0F;
+        this.height = -0.5F + this.flyingMob.getRandom().nextFloat() * 2.0F;
         this.clockwise = this.flyingMob.getRandom().nextBoolean() ? 1.0F : -1.0F;
+        //this.flyingMob.setDeltaMovement(new Vec3(0,0.1,0));
+        this.flyingMob.setOnGroundWithMovement(false, new Vec3(0,0.1,0));
         this.selectNext();
     }
 
+    @Override
+    public void stop() {
+        this.active = false;
+        this.flyingMob.setMoveTargetPoint(flyingMob.getAnchorPoint().getBottomCenter());
+    }
+
+    @Override
     public void tick() {
+
+        flyingMob.incFlytime();
+
         if (this.flyingMob.getRandom().nextInt(this.adjustedTickDelay(350)) == 0) {
-            this.height = -4.0F + this.flyingMob.getRandom().nextFloat() * 9.0F;
+            this.height = -4.0F + this.flyingMob.getRandom().nextFloat() * 8.0F;
         }
 
         if (this.flyingMob.getRandom().nextInt(this.adjustedTickDelay(250)) == 0) {
@@ -53,7 +78,7 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
         }
 
         if (this.flyingMob.getRandom().nextInt(this.adjustedTickDelay(450)) == 0) {
-            this.angle = this.flyingMob.getRandom().nextFloat() * 2.0F * Mth.PI;
+            this.angle += (this.flyingMob.getRandom().nextFloat()-0.5f)*0.01f;
             this.selectNext();
         }
 
@@ -73,12 +98,23 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
     }
 
     private void selectNext() {
+        if (flyingMob.flytime() >= 10*20) {
+            this.flyingMob.setMoveTargetPoint(flyingMob.getAnchorPoint().getBottomCenter().subtract(0,20,0));
+            return;
+        }
+
+
         if (BlockPos.ZERO.equals(this.flyingMob.getAnchorPoint())) {
             this.flyingMob.setAnchorPoint(this.flyingMob.blockPosition());
         }
 
         this.angle += this.clockwise * 15.0F * 0.017453292F;
-        this.flyingMob.setMoveTargetPoint(Vec3.atLowerCornerOf(this.flyingMob.getAnchorPoint()).add((this.distance * Mth.cos(this.angle)), (-4.0F + this.height), (this.distance * Mth.sin(this.angle))));
+        var vec = this.flyingMob.position().vectorTo(this.flyingMob.getAnchorPoint().getCenter()).multiply(1.0, 0.1f, 1.f).add(flyingMob.position());
+        this.flyingMob.setMoveTargetPoint(vec.add((this.distance * Mth.cos(this.angle)), (-0.0F + this.height), (this.distance * Mth.sin(this.angle))));
+    }
+
+    public boolean active() {
+        return this.active;
     }
 
     public interface FlyCirclingMob {
@@ -94,8 +130,19 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
 
         RandomSource getRandom();
 
+        Vec3 position();
+        void setDeltaMovement(Vec3 deltaMovement);
+
         Level level();
 
         BlockPos blockPosition();
+
+        void setOnGroundWithMovement(boolean onGround, Vec3 movement);
+
+        int flytime();
+        int incFlytime();
+        int decFlytime();
+
+        boolean canFlyCurrently();
     }
 }

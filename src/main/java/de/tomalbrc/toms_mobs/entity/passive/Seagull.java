@@ -2,47 +2,65 @@ package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.toms_mobs.entity.goal.FlyingWanderGoal;
+import de.tomalbrc.toms_mobs.entity.goal.flying.FlyingMobCircleAroundAnchorGoal;
+import de.tomalbrc.toms_mobs.entity.move.FlyingMobCircleMoveControl;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.MovementRotatingHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.control.JumpControl;
+import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
+public class Seagull extends Animal implements AnimatedEntity, FlyingMobCircleAroundAnchorGoal.FlyCirclingMob {
     public static final ResourceLocation ID = Util.id("seagull");
     public static final Model MODEL = Util.loadBbModel(ID);
+
     private final EntityHolder<Seagull> holder;
 
-    private final Ingredient tempting = Ingredient.of(BuiltInRegistries.ITEM.get(ItemTags.MEAT).orElseThrow());
+    private FlyingMobCircleAroundAnchorGoal circleAroundAnchorGoal;
+
+    ///  TODO: save/load values
+    private int flytime = -1;
+    private BlockPos anchor;
+    private Vec3 moveTarget;
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.5)
+        return Animal.createAnimalAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.6)
                 .add(Attributes.FLYING_SPEED, 1)
                 .add(Attributes.MAX_HEALTH, 16.0);
+    }
+
+    public Seagull(EntityType<? extends Animal> type, Level level) {
+        super(type, level);
+        this.moveControl = new FlyingMobCircleMoveControl(this);
+        this.lookControl = new LookControl(this);
+
+        this.holder = new MovementRotatingHolder<>(this, MODEL);
+        EntityAttachment.ofTicking(this.holder, this);
     }
 
     @Override
@@ -50,38 +68,124 @@ public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
         return this.holder;
     }
 
-    public Seagull(EntityType<? extends Animal> type, Level level) {
-        super(type, level);
-        this.moveControl = new FlyingMoveControl(this, 3, false);
-        this.jumpControl = new JumpControl(this);
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
+    }
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
-        EntityAttachment.ofTicking(this.holder, this);
+    @Override
+    protected void checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos) {
+    }
+
+    @Override
+    public void travel(Vec3 vec3) {
+        if (!canFlyCurrently()) {
+            super.travel(vec3);
+            return;
+        }
+
+        if (this.isControlledByLocalInstance()) {
+            if (this.isInWater()) {
+                this.moveRelative(0.02F, vec3);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
+            } else if (this.isInLava()) {
+                this.moveRelative(0.02F, vec3);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5F));
+            } else {
+                float f = 0.91F;
+                if (this.onGround()) {
+                    f = this.level().getBlockState(this.getBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction() * 0.91F;
+                }
+
+                float g = 0.16277137F / (f * f * f);
+                f = 0.91F;
+                if (this.onGround()) {
+                    f = this.level().getBlockState(this.getBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction() * 0.91F;
+                }
+
+                this.moveRelative(this.onGround() ? 0.1F * g : 0.02F, vec3);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(f));
+            }
+        }
+
+    }
+
+    public boolean onClimbable() {
+        return false;
     }
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return tempting.test(itemStack);
+        return itemStack.is(ItemTags.FOX_FOOD) || itemStack.is(ItemTags.WOLF_FOOD);
+    }
+
+    @Override
+    public void setAge(int age) {
+        super.setAge(age);
+        if (age < 0) {
+            this.holder.setScale(0.5f);
+        } else {
+            this.holder.setScale(1.f);
+        }
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, tempting, true));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 0.3));
-        this.goalSelector.addGoal(4, new PanicGoal(this, 0.6));
-        this.goalSelector.addGoal(7, new FlyingWanderGoal(this));
+        this.goalSelector.addGoal(2, new PanicGoal(this, 0.45) {
+            @Override
+            public boolean canUse() {
+                return !canFlyCurrently() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(3, new BreedGoal(this, 0.35) {
+            @Override
+            public boolean canUse() {
+                return !canFlyCurrently() && super.canUse();
+            }
+        });
+
+        this.goalSelector.addGoal(4, new TemptGoal(this, 0.4, itemStack -> itemStack.is(ItemTags.FOX_FOOD) || itemStack.is(ItemTags.WOLF_FOOD), false) {
+            @Override
+            public boolean canUse() {
+                return !canFlyCurrently() && super.canUse();
+            }
+        });
+
+        this.circleAroundAnchorGoal = new FlyingMobCircleAroundAnchorGoal(this);
+        this.goalSelector.addGoal(5, this.circleAroundAnchorGoal);
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.3) {
+            @Override
+            public boolean canUse() {
+                return !canFlyCurrently() && super.canUse();
+            }
+        });
+
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return !canFlyCurrently() && super.canUse();
+            }
+        });
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
+
 
     @Override
     public void tick() {
         super.tick();
 
+        if (!this.circleAroundAnchorGoal.active() && this.level().getGameTime() % 2 == 0) {
+            this.decFlytime();
+        }
+
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateWalkAnimation(this, this.holder);
+            AnimationHelper.updateBirdAnimation(this, this.holder);
             AnimationHelper.updateHurtVariant(this, this.holder);
         }
     }
@@ -119,7 +223,66 @@ public class Seagull extends Animal implements FlyingAnimal, AnimatedEntity {
     }
 
     @Override
-    public boolean isFlying() {
-        return !this.onGround();
+    @NotNull
+    protected PathNavigation createNavigation(Level level) {
+
+        GroundPathNavigation flyingPathNavigation = new GroundPathNavigation(this, level) {
+            public boolean isStableDestination(BlockPos blockPos) {
+                if (canFlyCurrently())
+                    return this.level.getBlockState(blockPos.below()).isAir();
+                return this.level.getBlockState(blockPos).entityCanStandOn(this.level, blockPos, this.mob);
+            }
+        };
+        flyingPathNavigation.setCanOpenDoors(false);
+        flyingPathNavigation.setCanFloat(false);
+        return flyingPathNavigation;
+    }
+
+    @Override
+    public BlockPos getAnchorPoint() {
+        if (anchor == null) anchor = this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition()).above(20);
+        return anchor;
+    }
+
+    @Override
+    public void setAnchorPoint(BlockPos anchor) {
+        this.anchor = anchor;
+    }
+
+    @Override
+    public int flytime() {
+        return this.flytime;
+    }
+
+    @Override
+    public int incFlytime() {
+        return ++this.flytime;
+    }
+
+    @Override
+    public int decFlytime() {
+        return --this.flytime;
+    }
+
+    @Override
+    public boolean canFlyCurrently() {
+        return circleAroundAnchorGoal.canContinueToUse();
+    }
+
+    @Override
+    public Vec3 getMoveTargetPoint() {
+        if (moveTarget == null) moveTarget = this.position().add(0,2,0);
+        return moveTarget;
+    }
+
+    @Override
+    public void setMoveTargetPoint(Vec3 pos) {
+        moveTarget = pos;
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
+        this.anchor = serverLevelAccessor.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition()).above(20);
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, entitySpawnReason, spawnGroupData);
     }
 }

@@ -4,7 +4,7 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.toms_mobs.entity.goal.FlyingWanderGoal;
+import de.tomalbrc.toms_mobs.entity.goal.flying.FlyingWanderGoal;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
