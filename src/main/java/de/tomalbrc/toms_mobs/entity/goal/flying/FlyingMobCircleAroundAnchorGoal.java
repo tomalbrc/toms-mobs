@@ -1,10 +1,9 @@
 package de.tomalbrc.toms_mobs.entity.goal.flying;
 
+import de.tomalbrc.toms_mobs.entity.passive.Seagull;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -20,13 +19,13 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
 
     private boolean active = false;
 
-    private final FlyCirclingMob flyingMob;
+    private final Seagull flyingMob;
 
     protected boolean touchingTarget() {
         return this.flyingMob.getMoveTargetPoint().distanceToSqr(this.flyingMob.getX(), this.flyingMob.getY(), this.flyingMob.getZ()) < 4.0;
     }
 
-    public FlyingMobCircleAroundAnchorGoal(FlyCirclingMob mob) {
+    public FlyingMobCircleAroundAnchorGoal(Seagull mob) {
         super();
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         this.flyingMob = mob;
@@ -98,7 +97,7 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
     }
 
     private void selectNext() {
-        if (flyingMob.flytime() >= 10*20) {
+        if (flyingMob.flytime() >= MAX_FLYTIME) {
             this.flyingMob.setMoveTargetPoint(flyingMob.getAnchorPoint().getBottomCenter().subtract(0,20,0));
             return;
         }
@@ -115,34 +114,5 @@ public class FlyingMobCircleAroundAnchorGoal extends Goal {
 
     public boolean active() {
         return this.active;
-    }
-
-    public interface FlyCirclingMob {
-        Vec3 getMoveTargetPoint();
-        BlockPos getAnchorPoint();
-
-        void setMoveTargetPoint(Vec3 point);
-        void setAnchorPoint(BlockPos blockPos);
-
-        double getX();
-        double getY();
-        double getZ();
-
-        RandomSource getRandom();
-
-        Vec3 position();
-        void setDeltaMovement(Vec3 deltaMovement);
-
-        Level level();
-
-        BlockPos blockPosition();
-
-        void setOnGroundWithMovement(boolean onGround, Vec3 movement);
-
-        int flytime();
-        int incFlytime();
-        int decFlytime();
-
-        boolean canFlyCurrently();
     }
 }

@@ -34,7 +34,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Seagull extends Animal implements AnimatedEntity, FlyingMobCircleAroundAnchorGoal.FlyCirclingMob {
+public class Seagull extends Animal implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("seagull");
     public static final Model MODEL = Util.loadBbModel(ID);
 
@@ -238,44 +238,36 @@ public class Seagull extends Animal implements AnimatedEntity, FlyingMobCircleAr
         return flyingPathNavigation;
     }
 
-    @Override
     public BlockPos getAnchorPoint() {
         if (anchor == null) anchor = this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition()).above(20);
         return anchor;
     }
 
-    @Override
     public void setAnchorPoint(BlockPos anchor) {
         this.anchor = anchor;
     }
 
-    @Override
     public int flytime() {
         return this.flytime;
     }
 
-    @Override
     public int incFlytime() {
         return ++this.flytime;
     }
 
-    @Override
     public int decFlytime() {
         return --this.flytime;
     }
 
-    @Override
     public boolean canFlyCurrently() {
         return circleAroundAnchorGoal.canContinueToUse();
     }
 
-    @Override
     public Vec3 getMoveTargetPoint() {
         if (moveTarget == null) moveTarget = this.position().add(0,2,0);
         return moveTarget;
     }
 
-    @Override
     public void setMoveTargetPoint(Vec3 pos) {
         moveTarget = pos;
     }

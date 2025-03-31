@@ -1,18 +1,17 @@
 package de.tomalbrc.toms_mobs.entity.move;
 
-import de.tomalbrc.toms_mobs.entity.goal.flying.FlyingMobCircleAroundAnchorGoal;
+import de.tomalbrc.toms_mobs.entity.passive.Seagull;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.phys.Vec3;
 
 public class FlyingMobCircleMoveControl extends MoveControl {
     private float speed = 0.1F;
 
-    private final FlyingMobCircleAroundAnchorGoal.FlyCirclingMob flyingMob;
+    private final Seagull flyingMob;
 
-    public FlyingMobCircleMoveControl(final FlyingMobCircleAroundAnchorGoal.FlyCirclingMob mob) {
-        super((Mob) mob);
+    public FlyingMobCircleMoveControl(final Seagull mob) {
+        super(mob);
         this.flyingMob = mob;
     }
 
