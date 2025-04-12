@@ -63,6 +63,13 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
         }
         matrix4f.scaleLocal(this.entityScale);
 
+        if (this.entityScale != 1.0F) {
+            matrix4f.scale(pose.readOnlyScale());
+        } else {
+            matrix4f.scale(pose.readOnlyScale());
+        }
+
+
         display.element().setTransformation(matrix4f);
         display.element().startInterpolationIfDirty();
     }

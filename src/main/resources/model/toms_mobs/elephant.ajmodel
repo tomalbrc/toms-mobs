@@ -223,7 +223,6 @@
 			"to": [18, 58.5, 27],
 			"autouv": 0,
 			"color": 8,
-			"visibility": false,
 			"origin": [0, 0, 0],
 			"faces": {
 				"north": {
