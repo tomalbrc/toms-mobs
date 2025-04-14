@@ -13,6 +13,7 @@ import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.Registry;
@@ -106,7 +107,7 @@ public class MobRegistry {
             Lobster.ID,
             FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_AMBIENT, x -> x
                             .defaultAttributes(Lobster::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, (xx, y, z, t, r) -> true))
+                            .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (xx, y, z, t, r) -> true))
                     .sized(0.65f, 0.35f)
     );
 
@@ -248,8 +249,8 @@ public class MobRegistry {
 
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
-                        .or(BiomeSelectors.tag(BiomeTags.IS_BEACH))
-                        .or(BiomeSelectors.tag(BiomeTags.IS_OCEAN))
+                        .or(BiomeSelectors.tag(BiomeTags.IS_BEACH)).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH))
+                        .or(BiomeSelectors.tag(BiomeTags.IS_OCEAN)).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
