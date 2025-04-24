@@ -107,7 +107,7 @@ public class MobRegistry {
             Lobster.ID,
             FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_AMBIENT, x -> x
                             .defaultAttributes(Lobster::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (xx, y, z, t, r) -> true))
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.OCEAN_FLOOR, (xx, y, z, t, r) -> true))
                     .sized(0.65f, 0.35f)
     );
 
@@ -208,7 +208,7 @@ public class MobRegistry {
 
         if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID))
             BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
-                    .or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
+                    .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE))
                     .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
                     .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
                     .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
@@ -216,7 +216,7 @@ public class MobRegistry {
             );
 
         if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID))
-            BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
+            BiomeHelper.addSpawn(ELEPHANT, 20, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID))
             BiomeHelper.addSpawn(SCULKLING, 20, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
@@ -228,8 +228,8 @@ public class MobRegistry {
 
         if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID))
             BiomeHelper.addSpawn(BUTTERFLY, 25, 2, 5, BiomeSelectors.foundInOverworld()
-                    .and(BiomeHelper.excludeTag(BiomeTags.IS_OCEAN))
-                    .and(BiomeHelper.excludeTag(BiomeTags.IS_RIVER))
+                    .and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_OCEAN))
+                    .and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_RIVER))
                     .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
             );
 
@@ -238,19 +238,19 @@ public class MobRegistry {
 
         // Icy
         if (!ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
-            BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)));
+            BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(ConventionalBiomeTags.IS_MOUNTAIN)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID))
-            BiomeHelper.addSpawn(MANTARAY, 10, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+            BiomeHelper.addSpawn(MANTARAY, 6, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID))
-            BiomeHelper.addSpawn(TUNA, 6, 1, 2, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+            BiomeHelper.addSpawn(TUNA, 5, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID))
-            BiomeHelper.addSpawn(NAUTILUS, 4, 1, 1, BiomeSelectors.tag(BiomeTags.IS_OCEAN));
+            BiomeHelper.addSpawn(NAUTILUS, 4, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
-                BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH)
-                        .or(BiomeSelectors.tag(BiomeTags.IS_BEACH)).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH))
-                        .or(BiomeSelectors.tag(BiomeTags.IS_OCEAN)).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
+                BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH).or(BiomeSelectors.spawnsOneOf(EntityType.TURTLE))
+                        .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH))
+                        .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
