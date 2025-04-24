@@ -2,10 +2,10 @@ package de.tomalbrc.toms_mobs.entity.hostile;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.file.loader.AjModelLoader;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.GeyserCompatHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
@@ -14,7 +14,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
@@ -27,6 +30,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.geysermc.floodgate.api.FloodgateApi;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 public class Snake extends Monster implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("snake");
@@ -38,6 +43,15 @@ public class Snake extends Monster implements AnimatedEntity {
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     public static boolean checkSnakeSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
@@ -55,7 +69,7 @@ public class Snake extends Monster implements AnimatedEntity {
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
     }
 

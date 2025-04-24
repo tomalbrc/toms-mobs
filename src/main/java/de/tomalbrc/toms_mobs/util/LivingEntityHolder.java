@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder<T> {
+public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
 
     public LivingEntityHolder(T parent, Model model) {
         super(parent, model);

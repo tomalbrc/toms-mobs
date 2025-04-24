@@ -34,8 +34,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     public static final ResourceLocation ID = Util.id("butterfly");
@@ -83,6 +85,15 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
 
         this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.65f));
         this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

@@ -2,7 +2,6 @@ package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entity.goal.PenguinSlideGoal;
 import de.tomalbrc.toms_mobs.entity.goal.aquatic.*;
@@ -11,6 +10,7 @@ import de.tomalbrc.toms_mobs.entity.navigation.SemiAmphibiousPathNavigation;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.GeyserCompatHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
@@ -46,8 +46,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     public static final ResourceLocation ID = Util.id("penguin");
@@ -78,8 +80,17 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         this.moveControl = new SemiAquaticMoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

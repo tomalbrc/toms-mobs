@@ -3,12 +3,12 @@ package de.tomalbrc.toms_mobs.entity.hostile;
 import com.mojang.math.Axis;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.Locator;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entity.goal.IceSpikeGoal;
 import de.tomalbrc.toms_mobs.entity.goal.SummonIceClusterGoal;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
+import de.tomalbrc.toms_mobs.util.GeyserCompatHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
@@ -37,9 +37,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("iceologer");
@@ -89,8 +91,17 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     public Iceologer(EntityType<? extends SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

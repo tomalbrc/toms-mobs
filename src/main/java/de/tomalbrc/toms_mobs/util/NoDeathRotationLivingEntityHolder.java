@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-public class NoDeathRotationLivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder<T> {
+public class NoDeathRotationLivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
 
     public NoDeathRotationLivingEntityHolder(T parent, Model model) {
         super(parent, model);
