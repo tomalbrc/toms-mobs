@@ -1,7 +1,6 @@
 package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Pose;
@@ -11,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> extends LivingEntityHolder<T> {
+public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
     private float lastYaw = 0.f;
     private float lastPitch = 0.f;
     private float lastRoll = 0.f;
@@ -61,5 +60,6 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
 
         display.element().setTransformation(matrix4f);
         display.element().startInterpolationIfDirty();
+
     }
 }

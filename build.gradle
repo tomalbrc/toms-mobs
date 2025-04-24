@@ -13,6 +13,14 @@ loom {
 repositories {
     maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://maven.pokeskies.com/repository/releases/' }
+    maven {
+        url = uri("https://repo.opencollab.dev/main/")
+    }
+    maven { url 'https://repo.opencollab.dev/maven-releases/' }
+    maven { url 'https://repo.opencollab.dev/maven-snapshots/' }
+    mavenLocal()
 }
 
 dependencies {
@@ -28,6 +36,15 @@ dependencies {
     modImplementation("eu.pb4:polymer-autohost:${project.polymer_version}")
 
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
+
+    modImplementation(include("com.pokeskies:FabricPluginMessaging:1.0.0"))
+    modImplementation(include("me.zimzaza4:geyserutils:1.0.0"))
+
+    compileOnly('org.geysermc.floodgate:api:2.2.4-SNAPSHOT')
+    compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
+
+    implementation 'org.cloudburstmc.protocol:common:3.0.0.Beta6-SNAPSHOT'
+    implementation 'org.cloudburstmc.protocol:bedrock-connection:3.0.0.Beta6-SNAPSHOT'
 }
 
 processResources {

@@ -21,7 +21,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
 
@@ -49,6 +51,15 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
         this.holder.getAnimator().playAnimation("up", 10);
 
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

@@ -10,11 +10,15 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.LivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import me.zimzaza4.geyserutils.common.animation.Animation;
+import me.zimzaza4.geyserutils.fabric.api.EntityUtils;
+import me.zimzaza4.geyserutils.fabric.api.PlayerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -35,8 +39,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+import java.util.ArrayList;
 
 public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final ResourceLocation ID = Util.id("elephant");
@@ -58,6 +66,15 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
+    }
+
+    @Override
     public EntityHolder<Elephant> getHolder() {
         return this.holder;
     }
@@ -66,6 +83,11 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         super(type, level);
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
+
+        for (Player player : level.players()) {
+            if (FloodgateApi.getInstance().isFloodgatePlayer(player.getUUID()))
+                EntityUtils.setCustomEntity((ServerPlayer) player, this.getId(), "modelengine:toms_mobs.elephant");
+        }
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
@@ -106,6 +128,12 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateWalkAnimation(this, this.holder);
             AnimationHelper.updateHurtVariant(this, this.holder);
+
+            if (this.tickCount % 100 == 0) for (ServerGamePacketListenerImpl player : this.holder.getWatchingPlayers()) {
+                if (FloodgateApi.getInstance().isFloodgatePlayer(player.player.getUUID())) {
+                    PlayerUtils.playEntityAnimation(player.player, Animation.builder().animation("animation.toms_mobs.elephant.walk").controller("controller.animation.toms_mobs.elephant.walk").build(), new ArrayList<>(this.getId()));
+                }
+            }
         }
     }
 
@@ -249,7 +277,6 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
         this.yRotO = this.yBodyRot = this.yBodyRotO = this.yHeadRot = this.yHeadRotO = this.getYRot();
-
 
         if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.getLastClientInput().jump()) {
             attackCooldown += 30;

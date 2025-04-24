@@ -18,7 +18,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.Nullable;
+import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,6 +53,15 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
 
         this.holder = new SimpleEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public EntityType<?> getPolymerEntityType(PacketContext context) {
+        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
+            return EntityType.PIG;
+        }
+
+        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

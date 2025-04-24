@@ -1,5 +1,8 @@
 package de.tomalbrc.toms_mobs;
 
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
+import com.pokeskies.fabricpluginmessaging.PluginMessageEvent;
 import de.tomalbrc.toms_mobs.registry.ItemRegistry;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
@@ -17,5 +20,11 @@ public class TomsMobs implements ModInitializer {
         SoundRegistry.registerSounds();
         MobRegistry.registerMobs();
         ItemRegistry.registerItems();
+
+        PluginMessageEvent.EVENT.register((pluginMessagePacket, context) -> {
+            ByteArrayDataInput inputStream  = ByteStreams.newDataInput(pluginMessagePacket.getData());
+            String channel = inputStream.readUTF();
+            System.out.println("received PluginMessageEvent, channel:" + channel);
+        });
     }
 }
