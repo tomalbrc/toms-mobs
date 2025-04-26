@@ -8,7 +8,8 @@
     "FallingBlockEntityAccessor",
     "LivingEntityAccessor",
     "MeleeAttackGoalAccessor",
-    "RaidMixin"
+    "RaidMixin",
+    "V1460Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
