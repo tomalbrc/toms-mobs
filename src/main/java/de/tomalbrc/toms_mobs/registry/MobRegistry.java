@@ -228,9 +228,7 @@ public class MobRegistry {
 
         if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID))
             BiomeHelper.addSpawn(BUTTERFLY, 25, 2, 5, BiomeSelectors.foundInOverworld()
-                    .and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_OCEAN))
-                    .and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_RIVER))
-                    .and(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))
+                    .and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_OCEAN).or(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_RIVER)).or(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES)))
             );
 
         if (!ModConfig.getInstance().disabledMobs.contains(Capybara.ID))
