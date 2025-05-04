@@ -43,7 +43,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Elephant> holder;
 
-    private static final Ingredient tempting = Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
+    private static final Ingredient tempting() {
+        return Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
+    }
 
     private int attackCooldown = -1;
 
@@ -81,7 +83,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return tempting.test(itemStack);
+        return tempting().test(itemStack);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
         this.goalSelector.addGoal(3, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 0.55, tempting, false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 0.55, tempting(), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
