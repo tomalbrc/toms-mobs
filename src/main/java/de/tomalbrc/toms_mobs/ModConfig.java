@@ -2,7 +2,7 @@ package de.tomalbrc.toms_mobs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.tomalbrc.bil.json.JSON;
+import de.tomalbrc.bil.json.SimpleCodecDeserializer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ public class ModConfig {
     private static ModConfig instance;
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeHierarchyAdapter(ResourceLocation.class, new JSON.ResourceLocationSerializer())
+            .registerTypeHierarchyAdapter(ResourceLocation.class, new SimpleCodecDeserializer<>(ResourceLocation.CODEC))
             .setPrettyPrinting()
             .create();
 
