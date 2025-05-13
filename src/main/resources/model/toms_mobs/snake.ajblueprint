@@ -3,7 +3,7 @@
 		"format": "animated_java_blueprint",
 		"format_version": "1.7.2",
 		"uuid": "64988518-4614-fb26-5887-8cf21918048c",
-		"save_location": "",
+		"save_location": "/Users/tomalbrecht/Minecraft/minecraft-software/projects/toms-mobs/src/main/resources/model/toms_mobs/snake.ajblueprint",
 		"last_used_export_namespace": ""
 	},
 	"blueprint_settings": {
@@ -33,8 +33,8 @@
 		"json_file": ""
 	},
 	"resolution": {
-		"width": 16,
-		"height": 16
+		"width": 32,
+		"height": 32
 	},
 	"elements": [
 		{
@@ -52,27 +52,27 @@
 			"origin": [0, 0, -3],
 			"faces": {
 				"north": {
-					"uv": [8, 9, 10, 10.5],
+					"uv": [16, 18, 20, 21],
 					"texture": 0
 				},
 				"east": {
-					"uv": [12, 5.5, 8, 7],
+					"uv": [24, 11, 16, 14],
 					"texture": 0
 				},
 				"south": {
-					"uv": [9.5, 0, 11.5, 1.5],
+					"uv": [19, 0, 23, 3],
 					"texture": 0
 				},
 				"west": {
-					"uv": [8, 5.5, 12, 7],
+					"uv": [16, 11, 24, 14],
 					"texture": 0
 				},
 				"up": {
-					"uv": [6, 8, 4, 4],
+					"uv": [12, 16, 8, 8],
 					"texture": 0
 				},
 				"down": {
-					"uv": [8, 4, 6, 8],
+					"uv": [16, 8, 12, 16],
 					"texture": 0
 				}
 			},
@@ -94,27 +94,27 @@
 			"origin": [0, 0, -11],
 			"faces": {
 				"north": {
-					"uv": [6, 8, 8, 10],
+					"uv": [12, 16, 16, 20],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 0, 7.5, 2],
+					"uv": [0, 0, 15, 4],
 					"texture": 0
 				},
 				"south": {
-					"uv": [8, 7, 10, 9],
+					"uv": [16, 14, 20, 18],
 					"texture": 0
 				},
 				"west": {
-					"uv": [0, 2, 7.5, 4],
+					"uv": [0, 4, 15, 8],
 					"texture": 0
 				},
 				"up": {
-					"uv": [2, 11.5, 0, 4],
+					"uv": [4, 23, 0, 8],
 					"texture": 0
 				},
 				"down": {
-					"uv": [4, 4, 2, 11.5],
+					"uv": [8, 8, 4, 23],
 					"texture": 0
 				}
 			},
@@ -137,27 +137,27 @@
 			"origin": [0, 0, -3.25],
 			"faces": {
 				"north": {
-					"uv": [6, 8, 8, 10],
+					"uv": [12, 16, 16, 20],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 0, 7.5, 2],
+					"uv": [0, 0, 15, 4],
 					"texture": 0
 				},
 				"south": {
-					"uv": [8, 7, 10, 9],
+					"uv": [16, 14, 20, 18],
 					"texture": 0
 				},
 				"west": {
-					"uv": [0, 2, 7.5, 4],
+					"uv": [0, 4, 15, 8],
 					"texture": 0
 				},
 				"up": {
-					"uv": [0, 4, 2, 11.5],
+					"uv": [0, 8, 4, 23],
 					"texture": 0
 				},
 				"down": {
-					"uv": [2, 4, 4, 11.5],
+					"uv": [4, 8, 8, 23],
 					"texture": 0
 				}
 			},
@@ -179,27 +179,27 @@
 			"origin": [0, 0, -10],
 			"faces": {
 				"north": {
-					"uv": [9.5, 2.5, 11.5, 3],
+					"uv": [19, 5, 23, 6],
 					"texture": 0
 				},
 				"east": {
-					"uv": [9.5, 1.5, 13.5, 2],
+					"uv": [19, 3, 27, 4],
 					"texture": 0
 				},
 				"south": {
-					"uv": [9.5, 3, 11.5, 3.5],
+					"uv": [19, 6, 23, 7],
 					"texture": 0
 				},
 				"west": {
-					"uv": [9.5, 2, 13.5, 2.5],
+					"uv": [19, 4, 27, 5],
 					"texture": 0
 				},
 				"up": {
-					"uv": [9.5, 4, 7.5, 0],
+					"uv": [19, 8, 15, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [6, 8, 4, 12],
+					"uv": [12, 16, 8, 24],
 					"texture": 0
 				}
 			},
@@ -226,7 +226,7 @@
 					"texture": null
 				},
 				"east": {
-					"uv": [9.5, 3.5, 11.5, 4],
+					"uv": [19, 7, 23, 8],
 					"texture": 0
 				},
 				"south": {
@@ -234,7 +234,7 @@
 					"texture": null
 				},
 				"west": {
-					"uv": [6, 10, 8, 10.5],
+					"uv": [12, 20, 16, 21],
 					"texture": 0
 				},
 				"up": {
@@ -255,6 +255,9 @@
 			"name": "head",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "70ab2c20-7d64-6b35-ad8e-2aba04145265",
 			"export": true,
 			"mirror_uv": false,
@@ -268,6 +271,9 @@
 					"name": "head_upper_jaw",
 					"origin": [0, 1, -11],
 					"color": 0,
+					"configs": {
+						"variants": {}
+					},
 					"uuid": "f3e1ae69-5545-089a-205c-0f85788abbf1",
 					"export": true,
 					"mirror_uv": false,
@@ -282,6 +288,9 @@
 					"name": "head_jaw",
 					"origin": [0, 1, -11],
 					"color": 0,
+					"configs": {
+						"variants": {}
+					},
 					"uuid": "a34c7b7e-0756-f284-8655-0d0e778389c8",
 					"export": true,
 					"mirror_uv": false,
@@ -298,6 +307,9 @@
 			"name": "torso",
 			"origin": [0, 0, -11],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "9b1f3c7d-c42c-c0d5-fe1f-f322de2e0e98",
 			"export": true,
 			"mirror_uv": false,
@@ -312,6 +324,9 @@
 					"name": "tail",
 					"origin": [0, 0, 3.75],
 					"color": 0,
+					"configs": {
+						"variants": {}
+					},
 					"uuid": "8ac7327f-b6b4-97a8-cd9e-a1755e06301e",
 					"export": true,
 					"mirror_uv": false,
@@ -335,8 +350,8 @@
 			"group": "",
 			"width": 32,
 			"height": 32,
-			"uv_width": 16,
-			"uv_height": 16,
+			"uv_width": 32,
+			"uv_height": 32,
 			"particle": false,
 			"use_as_default": false,
 			"layers_enabled": false,
@@ -353,34 +368,6 @@
 			"saved": false,
 			"uuid": "ff78c770-6a57-459c-1347-36879e0cade6",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAvlJREFUWEftVk1IVFEUPi8QwiTLZgybhYXBJNRk0lBEESgVIYTgpk0EUWDQyo2hKIEQBdKiTQXRpk2bAVuEZGaLIouicoosaPoRxkFnshS1wOrFd+UM99557933MndzNu/+vXu++53vnHut3KcL9lzmG93rH6LmEy0E67uRoLqdjbQxtka0Mf45+Z1ePb8v2rw+WrJfrGerPRZS+qFNZy1lwKFjAQDGn959QltjUVpVtVa0dx3aLZxOZN4pbXnN6snNSwfw5XG7nc1ayuneJN+7OgUwMIA1AFBRukKAmJr/Q//EwOzstGCALTX6iGpq94qu3Nb7mJvpf6AA2NHWVbCPvEdZWXlBSKzrXXH7wOEGQT3Hm3XAmuCQ6KGaSEwpIahu7SwAbgRw52qzLdOKNjvSx3WxegHAHtvjTWYRAoAuPo6xPO60Zmzwt2sIAMCJcj0RLNaAW7z1cVkLLy/1KAD2dfeKE2NP/OeLAWQB4s+2MnxaEd/X5HkxhUwJh23CqWVjp6Z8d5sXdQCUwwAEAPiU+C6MPxSOGcSPkV//FwA0wDtm0mk62j6oOGAGGODozZwj7UtiAD+DBWYA8YOhHvzMXsnPYUwHoBcfBsKl+2TPM89MsKABPh2+6dy2fCFCHwBk01Pv2nCCuntP0a2Pw3Sm8TYNzC3eJ9GRxTJdveeiNwAUoqpIRCx2CoEJwPqWCvEv6whihbFujACcskAWYST0mspLS2h6fkFs7BQCVEoYCpefG1BmNH8b4gQbairp7diWfPydQqADmKn8IBzDAKSptc9Y/RQAXiFwupj0kOj3RGAAbnXALa10AHLdQNb4Kb+OIWAhrYt1FFzD/AMYgSa8LLAG9BDEj5wTaci1QHbG7wR5rON4PR1sqBdDA0Mv6HIiFUwDch2AEMGAl7EumGp+0nEhC8wANkCajacmlbtAB8GM+LnhPE+gTYoXkVyIEAKY/CyT+0FFZgJjjJf8ZvR7x5ucKlkQZPFyrDUysBxOiwwUGSgyIDPwFy1/9TA35dCfAAAAAElFTkSuQmCC"
-		},
-		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software/assets/animated_java/textures/item/snake/snake_hurt.png",
-			"name": "snake_hurt",
-			"folder": "",
-			"namespace": "",
-			"id": "1",
-			"group": "",
-			"width": 32,
-			"height": 32,
-			"uv_width": 16,
-			"uv_height": 16,
-			"particle": false,
-			"use_as_default": false,
-			"layers_enabled": false,
-			"sync_to_project": "",
-			"render_mode": "default",
-			"render_sides": "auto",
-			"pbr_channel": "color",
-			"frame_time": 1,
-			"frame_order_type": "loop",
-			"frame_order": "",
-			"frame_interpolate": false,
-			"visible": true,
-			"internal": true,
-			"saved": false,
-			"uuid": "ccb8d734-591c-0f47-3a5d-39b61c191e6b",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAvBJREFUWEftVr9rFEEUfitBDzWnG80FFS5cCreImMIoJ5jm8EepIgTFRlQwio2VVhb+AzYiWohpxMrCzqgoGMEoF0nEQE7BYCQJrnirG3+cwXjyTXjHzNzuzq4x3b1m58fbmW++9703Y/kPzlV/uT6VBodo66G9BHt15z5t2pKndU5atDH+ueTT1OsFH/Zvbdou/Nk27LeVfnrPZUsZCOhYAIDxicFR2ujkaEUmLdq5ni6xqe9OKG3ZJ1XOLh7Ap1snqt88Uk43XQrfFMDAAHwAYFVqmQDxvfKH/omBSvGFYIDNfTdMmY5toiu39T7mfj55rgBoP3ambh15jVT3jrqQWE/7OqtOT15Qz/FmHbAmOCR6qPyBr0oI1h/uqwNuBDB6sVCVaUWbN9LHdbFGAcAa2d7TZhECgC4+jrE8HuRTfjYfGgIACKJcTwSLNRAWb31c1sL7/qsKAOdKvzgx1sR/sRhAFiD+bMvtI4r4ZkvXxRQyZbVNhFPLxpua8j1sXtQBUA4DEADgU+I77xbFxgxibvw/A4AGGN2s+5G6T95UwDIDDHDmrhdI+6IYwM9ggRlA/GCoB3Pe7docxnQAevFhIFy6d10bi8wECxrg0+H7xdtcK0ToA4BseuoVRwaocL6XXn4YobfHH9PO4d3CvW28XXxbj96IBoBC1JxpE85BITABSO9bI/5lHUGsMNaNEUBQFsgiXGu/oZWpJvpR+S0WDgoBKiUMhSvODSgzWrsNcQI720LTMx21+AeFQAdQaZkUG8MApOvSI2P1UwBEhSDoYtJDot8TiQGE1QFFeVJHByDXDWRNnPIbGAIWUrNzqu4a5h/ACDQRZYk1oIcgWzgr0pBrgbwZvxPksXsXDlIu37mggaExOvBwKpkG5DoAIYKBKGNdMNX8pONClpgBLIA08ybLyl2gg2BG4txwkSfQJsWLSC5ECAFMfpbJ/aQiM4Exxkt+M8a9402bKlmQxHkpfI0MLMWmDQYaDDQYkBn4C0uN8jC9A19tAAAAAElFTkSuQmCC"
 		}
 	],
 	"variants": {
@@ -403,10 +390,13 @@
 			"length": 2,
 			"snapping": 20,
 			"selected": false,
+			"saved": true,
+			"path": "",
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",
 			"loop_delay": "",
+			"excluded_nodes": [],
 			"animators": {
 				"9b1f3c7d-c42c-c0d5-fe1f-f322de2e0e98": {
 					"name": "torso",
@@ -666,10 +656,13 @@
 			"length": 3,
 			"snapping": 20,
 			"selected": false,
+			"saved": true,
+			"path": "",
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",
 			"loop_delay": "",
+			"excluded_nodes": [],
 			"animators": {
 				"8ac7327f-b6b4-97a8-cd9e-a1755e06301e": {
 					"name": "tail",

@@ -3,7 +3,7 @@
 		"format": "animated_java_blueprint",
 		"format_version": "1.7.2",
 		"uuid": "56d662c6-165c-4b8c-9748-69ad431acf0e",
-		"save_location": "",
+		"save_location": "/Users/tomalbrecht/Minecraft/minecraft-software/projects/toms-mobs/src/main/resources/model/toms_mobs/sculkling.ajblueprint",
 		"last_used_export_namespace": ""
 	},
 	"blueprint_settings": {
@@ -33,8 +33,8 @@
 		"json_file": ""
 	},
 	"resolution": {
-		"width": 16,
-		"height": 16
+		"width": 32,
+		"height": 32
 	},
 	"elements": [
 		{
@@ -52,27 +52,27 @@
 			"origin": [1, 0, 0],
 			"faces": {
 				"north": {
-					"uv": [5, 0, 7.5, 4],
+					"uv": [10, 0, 15, 8],
 					"texture": 0
 				},
 				"east": {
-					"uv": [7.5, 0, 9, 4],
+					"uv": [15, 0, 18, 8],
 					"texture": 0
 				},
 				"south": {
-					"uv": [5, 4, 7.5, 8],
+					"uv": [10, 8, 15, 16],
 					"texture": 0
 				},
 				"west": {
-					"uv": [7.5, 4, 9, 8],
+					"uv": [15, 8, 18, 16],
 					"texture": 0
 				},
 				"up": {
-					"uv": [7.5, 9.5, 5, 8],
+					"uv": [15, 19, 10, 16],
 					"texture": 0
 				},
 				"down": {
-					"uv": [10, 8, 7.5, 9.5],
+					"uv": [20, 16, 15, 19],
 					"texture": 0
 				}
 			},
@@ -94,27 +94,27 @@
 			"origin": [1, 0, 0],
 			"faces": {
 				"north": {
-					"uv": [9, 0, 9.5, 1.5],
+					"uv": [18, 0, 19, 3],
 					"texture": 0
 				},
 				"east": {
-					"uv": [9, 1.5, 9.5, 3],
+					"uv": [18, 3, 19, 6],
 					"texture": 0
 				},
 				"south": {
-					"uv": [9, 3, 9.5, 4.5],
+					"uv": [18, 6, 19, 9],
 					"texture": 0
 				},
 				"west": {
-					"uv": [9, 4.5, 9.5, 6],
+					"uv": [18, 9, 19, 12],
 					"texture": 0
 				},
 				"up": {
-					"uv": [9.5, 6.5, 9, 6],
+					"uv": [19, 13, 18, 12],
 					"texture": 0
 				},
 				"down": {
-					"uv": [9.5, 6.5, 9, 7],
+					"uv": [19, 13, 18, 14],
 					"texture": 0
 				}
 			},
@@ -136,27 +136,27 @@
 			"origin": [1, 0, 0],
 			"faces": {
 				"north": {
-					"uv": [9, 0, 9.5, 1.5],
+					"uv": [18, 0, 19, 3],
 					"texture": 0
 				},
 				"east": {
-					"uv": [9, 4.5, 9.5, 6],
+					"uv": [18, 9, 19, 12],
 					"texture": 0
 				},
 				"south": {
-					"uv": [9, 3, 9.5, 4.5],
+					"uv": [18, 6, 19, 9],
 					"texture": 0
 				},
 				"west": {
-					"uv": [9, 1.5, 9.5, 3],
+					"uv": [18, 3, 19, 6],
 					"texture": 0
 				},
 				"up": {
-					"uv": [9.5, 6.5, 9, 6],
+					"uv": [19, 13, 18, 12],
 					"texture": 0
 				},
 				"down": {
-					"uv": [9.5, 6.5, 9, 7],
+					"uv": [19, 13, 18, 14],
 					"texture": 0
 				}
 			},
@@ -178,7 +178,7 @@
 			"origin": [1, 0, 0],
 			"faces": {
 				"north": {
-					"uv": [0, 10, 6, 16],
+					"uv": [0, 20, 12, 32],
 					"texture": 0
 				},
 				"east": {
@@ -186,7 +186,7 @@
 					"texture": 0
 				},
 				"south": {
-					"uv": [6, 10, 0, 16],
+					"uv": [12, 20, 0, 32],
 					"texture": 0
 				},
 				"west": {
@@ -211,6 +211,9 @@
 			"name": "head",
 			"origin": [0, 3, 0],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "20ad2b87-c8f6-a7a7-4312-ba4c853f7eb8",
 			"export": true,
 			"mirror_uv": false,
@@ -225,6 +228,9 @@
 			"name": "leg_l",
 			"origin": [-1, 3, 0],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "4940dc0e-4514-315a-d4e9-525a56f2233b",
 			"export": true,
 			"mirror_uv": false,
@@ -239,6 +245,9 @@
 			"name": "leg_r",
 			"origin": [1, 3, 0],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "45e62124-b069-620d-68fb-2b91ded6c511",
 			"export": true,
 			"mirror_uv": false,
@@ -260,8 +269,8 @@
 			"group": "",
 			"width": 32,
 			"height": 128,
-			"uv_width": 16,
-			"uv_height": 16,
+			"uv_width": 32,
+			"uv_height": 32,
 			"particle": false,
 			"use_as_default": false,
 			"layers_enabled": false,
@@ -277,7 +286,8 @@
 			"internal": true,
 			"saved": false,
 			"uuid": "acc4ea2b-1d8e-1b4a-3b89-9ecdb7ec30d9",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAACACAYAAABqZmsaAAAAAXNSR0IArs4c6QAAA7tJREFUeF7tW79PVEEQnkOCoEiDMSY0xlw0NldQSmPsSYiVf4GthX+Hha1/gZUxsVcbbEworjGai7EhMQoNqCBBznzDzjK3937s23srEuc17/fbb2dmZ2e+N9sht02vrQ4PX7zsyDn2+tqFhcXh/s0eTS3N09Hmd5r90CecY5va/sL7w0/vR97X3yo77kgj2PNHHAh9LsfUH5x8p9clOZ/Z+spgjt69TgMgDeseh8DQa+7p/TtEz97Q0eJVuvj5I/3+tU8Hd2+zVJIAiKirxAWpTF+/NZzb3eEGz52fpb1LC0RKCjgOVZikgvAlbnxtdTjz6i0dXL7ib0PsOBdQkMJEAIokEdoD69ypAD2eW9+gvZVlDyovgP7A91ZUADuQEZCsAj3cvLW7Pon4sS8ahgCCTexi99tm81Gg/UCR0YypQT/UH/BoYF+wNJ9mA6Hj0edapxgFLHLniCB6MUS8A2NMkkAo9rKhwwaHoec2NAgDxOhgm1hZTpNALADu5frGiR+A9Ytn7HXTHVETAKF0fO+dU0oehjEey6vAeT9RgUgmuwrg68X3Q+c/rt3wPgDGmTIPADy72SYSEOej5wW8nzICGgEoAilGKfcgmaZAoiXgp2PXGiSBoCScoH7ubDfyhtEAeMjBAGXrD9gRSVSEywCUDUDKEIuxLRaXjn7K4sKimDGmgbpnjlWgYz0VXML/j3wgMeqpAsESwFQL3WEvkQ033uuyr5d7TfVb13sehloFfOwaljhQQu3sKpCGRBpaMiGwmJ7FPsPRLh6uSypin4ttWJ4b0XvVyxIZt20HxwBcuF0mBek9HE/rAETXZSByNu5HgYDAPuwhJFR0vamuy55vNHG01aj+zr8DwPgBnYaFMyTOfUDy6B7R4+fGD/i07O/zA04Fxg8gADV+wPgB4weEIxS+MCV7is4NjR8oioaMHzB+oI0o2fgBnxcgBUNuWMQPyL02RB5+wxMUmFgAoIgf0KDaBuGz4xh+IG92XPHXKxc34LNj4Qiq+IEcvR9Lz8ERhCCg/1yNjwAISSkxNm2UbRvgGIAcDdR90/iBM1g/8OQB0cOnxg+cIj/gVGD8gPEDVj/AmbHVD7gaIuMHEHQ0/W3v/5rFFjAYP2D1A9l/Xmsj83/M/5v6Af5JZfxATVFyriTV15BUVcUaP2D8QF2OP8l94wfOID9g9QPO5E9vfYHVD6hlPlY/YPUDxg9Y/YCsLzJ+QEKylOA1uobE+AHjB3L9wLT1Bba+wNYX+Oy4bB2BrS+YhHyIefcPfdtG6rpmFXQAAAAASUVORK5CYII="
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAACACAYAAABqZmsaAAAAAXNSR0IArs4c6QAAA7tJREFUeF7tW79PVEEQnkOCoEiDMSY0xlw0NldQSmPsSYiVf4GthX+Hha1/gZUxsVcbbEworjGai7EhMQoNqCBBznzDzjK3937s23srEuc17/fbb2dmZ2e+N9sht02vrQ4PX7zsyDn2+tqFhcXh/s0eTS3N09Hmd5r90CecY5va/sL7w0/vR97X3yo77kgj2PNHHAh9LsfUH5x8p9clOZ/Z+spgjt69TgMgDeseh8DQa+7p/TtEz97Q0eJVuvj5I/3+tU8Hd2+zVJIAiKirxAWpTF+/NZzb3eEGz52fpb1LC0RKCjgOVZikgvAlbnxtdTjz6i0dXL7ib0PsOBdQkMJEAIokEdoD69ypAD2eW9+gvZVlDyovgP7A91ZUADuQEZCsAj3cvLW7Pon4sS8ahgCCTexi99tm81Gg/UCR0YypQT/UH/BoYF+wNJ9mA6Hj0edapxgFLHLniCB6MUS8A2NMkkAo9rKhwwaHoec2NAgDxOhgm1hZTpNALADu5frGiR+A9Ytn7HXTHVETAKF0fO+dU0oehjEey6vAeT9RgUgmuwrg68X3Q+c/rt3wPgDGmTIPADy72SYSEOej5wW8nzICGgEoAilGKfcgmaZAoiXgp2PXGiSBoCScoH7ubDfyhtEAeMjBAGXrD9gRSVSEywCUDUDKEIuxLRaXjn7K4sKimDGmgbpnjlWgYz0VXML/j3wgMeqpAsESwFQL3WEvkQ033uuyr5d7TfVb13sehloFfOwaljhQQu3sKpCGRBpaMiGwmJ7FPsPRLh6uSypin4ttWJ4b0XvVyxIZt20HxwBcuF0mBek9HE/rAETXZSByNu5HgYDAPuwhJFR0vamuy55vNHG01aj+zr8DwPgBnYaFMyTOfUDy6B7R4+fGD/i07O/zA04Fxg8gADV+wPgB4weEIxS+MCV7is4NjR8oioaMHzB+oI0o2fgBnxcgBUNuWMQPyL02RB5+wxMUmFgAoIgf0KDaBuGz4xh+IG92XPHXKxc34LNj4Qiq+IEcvR9Lz8ERhCCg/1yNjwAISSkxNm2UbRvgGIAcDdR90/iBM1g/8OQB0cOnxg+cIj/gVGD8gPEDVj/AmbHVD7gaIuMHEHQ0/W3v/5rFFjAYP2D1A9l/Xmsj83/M/5v6Af5JZfxATVFyriTV15BUVcUaP2D8QF2OP8l94wfOID9g9QPO5E9vfYHVD6hlPlY/YPUDxg9Y/YCsLzJ+QEKylOA1uobE+AHjB3L9wLT1Bba+wNYX+Oy4bB2BrS+YhHyIefcPfdtG6rpmFXQAAAAASUVORK5CYII=",
+			"relative_path": "../../../../../../../../../Desktop/texture.png"
 		},
 		{
 			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/sculkling/texture_hurt.png",
@@ -288,8 +298,8 @@
 			"group": "",
 			"width": 32,
 			"height": 128,
-			"uv_width": 16,
-			"uv_height": 16,
+			"uv_width": 32,
+			"uv_height": 32,
 			"particle": false,
 			"use_as_default": false,
 			"layers_enabled": false,
@@ -305,7 +315,8 @@
 			"internal": true,
 			"saved": false,
 			"uuid": "af6bd503-3994-d4a6-3f8a-9ee7d37ff0df",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAACACAYAAABqZmsaAAAAAXNSR0IArs4c6QAAA7JJREFUeF7tW0tuE0EQLStYMiEflAWyQMhSNmQByygsuAMX4CgsOQoX4A4sQCzDIggpkoVAFhIfJyFYMsHoVbo65fZ8etrThIiazfynX1dVV1e9qe6Q27p7u7Pp6zcdOcdeX1tf3Zj9uDOgla0enX2d0I2PQ8I5tpXj77yfjj7Mva+/VXbckUaw5484EPpcjmk4uvjOoE9y3jsaM5jf7/fTAEjDuschMPSae/roPtHLt3S2fpM2P3+iX9MpTR7cY6kkARBRV4kLUun2787Wfp5yg9e6XTq5vkqkpIDjUIVJKghf4sb3dme9/Xc02dj0tyF2nAsoSGEpAEWSCO2Bde5UgB6vHRzSyc62B5UXwHDkeysqgB3ICEhWgR5u3tpdn0T82BcNQwDBJnbxbfyl+SjQfqDIaBbUoB8ajng0sC/Y6qXZQOh49LnWKUYBi9w5IoheDBHvwBiTJBCKvWzosMFh6LkNDcIAMTrYJna20yQQC4B7eXB44Qdg/eIZB/10R9QEQCgd33vnlJKHYYzH8ipw3k9UIJLJrgL4evH90Pn41m3vA2CcKfMAwLObbSIBcT56XsD7KSOgEYAikGKUcg+SaQokWgJ+OnatQRIISsIJ6vj0qJE3jAbAQw4GKNtwxI5IoiJcBqBsAFKGWIxtsbh09FMWFxbFjDEN1D1zrgId66ngEv5/7gOJUU8VCJYAplroDnuJbLjxQZ99vdxrqt+63vMw1CrgY9ewxIESamdXgTQk0tCSCYHF9Cz2GY528XBdUhH7XGzD8tyc3qtelsi4bTs4B+DC7TIpSO/heFoHILouA5GzcT8KBAT2YQ8hoaLrTXVd9nyjiaOtRvV3/h0Axg/oNCycIXHuA5InD4mevzJ+wKdlf58fcCowfgABqPEDxg8YPyAcofCFKdlTdG5o/EBRNGT8gPEDbUTJxg/4vAApGHLDIn5A7rUh8vAbnqDAxAIARfyABtU2CJ8dx/ADebPjir9eubgBnx0LR1DFD+To/UJ6Do4gBAH952p8DkBISomxaaNs2wAXAORooO6bxg9cwfqBZ4+Jnr4wfuAS+QGnAuMHjB+w+gHOjK1+wNUQGT+AoKPpb3v/1yy2gMH4AasfyP7zWhuZ/2P+39QP8E8q4wdqipJzJam+hqSqKtb4AeMH6nL8Ze4bP3AF+QGrH3Amf3nrC6x+QC3zsfoBqx8wfsDqB2R9kfEDEpKlBK/RNSTGDxg/kOsHpq0vsPUFtr7AZ8dl6whsfcEy5EPMu38ANw5G6piTwC0AAAAASUVORK5CYII="
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAACACAYAAABqZmsaAAAAAXNSR0IArs4c6QAAA7JJREFUeF7tW0tuE0EQLStYMiEflAWyQMhSNmQByygsuAMX4CgsOQoX4A4sQCzDIggpkoVAFhIfJyFYMsHoVbo65fZ8etrThIiazfynX1dVV1e9qe6Q27p7u7Pp6zcdOcdeX1tf3Zj9uDOgla0enX2d0I2PQ8I5tpXj77yfjj7Mva+/VXbckUaw5484EPpcjmk4uvjOoE9y3jsaM5jf7/fTAEjDuschMPSae/roPtHLt3S2fpM2P3+iX9MpTR7cY6kkARBRV4kLUun2787Wfp5yg9e6XTq5vkqkpIDjUIVJKghf4sb3dme9/Xc02dj0tyF2nAsoSGEpAEWSCO2Bde5UgB6vHRzSyc62B5UXwHDkeysqgB3ICEhWgR5u3tpdn0T82BcNQwDBJnbxbfyl+SjQfqDIaBbUoB8ajng0sC/Y6qXZQOh49LnWKUYBi9w5IoheDBHvwBiTJBCKvWzosMFh6LkNDcIAMTrYJna20yQQC4B7eXB44Qdg/eIZB/10R9QEQCgd33vnlJKHYYzH8ipw3k9UIJLJrgL4evH90Pn41m3vA2CcKfMAwLObbSIBcT56XsD7KSOgEYAikGKUcg+SaQokWgJ+OnatQRIISsIJ6vj0qJE3jAbAQw4GKNtwxI5IoiJcBqBsAFKGWIxtsbh09FMWFxbFjDEN1D1zrgId66ngEv5/7gOJUU8VCJYAplroDnuJbLjxQZ99vdxrqt+63vMw1CrgY9ewxIESamdXgTQk0tCSCYHF9Cz2GY528XBdUhH7XGzD8tyc3qtelsi4bTs4B+DC7TIpSO/heFoHILouA5GzcT8KBAT2YQ8hoaLrTXVd9nyjiaOtRvV3/h0Axg/oNCycIXHuA5InD4mevzJ+wKdlf58fcCowfgABqPEDxg8YPyAcofCFKdlTdG5o/EBRNGT8gPEDbUTJxg/4vAApGHLDIn5A7rUh8vAbnqDAxAIARfyABtU2CJ8dx/ADebPjir9eubgBnx0LR1DFD+To/UJ6Do4gBAH952p8DkBISomxaaNs2wAXAORooO6bxg9cwfqBZ4+Jnr4wfuAS+QGnAuMHjB+w+gHOjK1+wNUQGT+AoKPpb3v/1yy2gMH4AasfyP7zWhuZ/2P+39QP8E8q4wdqipJzJam+hqSqKtb4AeMH6nL8Ze4bP3AF+QGrH3Amf3nrC6x+QC3zsfoBqx8wfsDqB2R9kfEDEpKlBK/RNSTGDxg/kOsHpq0vsPUFtr7AZ8dl6whsfcEy5EPMu38ANw5G6piTwC0AAAAASUVORK5CYII=",
+			"relative_path": "../../../../../../../../minecraft-software_rp/assets/animated_java/textures/item/sculkling/texture_hurt.png"
 		}
 	],
 	"variants": {
@@ -328,10 +339,13 @@
 			"length": 4,
 			"snapping": 20,
 			"selected": false,
+			"saved": true,
+			"path": "",
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",
 			"loop_delay": "",
+			"excluded_nodes": [],
 			"animators": {
 				"20ad2b87-c8f6-a7a7-4312-ba4c853f7eb8": {
 					"name": "head",
@@ -397,10 +411,13 @@
 			"length": 0.6,
 			"snapping": 20,
 			"selected": false,
+			"saved": true,
+			"path": "",
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",
 			"loop_delay": "",
+			"excluded_nodes": [],
 			"animators": {
 				"20ad2b87-c8f6-a7a7-4312-ba4c853f7eb8": {
 					"name": "head",

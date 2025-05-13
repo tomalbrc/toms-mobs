@@ -3,7 +3,7 @@
 		"format": "animated_java_blueprint",
 		"format_version": "1.7.2",
 		"uuid": "3a386eef-a975-d317-3f64-a597e5925b28",
-		"save_location": "",
+		"save_location": "/Users/tomalbrecht/Minecraft/minecraft-software/projects/toms-mobs/src/main/resources/model/toms_mobs/firemoth.ajblueprint",
 		"last_used_export_namespace": ""
 	},
 	"blueprint_settings": {
@@ -33,8 +33,8 @@
 		"json_file": ""
 	},
 	"resolution": {
-		"width": 16,
-		"height": 16
+		"width": 32,
+		"height": 32
 	},
 	"elements": [
 		{
@@ -52,27 +52,27 @@
 			"origin": [0, 3, 0],
 			"faces": {
 				"north": {
-					"uv": [9, 7, 11, 9],
+					"uv": [18, 14, 22, 18],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 7, 3.5, 9],
+					"uv": [0, 14, 7, 18],
 					"texture": 0
 				},
 				"south": {
-					"uv": [9, 9, 11, 11],
+					"uv": [18, 18, 22, 22],
 					"texture": 0
 				},
 				"west": {
-					"uv": [3.5, 7, 7, 9],
+					"uv": [7, 14, 14, 18],
 					"texture": 0
 				},
 				"up": {
-					"uv": [9, 10.5, 7, 7],
+					"uv": [18, 21, 14, 14],
 					"texture": 0
 				},
 				"down": {
-					"uv": [2, 9, 0, 12.5],
+					"uv": [4, 18, 0, 25],
 					"texture": 0
 				}
 			},
@@ -110,11 +110,11 @@
 					"texture": null
 				},
 				"up": {
-					"uv": [5, 7, 0, 0],
+					"uv": [10, 14, 0, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [5, 0, 0, 7],
+					"uv": [10, 0, 0, 14],
 					"texture": 0
 				}
 			},
@@ -152,11 +152,11 @@
 					"texture": null
 				},
 				"up": {
-					"uv": [0, 7, 5, 0],
+					"uv": [0, 14, 10, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [0, 0, 5, 7],
+					"uv": [0, 0, 10, 14],
 					"texture": 0
 				}
 			},
@@ -183,7 +183,7 @@
 					"texture": null
 				},
 				"east": {
-					"uv": [12, 4, 10, 7],
+					"uv": [24, 8, 20, 14],
 					"texture": 0
 				},
 				"south": {
@@ -191,7 +191,7 @@
 					"texture": null
 				},
 				"west": {
-					"uv": [10, 4, 12, 7],
+					"uv": [20, 8, 24, 14],
 					"texture": 0
 				},
 				"up": {
@@ -225,7 +225,7 @@
 					"texture": null
 				},
 				"east": {
-					"uv": [14, 8.5, 11, 9.5],
+					"uv": [28, 17, 22, 19],
 					"texture": 0
 				},
 				"south": {
@@ -233,7 +233,7 @@
 					"texture": null
 				},
 				"west": {
-					"uv": [11, 8.5, 14, 9.5],
+					"uv": [22, 17, 28, 19],
 					"texture": 0
 				},
 				"up": {
@@ -264,27 +264,27 @@
 			"origin": [0, 3, 0],
 			"faces": {
 				"north": {
-					"uv": [11, 9.5, 13, 10.5],
+					"uv": [22, 19, 26, 21],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"south": {
-					"uv": [13, 9.5, 11, 10.5],
+					"uv": [26, 19, 22, 21],
 					"texture": 0
 				},
 				"west": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"up": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				}
 			},
@@ -311,7 +311,7 @@
 					"texture": null
 				},
 				"east": {
-					"uv": [12, 4, 10, 7],
+					"uv": [24, 8, 20, 14],
 					"texture": 0
 				},
 				"south": {
@@ -319,7 +319,7 @@
 					"texture": null
 				},
 				"west": {
-					"uv": [10, 4, 12, 7],
+					"uv": [20, 8, 24, 14],
 					"texture": 0
 				},
 				"up": {
@@ -353,7 +353,7 @@
 					"texture": null
 				},
 				"east": {
-					"uv": [14, 8.5, 11, 9.5],
+					"uv": [28, 17, 22, 19],
 					"texture": 0
 				},
 				"south": {
@@ -361,7 +361,7 @@
 					"texture": null
 				},
 				"west": {
-					"uv": [11, 8.5, 14, 9.5],
+					"uv": [22, 17, 28, 19],
 					"texture": 0
 				},
 				"up": {
@@ -392,27 +392,27 @@
 			"origin": [0, 3, 1.5],
 			"faces": {
 				"north": {
-					"uv": [11, 9.5, 13, 10.5],
+					"uv": [22, 19, 26, 21],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"south": {
-					"uv": [13, 9.5, 11, 10.5],
+					"uv": [26, 19, 22, 21],
 					"texture": 0
 				},
 				"west": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"up": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				}
 			},
@@ -435,27 +435,27 @@
 			"origin": [0, 3, 3],
 			"faces": {
 				"north": {
-					"uv": [11, 9.5, 13, 10.5],
+					"uv": [22, 19, 26, 21],
 					"texture": 0
 				},
 				"east": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"south": {
-					"uv": [13, 9.5, 11, 10.5],
+					"uv": [26, 19, 22, 21],
 					"texture": 0
 				},
 				"west": {
-					"uv": [0, 0, 0, 1],
+					"uv": [0, 0, 0, 2],
 					"texture": 0
 				},
 				"up": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				},
 				"down": {
-					"uv": [2, 0, 0, 0],
+					"uv": [4, 0, 0, 0],
 					"texture": 0
 				}
 			},
@@ -468,6 +468,9 @@
 			"name": "body",
 			"origin": [0, 4.6628, 0.00423],
 			"color": 0,
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "06fc9b2b-e287-d397-a8fe-dce1216063fb",
 			"export": true,
 			"mirror_uv": false,
@@ -489,6 +492,9 @@
 					"name": "wing_r",
 					"origin": [2, 7, 1],
 					"color": 0,
+					"configs": {
+						"variants": {}
+					},
 					"uuid": "331aaddb-2af5-6767-a85f-4eb9e8963d62",
 					"export": true,
 					"mirror_uv": false,
@@ -503,6 +509,9 @@
 					"name": "wing_l",
 					"origin": [-2, 7, 1],
 					"color": 0,
+					"configs": {
+						"variants": {}
+					},
 					"uuid": "91af711d-0838-94e3-e562-86aa63af7d5a",
 					"export": true,
 					"mirror_uv": false,
@@ -526,8 +535,8 @@
 			"group": "",
 			"width": 32,
 			"height": 32,
-			"uv_width": 16,
-			"uv_height": 16,
+			"uv_width": 32,
+			"uv_height": 32,
 			"particle": false,
 			"use_as_default": false,
 			"layers_enabled": false,
@@ -544,34 +553,6 @@
 			"saved": false,
 			"uuid": "fbd15017-444c-e46f-11c8-de7b5a5cdc28",
 			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA5xJREFUWEftlktME2EQx6eUKn1ABUF5RVIRIVi1PoLURA6EaESrEIzGeMIDePHiOwSTJsbEB5qIJzzYE/GRECFEDIZw0IRiI9AoURBio6EgiGApUOW1ZoZ+zW7Zli5ivPBddmfm229+3/+bnV0ZeMfBHVnciw6bjNlv9CbOrBgE5isqvsCxWLBr8fmzgnCe8p7Ajki968uBATIwecP1MZDld8kw8Z7OerpijEEgQNL6+KAMzsFvgADZm5JpXmtvH0gCeGBWQ4l5Auh6pBdsj3PAruqH2mk5qAw5sBSAw/oUwY79d0DBqqxdXMn2NoDCDID2AYCdCTTPdimNrqiCFAB+kpAAUO6sWz0Az7oAUrQ+AAYhBcB/hzWWiuAKUHJj/fzuEUBEBakA7KiwJhYFQPkNk4lACrDhBWFHgEUZahHiEksHYAqknwbofkj1ICt3kYRSAPjHEJIC+ICvCBmEtwjxLSi1tYWsACbMzc3lRkZGiMNutwevAewBBYpZoGPAWsDhrQeb1ST5NRz90g7Nzc2U1GAwcIsCsEa0AAIVsJokv4Z8ySUDELVXCbZ79ElpRHwAnU7HORyOxRsROwYGQGen6qfdY3L8HoRahEsCYMfg30TQlvoxkgxgNBq5m46NYrkD+i7rPlNMqVTS1ePxQK0zE0ZnZ8mOlstBfSZV8LymrEz0KGRYKE1r8gWT5x4pQTZ/AsAlAoSd9AjieT8b4GpfOsSFh5P/+8wM5DTq4dWBTrLxXtkoB7VuA9kTjq8QEADf2adz2YIEkfVR4BqfJp9WowC3aUwQPx7WCuYPCbBOriD/0Ow0ZHRkwOut8wD73utBZZGHpgBWqk6n803GhcWGOXPA53Y4HFDhPgY9U5/Il7ZqM8SF90PL5DjZe1UaUqVo+AnJXhN7kSsavi2riT3BMR9bjLoWP+G5Sosgv+XOfYHNiuxG1FGuIDKaYrXuUajbMiSoCavVSgkxjkkZhP/mCAB3hAOVQAD+Hw0CiH1ccPGeqV9eBSLgWnI3xMTEkI1tGO9ZR8Qc7H5ZAfiLIQB/uFwuYE0oWEOSrEB1+ZwgEfvJxCRarZZimPxjU6HovAUK4FlWrX1H/tIf20DfUhn0CBBgdVI6zf/t7IZD6iT/Ncl+PuEMDUCsBvhP+hehvwKBAOI7SwUA1Xka8UaECrzc7abJ+99GwpWxuqAfD9HtijhPNY0L3q6AAKEu+K/mLctu/wZuBWBFgf+uwB/fQwU/b2uz3AAAAABJRU5ErkJggg=="
-		},
-		{
-			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/firemoth/firemoth_hurt.png",
-			"name": "firemoth_hurt",
-			"folder": "",
-			"namespace": "",
-			"id": "1",
-			"group": "",
-			"width": 32,
-			"height": 32,
-			"uv_width": 16,
-			"uv_height": 16,
-			"particle": false,
-			"use_as_default": false,
-			"layers_enabled": false,
-			"sync_to_project": "",
-			"render_mode": "default",
-			"render_sides": "auto",
-			"pbr_channel": "color",
-			"frame_time": 1,
-			"frame_order_type": "loop",
-			"frame_order": "",
-			"frame_interpolate": false,
-			"visible": true,
-			"internal": true,
-			"saved": false,
-			"uuid": "e050a61a-8c8a-49c8-6b39-94e59a8cbb6e",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA5hJREFUWEftlk1ME0EUx9+2pa0tWmOkfIpAAflQMIR6wYgx+HECP0JQ0SCJHjAePHDj7okL0XjRiIiSGCIGDyYmHMTIQTEEMYCCLfItHyFW29ra0jXvbafZrdvSRYwX5jI782bn/eb/3rxdDoKtY08hf/7TMMfGNks5/0azDGzucVUdz2zR+rz6CxJzvr5dMtaeeBDygQYaoPNz153ANUxy6Nhi66UebQwCAfQ7E6IyeJaXAAGy0pNonX3qKygC6LtlgLJrbqD+yCTYn1thXr8IU34VqPNKYT0AxSePSk4cfgIyvi7M58vyRgEqdgOMLAEUCCe1N2dQjyooARA7iQkA5c5q/ALQMwmQYggBMAglAOEnrOlui64AOd/fK5weAWRUUArAQoU5sSYAyp/sMQMpwFoQhIUAkzLWJMQt1g/AFMg8AzDxhPKBu+kmCZUAiMMQkwL4QigJGUQwCfEWHBwejVkBdPjIauX9Dgdx1I2NRc8BrAHpmgBQGDAXsAXzwT5Yrvga+udGoLa/n5y25ebyawKwQvQHBCowWK74GoolVwyA3pgS7PQ4p6QQiQFaU1L4+rm5tQsRCwMDwB5jz5zj9yDWJFwXAAtDeBHBsdKPkWKA9qIi/sBMmpzviHNv02bIptLpqA94vVC5YAHXaoDGRrUKdGfTJe/rW1pkQ8FhopzedkiyONCsB06IAPBmAFWjR2Lv+v4K9i1kglGtpnnX6ipk38mBz1fGaYzP2j416FKTaeydnYeIAHhnK/liKe3teHC7/TRnMGjAc9UpsT/j3kOpLQG2quJo/kfAB0ldWWCrEgAs3TmgeyrAsRYRADNVm5oaWogby7V3lqXQ9K/ZWSh2HYMVn1C+d8RlgFG9CNMeN4136Q2kSonjBck+YLrElzjucwOm4zybY5tR1RI73Nt0Q+L/Y+tDyZglWY/hMF9gMJFtxO2A+ewVSU5cHBoih2hHpwwi/HAEgCfChkoggPiPBgHkPi64+YrPG1RABx8SJ0BjEoCwDOMzq4jogz1vKIB4MwQQt4DTCawIRStIihU41SD9N2U/mehEFR9PDOi89l6FBCj8ZzSUAxjL6e1jQvJ8y4WEjqaoIUCAOHMmrfctTkDnFrNczkL1z+A9DlojAsjlgHjH8CQMVyASgHa8RgJWfdkqX4hQgYVCFy1OHDZChftl1I+H7HFlJjvv9ktiFREg1g3/1boNOe3fwG0CbCrw3xX4DV9KBT9766rKAAAAAElFTkSuQmCC"
 		}
 	],
 	"variants": {
@@ -594,10 +575,13 @@
 			"length": 0.7,
 			"snapping": 20,
 			"selected": false,
+			"saved": true,
+			"path": "",
 			"anim_time_update": "",
 			"blend_weight": "",
 			"start_delay": "",
 			"loop_delay": "",
+			"excluded_nodes": [],
 			"animators": {
 				"06fc9b2b-e287-d397-a8fe-dce1216063fb": {
 					"name": "body",
