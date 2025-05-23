@@ -3,7 +3,6 @@ package de.tomalbrc.toms_mobs.entity.hostile;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.model.Model;
-import de.tomalbrc.bil.file.loader.AjModelLoader;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.GeyserCompatHolder;
 import de.tomalbrc.toms_mobs.util.Util;
@@ -35,7 +34,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 public class Snake extends Monster implements AnimatedEntity {
     public static final ResourceLocation ID = Util.id("snake");
-    public static final Model MODEL = AjModelLoader.load(ID);
+    public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Snake> holder;
 
     public static AttributeSupplier.Builder createAttributes() {

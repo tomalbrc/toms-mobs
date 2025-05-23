@@ -1,78 +1,40 @@
 {
 	"meta": {
-		"format": "animated_java/ajmodel",
-		"format_version": "0.4.6",
-		"uuid": "c751c2b7-d1d7-783d-2bbb-610280803ff6"
+		"format": "animated_java_blueprint",
+		"format_version": "1.7.2",
+		"uuid": "c3adbc13-2dd6-1107-27da-fa040a10cbd3",
+		"save_location": "/Users/tomalbrecht/Minecraft/minecraft-software/projects/toms-mobs/src/main/resources/model/toms_mobs/butterfly.ajblueprint",
+		"last_used_export_namespace": ""
 	},
-	"animated_java": {
-		"settings": {
-			"project_namespace": "butterfly",
-			"project_resolution": [16, 16],
-			"target_minecraft_version": "1.20+",
-			"rig_item": "minecraft:leather_horse_armor",
-			"rig_item_model": "",
-			"rig_export_folder": "",
-			"texture_export_folder": "",
-			"enable_advanced_resource_pack_settings": false,
-			"verbose": true,
-			"exporter": "animated_java:json_exporter"
-		},
-		"exporter_settings": {
-			"animated_java:datapack_exporter": {
-				"datapack_mcmeta": "",
-				"outdated_rig_warning": true,
-				"root_entity_nbt": "{}",
-				"include_variant_summon_functions": true,
-				"include_apply_variant_functions": true,
-				"include_uninstall_function": true,
-				"include_pause_all_animations_function": true,
-				"include_remove_rigs_function": true,
-				"include_remove_all_function": true,
-				"include_on_load_function_tags": true,
-				"include_on_tick_function_tags": true,
-				"include_on_summon_function_tags": true,
-				"include_on_remove_function_tags": true
-			}
-		},
-		"variants": [
-			{
-				"name": "default",
-				"textureMap": {},
-				"uuid": "3668c6dd-c46f-5c18-4d09-2f406dc86288",
-				"boneConfig": {},
-				"default": true,
-				"affectedBonesIsAWhitelist": false,
-				"affectedBones": []
-			},
-			{
-				"name": "1",
-				"textureMap": {
-					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
-					"e1e9c37d-e4fc-8d07-56bd-d3b834302a79": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
-					"c12f60ff-f104-ef0d-7315-6268236b02e5": "c12f60ff-f104-ef0d-7315-6268236b02e5"
-				},
-				"uuid": "820e72a3-5a8c-7c07-fb51-c786adcbac6b",
-				"boneConfig": {},
-				"affectedBonesIsAWhitelist": false,
-				"affectedBones": []
-			},
-			{
-				"name": "2",
-				"textureMap": {
-					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "c12f60ff-f104-ef0d-7315-6268236b02e5",
-					"e1e9c37d-e4fc-8d07-56bd-d3b834302a79": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
-					"c12f60ff-f104-ef0d-7315-6268236b02e5": "c12f60ff-f104-ef0d-7315-6268236b02e5"
-				},
-				"uuid": "026606a5-cd3c-3ec3-718d-953c308dd329",
-				"boneConfig": {},
-				"affectedBonesIsAWhitelist": false,
-				"affectedBones": []
-			}
-		]
+	"blueprint_settings": {
+		"export_namespace": "blueprint",
+		"show_bounding_box": false,
+		"auto_bounding_box": true,
+		"bounding_box": [48, 48],
+		"enable_plugin_mode": false,
+		"resource_pack_export_mode": "raw",
+		"data_pack_export_mode": "raw",
+		"target_minecraft_versions": ["1.21.4"],
+		"display_item": "minecraft:white_dye",
+		"custom_model_data_offset": 0,
+		"enable_advanced_resource_pack_settings": false,
+		"resource_pack": "",
+		"enable_advanced_data_pack_settings": false,
+		"data_pack": "",
+		"summon_commands": "",
+		"remove_commands": "",
+		"ticking_commands": "",
+		"interpolation_duration": 1,
+		"teleportation_duration": 1,
+		"use_storage_for_animation": false,
+		"show_function_errors": true,
+		"show_outdated_warning": true,
+		"baked_animations": true,
+		"json_file": ""
 	},
 	"resolution": {
 		"width": 16,
-		"height": 16
+		"height": 48
 	},
 	"elements": [
 		{
@@ -80,6 +42,7 @@
 			"box_uv": false,
 			"rescale": false,
 			"locked": false,
+			"light_emission": 0,
 			"render_order": "default",
 			"allow_mirror_modeling": true,
 			"from": [-1, 0, -2],
@@ -127,6 +90,7 @@
 			"box_uv": false,
 			"rescale": false,
 			"locked": false,
+			"light_emission": 0,
 			"render_order": "default",
 			"allow_mirror_modeling": true,
 			"from": [-6, 0.5, -3.5],
@@ -175,6 +139,7 @@
 			"box_uv": false,
 			"rescale": false,
 			"locked": false,
+			"light_emission": 0,
 			"render_order": "default",
 			"allow_mirror_modeling": true,
 			"from": [0, 0.5, -3.5],
@@ -223,6 +188,7 @@
 			"box_uv": false,
 			"rescale": false,
 			"locked": false,
+			"light_emission": 0,
 			"render_order": "default",
 			"allow_mirror_modeling": true,
 			"from": [0, 1, -5],
@@ -271,6 +237,7 @@
 			"box_uv": false,
 			"rescale": false,
 			"locked": false,
+			"light_emission": 0,
 			"render_order": "default",
 			"allow_mirror_modeling": true,
 			"from": [-1, 1, -5],
@@ -320,7 +287,9 @@
 			"name": "body",
 			"origin": [-1, 0, -2],
 			"color": 0,
-			"nbt": "{}",
+			"configs": {
+				"variants": {}
+			},
 			"uuid": "21d5417b-3fef-e5d8-954c-44df9c6bfb5e",
 			"export": true,
 			"mirror_uv": false,
@@ -328,6 +297,7 @@
 			"locked": false,
 			"visibility": true,
 			"autouv": 0,
+			"selected": false,
 			"children": [
 				"ed02be45-e4e9-e8c3-65d0-f5bacab954b0",
 				"2fc011a6-d459-ea36-80b2-ffc0b4c5a21c",
@@ -344,19 +314,28 @@
 			"folder": "block",
 			"namespace": "",
 			"id": "0",
+			"group": "",
+			"width": 16,
+			"height": 48,
+			"uv_width": 16,
+			"uv_height": 16,
 			"particle": true,
+			"use_as_default": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
 			"render_mode": "default",
 			"render_sides": "auto",
+			"pbr_channel": "color",
 			"frame_time": 1,
 			"frame_order_type": "loop",
 			"frame_order": "",
 			"frame_interpolate": false,
 			"visible": true,
-			"mode": "bitmap",
-			"saved": true,
+			"internal": true,
+			"saved": false,
 			"uuid": "1f794091-ea4b-a3ef-7632-77c1ed351b5e",
-			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/texture.png",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAVxJREFUSEvlliGuhDAQQFtFCAaHwgESEq7BDXB40JwBDVchvQUHIDgUjkAQBNHNkLRhf4Aw/WJ//q7ZbJd5nQ6d11Jy8rEsi4vhdV3JOI707DkYO/3DNE2uaZqMGYYBBxAZwOwAQgMcx+HzPO+BhmHwZVnuMwjDUK65aRoKGcDs27YRCL6DUBGcZRkpy5IAAGoABbgrnijQDpimaf/tui5hjF2me/YmaBzHMn1d14nneSTP88cQWhQFb9tWwgFSVdVzAEQCpO97EkURqesaDzhCbNvGLeFqiz4df7xWVC88nf2ymT4P+GYfQCvDG0D74OgCACj5QMUF+0YSPlBxwQ44+gDrArmVAeL7PtoFb72QpinHuuAPN9Pn2/nXGXyrD4QLlH2QJIk8ZJR80HWd0iklfRAEAepQlTcU4QMVF8huZIxx7L1AZiDuBvCNudq8ATB7/+ezSpU/Qv4B4AUO8AhAsYFU2gAAAABJRU5ErkJggg=="
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAVxJREFUSEvlliGuhDAQQFtFCAaHwgESEq7BDXB40JwBDVchvQUHIDgUjkAQBNHNkLRhf4Aw/WJ//q7ZbJd5nQ6d11Jy8rEsi4vhdV3JOI707DkYO/3DNE2uaZqMGYYBBxAZwOwAQgMcx+HzPO+BhmHwZVnuMwjDUK65aRoKGcDs27YRCL6DUBGcZRkpy5IAAGoABbgrnijQDpimaf/tui5hjF2me/YmaBzHMn1d14nneSTP88cQWhQFb9tWwgFSVdVzAEQCpO97EkURqesaDzhCbNvGLeFqiz4df7xWVC88nf2ymT4P+GYfQCvDG0D74OgCACj5QMUF+0YSPlBxwQ44+gDrArmVAeL7PtoFb72QpinHuuAPN9Pn2/nXGXyrD4QLlH2QJIk8ZJR80HWd0iklfRAEAepQlTcU4QMVF8huZIxx7L1AZiDuBvCNudq8ATB7/+ezSpU/Qv4B4AUO8AhAsYFU2gAAAABJRU5ErkJggg==",
+			"relative_path": "../../../../../../../../minecraft-software_rp/assets/animated_java/textures/item/butterfly/texture.png"
 		},
 		{
 			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant1.png",
@@ -364,19 +343,28 @@
 			"folder": "",
 			"namespace": "",
 			"id": "1",
+			"group": "",
+			"width": 16,
+			"height": 48,
+			"uv_width": 16,
+			"uv_height": 16,
 			"particle": false,
+			"use_as_default": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
 			"render_mode": "default",
 			"render_sides": "auto",
+			"pbr_channel": "color",
 			"frame_time": 1,
 			"frame_order_type": "loop",
 			"frame_order": "",
 			"frame_interpolate": false,
 			"visible": true,
-			"mode": "bitmap",
-			"saved": true,
+			"internal": true,
+			"saved": false,
 			"uuid": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79",
-			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/variant1.png",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAWlJREFUSEvtljGOR0AUxkclIhHRuIADSLQSrUSr0oljuIbWDZzFCRyATiIiopjNN7sjdoP1ppP8VQzvzTdv5vs9Gju5XNflcnhdVzaOo3b2HcZOX9i2zXVd32OGYaAlkAowOxL9m8DzPO77PkuShOV5ruF5miYRaJomn+f5XgEC4jhmfd+zpmk0KMDs27YxBN8lEbMheFkWFoahUIAaoAB3xZMFEgmiKGKGYbCqqi6lXu5ClmXccRyhAEmCIBAqrgL+jv9SIJNQlIiZjssgK5CSkAT3lmWxtm2fL+HpWklHmZL0sdSXKXgpD8qy3D2gxAMABSzAdinx4OgBJR7Uda10qDTJA0inOlFgXVoZDypU2nkALiopOPKAyoLLzvSxM6UCF+39pTzoum43E5kHaZpyyQIlHqC9H+1M5gGMROnIx40WPICN5d8J7RT88AAKcKmoEJUvioIrK5A/GCos+PDge8OVmsnxrHwB9Qv5MWUVcdsAAAAASUVORK5CYII="
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAWlJREFUSEvtljGOR0AUxkclIhHRuIADSLQSrUSr0oljuIbWDZzFCRyATiIiopjNN7sjdoP1ppP8VQzvzTdv5vs9Gju5XNflcnhdVzaOo3b2HcZOX9i2zXVd32OGYaAlkAowOxL9m8DzPO77PkuShOV5ruF5miYRaJomn+f5XgEC4jhmfd+zpmk0KMDs27YxBN8lEbMheFkWFoahUIAaoAB3xZMFEgmiKGKGYbCqqi6lXu5ClmXccRyhAEmCIBAqrgL+jv9SIJNQlIiZjssgK5CSkAT3lmWxtm2fL+HpWklHmZL0sdSXKXgpD8qy3D2gxAMABSzAdinx4OgBJR7Uda10qDTJA0inOlFgXVoZDypU2nkALiopOPKAyoLLzvSxM6UCF+39pTzoum43E5kHaZpyyQIlHqC9H+1M5gGMROnIx40WPICN5d8J7RT88AAKcKmoEJUvioIrK5A/GCos+PDge8OVmsnxrHwB9Qv5MWUVcdsAAAAASUVORK5CYII=",
+			"relative_path": "../../../../../../../../minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant1.png"
 		},
 		{
 			"path": "/Users/tomalbrecht/Minecraft/minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant2.png",
@@ -384,19 +372,60 @@
 			"folder": "",
 			"namespace": "",
 			"id": "2",
+			"group": "",
+			"width": 16,
+			"height": 48,
+			"uv_width": 16,
+			"uv_height": 16,
 			"particle": false,
+			"use_as_default": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
 			"render_mode": "default",
 			"render_sides": "auto",
+			"pbr_channel": "color",
 			"frame_time": 1,
 			"frame_order_type": "loop",
 			"frame_order": "",
 			"frame_interpolate": false,
 			"visible": true,
-			"mode": "bitmap",
-			"saved": true,
+			"internal": true,
+			"saved": false,
 			"uuid": "c12f60ff-f104-ef0d-7315-6268236b02e5",
-			"relative_path": "../../../.._rp/assets/animated_java/textures/item/butterfly/variant2.png",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAXRJREFUSEvtljGOhDAMRZOKAgnRcQEuACVH4QxchItwBloaCgokOoS4AA1CIIQQRVbOylFmdoZNvN1qpszEPx8nfjZnL35BEAhcPs+TLcvCX+2DtYc/wjAU4zhy3/eF4zgqZpqm3wUwGKLQAZwOQsYCEAwOQGzbNhnouq7Y9/3eAQR4nsfWdZUC4ABOv66LQfCdCE/TVCas73slADmAtbvkYYJ4lmVinmfWNI08/V22394CCugObER4nudiGAZ2HId0gYk0FZGW4zgWSZKwuq5VHqwEUASD2rY1zoXxRqOnbGpb3/dfHZB4oJcziQfwmPD+yTzAYiLxQK8BEg/0cibxoCgK0qP6O1CQB1VVWbNA9QW4wiiKGIjYYk19N4iAog0LfnSmTzlTMvDU3lGCxAP9fGse6DAhzQfPAtY80GmEDqzmA+jM+hO25kFZltZF9DBgQFe2LSIlADzouo4+oYASTCnUz1ADBoUFHx58XySpmeiV+wWMx09ALug3mQAAAABJRU5ErkJggg=="
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAAXNSR0IArs4c6QAAAXRJREFUSEvtljGOhDAMRZOKAgnRcQEuACVH4QxchItwBloaCgokOoS4AA1CIIQQRVbOylFmdoZNvN1qpszEPx8nfjZnL35BEAhcPs+TLcvCX+2DtYc/wjAU4zhy3/eF4zgqZpqm3wUwGKLQAZwOQsYCEAwOQGzbNhnouq7Y9/3eAQR4nsfWdZUC4ABOv66LQfCdCE/TVCas73slADmAtbvkYYJ4lmVinmfWNI08/V22394CCugObER4nudiGAZ2HId0gYk0FZGW4zgWSZKwuq5VHqwEUASD2rY1zoXxRqOnbGpb3/dfHZB4oJcziQfwmPD+yTzAYiLxQK8BEg/0cibxoCgK0qP6O1CQB1VVWbNA9QW4wiiKGIjYYk19N4iAog0LfnSmTzlTMvDU3lGCxAP9fGse6DAhzQfPAtY80GmEDqzmA+jM+hO25kFZltZF9DBgQFe2LSIlADzouo4+oYASTCnUz1ADBoUFHx58XySpmeiV+wWMx09ALug3mQAAAABJRU5ErkJggg==",
+			"relative_path": "../../../../../../../../minecraft-software_rp/assets/animated_java/textures/item/butterfly/variant2.png"
 		}
-	]
+	],
+	"variants": {
+		"default": {
+			"name": "default",
+			"display_name": "Default",
+			"uuid": "b838d598-b657-5411-01de-00feb7c5736e",
+			"texture_map": {},
+			"excluded_nodes": [],
+			"is_default": true
+		},
+		"list": [
+			{
+				"name": "2",
+				"display_name": "2",
+				"uuid": "57005d2e-8a50-aa64-e1f3-c3fb56760e4e",
+				"texture_map": {
+					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "c12f60ff-f104-ef0d-7315-6268236b02e5"
+				},
+				"excluded_nodes": []
+			},
+			{
+				"name": "1",
+				"display_name": "1",
+				"uuid": "4e0cbd2e-aae5-8047-fc99-4a534076359e",
+				"texture_map": {
+					"1f794091-ea4b-a3ef-7632-77c1ed351b5e": "e1e9c37d-e4fc-8d07-56bd-d3b834302a79"
+				},
+				"excluded_nodes": []
+			}
+		]
+	},
+	"animations": [],
+	"animation_controllers": []
 }
