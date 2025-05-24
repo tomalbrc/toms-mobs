@@ -51,17 +51,8 @@ public class Lobster extends Animal implements AnimatedEntity {
         super(type, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
 
-        this.holder = new GeyserCompatHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

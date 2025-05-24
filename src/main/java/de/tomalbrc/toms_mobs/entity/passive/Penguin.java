@@ -80,17 +80,8 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         this.moveControl = new SemiAquaticMoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new GeyserCompatHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

@@ -11,6 +11,7 @@ loom {
 }
 
 repositories {
+    mavenLocal()
     maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
@@ -20,7 +21,6 @@ repositories {
     }
     maven { url 'https://repo.opencollab.dev/maven-releases/' }
     maven { url 'https://repo.opencollab.dev/maven-snapshots/' }
-    mavenLocal()
 }
 
 dependencies {
@@ -42,9 +42,12 @@ dependencies {
 
     compileOnly('org.geysermc.floodgate:api:2.2.4-SNAPSHOT')
     compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
+    compileOnly("me.zimzaza4:geyserutils-geyser:1.0-SNAPSHOT")
 
-    implementation 'org.cloudburstmc.protocol:common:3.0.0.Beta6-SNAPSHOT'
-    implementation 'org.cloudburstmc.protocol:bedrock-connection:3.0.0.Beta6-SNAPSHOT'
+    modImplementation(include 'org.cloudburstmc.protocol:common:3.0.0.Beta6-SNAPSHOT')
+    modImplementation(include 'org.cloudburstmc.protocol:bedrock-connection:3.0.0.Beta6-SNAPSHOT')
+    modImplementation(include 'org.cloudburstmc.protocol:bedrock-codec:3.0.0.Beta6-SNAPSHOT')
+
 }
 
 processResources {

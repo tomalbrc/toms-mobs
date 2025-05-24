@@ -56,15 +56,6 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     }
 
     @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
-    }
-
-    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
     }

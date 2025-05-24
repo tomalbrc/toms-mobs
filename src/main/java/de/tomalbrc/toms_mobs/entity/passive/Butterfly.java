@@ -80,20 +80,11 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
         this.setPathfindingMalus(PathType.COCOA, -1.0F);
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
 
-        this.holder = new SimpleMovementRotatingHolder<>(this, MODEL);
+        this.holder = new SimpleMovementRotatingHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
 
         this.setColor(Color.hslToRgb(this.getRandom().nextFloat(), 0.99f, 0.65f));
         this.setVariant(this.variants[this.random.nextInt(this.variants.length)]);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

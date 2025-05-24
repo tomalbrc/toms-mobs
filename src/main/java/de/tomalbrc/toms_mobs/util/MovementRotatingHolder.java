@@ -17,8 +17,8 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
 
     private boolean init = false;
 
-    public MovementRotatingHolder(T parent, Model model) {
-        super(parent, model);
+    public MovementRotatingHolder(T parent, Model model, String geyserId) {
+        super(parent, model, geyserId);
     }
 
     @Override

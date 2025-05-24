@@ -44,15 +44,6 @@ public class Snake extends Monster implements AnimatedEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
-    }
-
     public static boolean checkSnakeSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return checkAnyLightMonsterSpawnRules(type, level, spawnReason, pos, random);
     }
@@ -68,7 +59,7 @@ public class Snake extends Monster implements AnimatedEntity {
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new GeyserCompatHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
     }
 
