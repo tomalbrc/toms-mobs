@@ -11,12 +11,12 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntity> extends LivingEntityHolder<T> {
+public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
     private float lastYaw = 0.f;
     private float lastPitch = 0.f;
 
-    public SimpleMovementRotatingHolder(T parent, Model model) {
-        super(parent, model);
+    public SimpleMovementRotatingHolder(T parent, Model model, String geyserId) {
+        super(parent, model, geyserId);
     }
 
     @Override

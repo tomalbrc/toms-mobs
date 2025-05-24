@@ -61,17 +61,8 @@ public class Seagull extends Animal implements AnimatedEntity {
         this.moveControl = new FlyingMobCircleMoveControl(this);
         this.lookControl = new LookControl(this);
 
-        this.holder = new MovementRotatingHolder<>(this, MODEL);
+        this.holder = new MovementRotatingHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

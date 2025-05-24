@@ -13,8 +13,8 @@ import org.joml.Vector3f;
 
 public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
 
-    public LivingEntityHolder(T parent, Model model) {
-        super(parent, model);
+    public LivingEntityHolder(T parent, Model model, String geyserId) {
+        super(parent, model, geyserId);
     }
 
     @Nullable

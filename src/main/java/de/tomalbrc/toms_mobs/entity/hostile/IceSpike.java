@@ -54,15 +54,6 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     }
 
     @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
-    }
-
-    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 

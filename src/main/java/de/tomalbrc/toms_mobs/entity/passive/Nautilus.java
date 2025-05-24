@@ -44,17 +44,8 @@ public class Nautilus extends AbstractFish implements AnimatedEntity {
     public Nautilus(EntityType<? extends AbstractFish> type, Level level) {
         super(type, level);
 
-        this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
+        this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

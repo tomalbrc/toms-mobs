@@ -53,17 +53,8 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     public Showmaster(EntityType<? extends SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
 
-        this.holder = new GeyserCompatHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL, ID.getPath());
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override

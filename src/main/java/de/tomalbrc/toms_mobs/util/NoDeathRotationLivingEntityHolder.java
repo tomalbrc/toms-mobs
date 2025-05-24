@@ -11,8 +11,8 @@ import org.joml.Vector3f;
 
 public class NoDeathRotationLivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends GeyserCompatHolder<T> {
 
-    public NoDeathRotationLivingEntityHolder(T parent, Model model) {
-        super(parent, model);
+    public NoDeathRotationLivingEntityHolder(T parent, Model model, String geyserId) {
+        super(parent, model, geyserId);
     }
 
     @Override

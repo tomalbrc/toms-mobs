@@ -72,19 +72,10 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         this.setPathfindingMalus(PathType.COCOA, -1.0F);
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
 
-        this.holder = new GeyserCompatHolder<>(this, MODEL);
+        this.holder = new GeyserCompatHolder<>(this, MODEL, ID.getPath());
         this.holder.getAnimator().playAnimation("idle");
 
         EntityAttachment.ofTicking(this.holder, this);
-    }
-
-    @Override
-    public EntityType<?> getPolymerEntityType(PacketContext context) {
-        if (FloodgateApi.getInstance().isFloodgatePlayer(context.getPlayer().getUUID())) {
-            return EntityType.PIG;
-        }
-
-        return AnimatedEntity.super.getPolymerEntityType(context);
     }
 
     @Override
