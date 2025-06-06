@@ -8,7 +8,6 @@ import de.tomalbrc.toms_mobs.util.SimpleMovementRotatingHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -34,6 +33,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -168,14 +169,22 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
-        if (tag.contains("Color")) this.setColor(tag.getInt("Color").orElseThrow());
-        if (tag.contains("Variant")) {
-            String v = tag.getString("Variant").orElseThrow();
-            if (this.containsVariant(v)) this.setVariant(v);
-        }
+        input.getInt("Color").ifPresent(this::setColor);
+        input.getString("Variant").ifPresent(variant -> {
+            if (this.containsVariant(variant))
+                this.setVariant(variant);
+        });
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
+        output.putInt("Color", this.color);
+        output.putString("Variant", this.variant);
     }
 
     private boolean containsVariant(String target) {
@@ -185,14 +194,6 @@ public class Butterfly extends Animal implements AnimatedEntity, FlyingAnimal {
             }
         }
         return false;
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-
-        tag.putInt("Color", this.color);
-        tag.putString("Variant", this.variant);
     }
 
     static class Color {

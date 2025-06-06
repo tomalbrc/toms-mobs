@@ -68,7 +68,7 @@ public class Nautilus extends AbstractFish implements AnimatedEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PUFFER_FISH_AMBIENT;
+        return SoundEvents.EMPTY;
     }
 
     @Override

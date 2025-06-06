@@ -7,7 +7,6 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.NoDeathRotationLivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -25,6 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -106,27 +107,26 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
         if (this.getAttribute(Attributes.SCALE) != null) {
             var scale = this.getAttribute(Attributes.SCALE);
             assert scale != null;
 
-            if (compoundTag.contains("CustomScale")) {
-                scale.setBaseValue(compoundTag.getFloat("CustomScale").orElseThrow());
-            }
+            var s = input.getFloatOr("CustomScale", 1);
+            scale.setBaseValue(s);
         }
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
 
         if (this.getAttribute(Attributes.SCALE) != null) {
             var scale = this.getAttribute(Attributes.SCALE);
             assert scale != null;
-            compoundTag.putDouble("CustomScale", scale.getBaseValue());
+            output.putDouble("CustomScale", scale.getBaseValue());
         }
     }
 

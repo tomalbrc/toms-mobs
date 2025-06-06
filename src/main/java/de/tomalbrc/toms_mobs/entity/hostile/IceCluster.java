@@ -9,7 +9,6 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -17,6 +16,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -140,25 +141,25 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        if (compoundTag.contains("Owner")) {
-            this.ownerUUID = compoundTag.read("Owner", UUIDUtil.CODEC).orElse(null);
-        }
+    public void readAdditionalSaveData(ValueInput compoundTag) {
+        compoundTag.read("Owner", UUIDUtil.CODEC).ifPresent(uuid -> {
+            this.ownerUUID = uuid;
+        });
 
-        if (compoundTag.contains("Target")) {
-            this.ownerUUID = compoundTag.read("Owner", UUIDUtil.CODEC).orElse(null);
-        }
+        compoundTag.read("Target", UUIDUtil.CODEC).ifPresent(uuid -> {
+            this.targetUUID = uuid;
+        });
 
         this.setNoGravity(true);
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
+    protected void addAdditionalSaveData(ValueOutput output) {
         if (this.ownerUUID != null) {
-            compoundTag.storeNullable("Owner", UUIDUtil.CODEC, this.ownerUUID);
+            output.storeNullable("Owner", UUIDUtil.CODEC, this.ownerUUID);
         }
         if (this.targetUUID != null) {
-            compoundTag.storeNullable("Target", UUIDUtil.CODEC, this.targetUUID);
+            output.storeNullable("Target", UUIDUtil.CODEC, this.targetUUID);
         }
     }
 

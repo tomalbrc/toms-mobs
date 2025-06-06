@@ -75,6 +75,7 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
                 ThrownSplashPotion potion = EntityType.SPLASH_POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
                 assert potion != null;
                 potion.setOwner(this.mob);
+                potion.setPos(this.mob.getEyePosition());
                 ItemStack itemStack = new ItemStack(Items.SPLASH_POTION);
                 itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.SLOWNESS));
                 potion.setItem(itemStack);

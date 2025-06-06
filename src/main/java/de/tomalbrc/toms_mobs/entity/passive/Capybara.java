@@ -15,7 +15,6 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +39,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.include.com.google.common.collect.ImmutableList;
@@ -209,9 +210,12 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        if (tag.contains("Apple")) this.apple = ItemStack.parse(this.registryAccess(), tag.get("Apple")).orElseThrow();
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        input.read("Apple", ItemStack.CODEC).ifPresent(itemStack -> {
+            this.apple = itemStack;
+        });
 
         if (!this.apple.isEmpty()) {
             this.holder.getVariantController().setVariant("apple");
@@ -221,10 +225,10 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
         if (!this.apple.isEmpty())
-            tag.put("Apple", this.apple.save(this.registryAccess()));
+            output.store("Apple", ItemStack.CODEC, this.apple);
     }
 
     public void setRelaxing(boolean b) {
