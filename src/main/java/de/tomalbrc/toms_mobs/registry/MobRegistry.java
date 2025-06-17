@@ -31,6 +31,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.Map;
@@ -107,7 +108,7 @@ public class MobRegistry {
             Lobster.ID,
             FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_AMBIENT, x -> x
                             .defaultAttributes(Lobster::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.OCEAN_FLOOR, (xx, y, z, t, r) -> true))
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.OCEAN_FLOOR, (xx, levelAccessor, z, blockPos, r) -> blockPos.getY() < levelAccessor.getSeaLevel() + 3 && TurtleEggBlock.onSand(levelAccessor, blockPos) && levelAccessor.getRawBrightness(blockPos, 0) > 7))
                     .sized(0.65f, 0.35f)
     );
 
@@ -134,7 +135,7 @@ public class MobRegistry {
             Butterfly.ID,
             FabricEntityType.Builder.createMob(Butterfly::new, MobCategory.AMBIENT, x -> x
                             .defaultAttributes(Butterfly::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules))
+                            .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules))
                     .sized(0.25f, 0.25f)
     );
 
@@ -200,19 +201,20 @@ public class MobRegistry {
 
     public static void registerMobs() {
         if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID))
-            BiomeHelper.addSpawn(PENGUIN, 15, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
+            BiomeHelper.addSpawn(PENGUIN, 12, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR)
                     .or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES))
                     .or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO))
                     .or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES))
             );
 
         if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID))
-            BiomeHelper.addSpawn(SNAKE, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.HUSK)
-                    .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE))
-                    .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
-                    .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
-                    .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
-                    .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
+            BiomeHelper.addSpawn(SNAKE, 8, 1, 2, BiomeSelectors.spawnsOneOf(EntityType.HUSK).and(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)
+                            .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE))
+                            .or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID))
+                            .or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT))
+                            .or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT))
+                            .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))
+                    )
             );
 
         if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID))
@@ -246,9 +248,9 @@ public class MobRegistry {
             BiomeHelper.addSpawn(NAUTILUS, 4, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
-                BiomeSelectors.spawnsOneOf(EntityType.TROPICAL_FISH).or(BiomeSelectors.spawnsOneOf(EntityType.TURTLE))
-                        .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH))
-                        .or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
+                BiomeSelectors.spawnsOneOf(EntityType.TURTLE).and(
+                        BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
+                )
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
