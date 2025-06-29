@@ -5,6 +5,7 @@ import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Node;
 import de.tomalbrc.bil.core.model.Pose;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
@@ -31,7 +32,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
     }
 
     @Override
-    protected void applyPose(Pose pose, DisplayWrapper<?> display) {
+    protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
         Matrix4f matrix4f = new Matrix4f();
         matrix4f.translate(pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()));
         matrix4f.rotate(pose.readOnlyLeftRotation());
@@ -70,7 +71,7 @@ public class LivingEntityHolder<T extends LivingEntity & AnimatedEntity> extends
         }
 
 
-        display.element().setTransformation(matrix4f);
-        display.element().startInterpolationIfDirty();
+        display.element().setTransformation(serverPlayer, matrix4f);
+        display.element().startInterpolationIfDirty(serverPlayer);
     }
 }

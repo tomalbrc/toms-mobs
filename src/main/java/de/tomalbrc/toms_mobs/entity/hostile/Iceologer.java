@@ -46,7 +46,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Iceologer> holder;
 
-    private final Locator.LocatorListener listener = (holder, pose) -> {
+    private final Locator.LocatorListener listener = (serverPlayer, holder, pose) -> {
         Quaternionf bodyRot = Axis.YP.rotationDegrees(this.yBodyRot);
 
         Vector3f position = pose.translation()
@@ -145,7 +145,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         leftArm.addListener(this.listener);
         rightArm.addListener(this.listener);
 
-        this.holder.getAnimator().playAnimation(animationName, 10, () -> {
+        this.holder.getAnimator().playAnimation(animationName, 10, (serverPlayer) -> {
             leftArm.removeAllListeners();
             rightArm.removeAllListeners();
         });

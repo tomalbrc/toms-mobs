@@ -5,6 +5,7 @@ import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.holder.wrapper.DisplayWrapper;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.core.model.Pose;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +21,7 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
     }
 
     @Override
-    protected void applyPose(Pose pose, DisplayWrapper display) {
+    protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
         var translation = new Vector3f(0, -0.1f, 0);
         Matrix4f matrix4f = new Matrix4f().translate(translation);
 
@@ -38,17 +39,17 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
                     .rotateLocalX(lastPitch)
                     .rotateLocalY(-lastYaw + Mth.PI);
 
-            display.element().setTransformation(matrix4f);
-            display.element().startInterpolationIfDirty();
+            display.element().setTransformation(serverPlayer, matrix4f);
+            display.element().startInterpolationIfDirty(serverPlayer);
         }
     }
 
     @Override
-    public void updateElement(DisplayWrapper display, @Nullable Pose pose) {
+    public void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display, @Nullable Pose pose) {
         if (pose == null) {
-            this.applyPose(display.getLastPose(), display);
+            this.applyPose(serverPlayer, display.getLastPose(serverPlayer), display);
         } else {
-            this.applyPose(pose, display);
+            this.applyPose(serverPlayer, pose, display);
         }
     }
 }

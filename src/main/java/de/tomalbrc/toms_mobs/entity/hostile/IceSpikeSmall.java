@@ -47,9 +47,9 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
         this.setNoGravity(true);
 
         this.holder = new SimpleEntityHolder<>(this, MODEL);
-        this.holder.getAnimator().playAnimation("up", 10, () -> {
+        this.holder.getAnimator().playAnimation("up", 10, (serverPlayer) -> {
             level.playSound(null, this, SoundEvents.GLASS_BREAK, SoundSource.HOSTILE, .6f, .75f);
-            this.holder.getAnimator().playAnimation("down", 10, this::discard);
+            this.holder.getAnimator().playAnimation("down", 10, (serverPlayer1 -> this.discard()));
         });
 
         EntityAttachment.ofTicking(this.holder, this);
