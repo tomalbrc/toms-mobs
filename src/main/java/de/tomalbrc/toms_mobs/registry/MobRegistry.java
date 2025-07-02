@@ -247,7 +247,7 @@ public class MobRegistry {
         if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID))
             BiomeHelper.addSpawn(NAUTILUS, 4, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 10, 1, 3,
+        if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 5, 1, 3,
                 BiomeSelectors.spawnsOneOf(EntityType.TURTLE).and(
                         BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
                 )
