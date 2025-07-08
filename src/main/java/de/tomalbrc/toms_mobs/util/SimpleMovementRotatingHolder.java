@@ -53,6 +53,7 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
         }
     }
 
+    @Override
     protected void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display) {
         var queryResult = this.animationComponent.findPose(serverPlayer, display);
         if (queryResult != null) {
