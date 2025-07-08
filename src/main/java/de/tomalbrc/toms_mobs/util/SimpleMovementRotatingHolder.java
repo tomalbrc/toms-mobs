@@ -52,4 +52,17 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
             this.applyPose(serverPlayer, pose, display);
         }
     }
+
+    protected void updateElement(ServerPlayer serverPlayer, DisplayWrapper<?> display) {
+        var queryResult = this.animationComponent.findPose(serverPlayer, display);
+        if (queryResult != null) {
+            if (queryResult.owner() != serverPlayer && display.element().getDataTracker().isDirty()) {
+                return;
+            }
+
+            this.updateElement(queryResult.owner(), display, queryResult.pose());
+        } else {
+            this.updateElement(null, display, display.getDefaultPose());
+        }
+    }
 }
