@@ -1,0 +1,6 @@
+{
+  "model": {
+    "model": "toms_mobs:item/snake_spawn_egg",
+    "type": "minecraft:model"
+  }
+}

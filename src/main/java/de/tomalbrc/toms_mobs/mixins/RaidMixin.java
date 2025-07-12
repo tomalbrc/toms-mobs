@@ -30,9 +30,9 @@ public class RaidMixin {
             Holder<Biome> biome = serverLevel.getBiome(blockPos);
             Raider mob;
             if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES) && biome.is(BiomeTags.IS_MOUNTAIN)) {
-                mob = MobRegistry.SHOWMASTER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
-            } else {
                 mob = MobRegistry.ICEOLOGER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+            } else {
+                mob = MobRegistry.SHOWMASTER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             }
 
             tomsmobs$spawn(serverLevel, raid.getGroupsSpawned(), mob, blockPos);

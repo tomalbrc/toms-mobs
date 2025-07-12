@@ -1,13 +1,15 @@
 package de.tomalbrc.toms_mobs.entity.passive;
 
+import com.google.common.collect.Lists;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entity.goal.LargeAnimalBreedGoal;
 import de.tomalbrc.toms_mobs.entity.navigation.LessSpinnyGroundPathNavigation;
+import de.tomalbrc.toms_mobs.item.ElephantHarnessItem;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
-import de.tomalbrc.toms_mobs.util.LivingEntityHolder;
+import de.tomalbrc.toms_mobs.util.ElephantHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
@@ -29,21 +31,25 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public static final ResourceLocation ID = Util.id("elephant");
     public static final Model MODEL = Util.loadModel(ID);
-    private final EntityHolder<Elephant> holder;
+    private final ElephantHolder<Elephant> holder;
 
-    private static final Ingredient tempting() {
+    private static Ingredient tempting() {
         return Ingredient.of(Items.SUGAR, Items.SUGAR_CANE, Items.BAMBOO);
     }
 
@@ -54,7 +60,8 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 28.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)
+                .add(Attributes.CAMERA_DISTANCE, 6);
     }
 
     @Override
@@ -67,7 +74,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new ElephantHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
     }
 
@@ -95,7 +102,17 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.goalSelector.addGoal(5, new TemptGoal(this, 0.55, tempting(), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !isVehicle();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !isVehicle();
+            }
+        });
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
     }
 
@@ -187,12 +204,38 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     @Override
     @NotNull
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
-        if (!this.isBaby() && interactionHand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty()) {
-            this.doPlayerRide(player);
+        var item = player.getItemInHand(interactionHand);
+        if (!this.isBaby() && this.isSaddled()) {
+            if (!player.isSecondaryUseActive())
+                this.doPlayerRide(player);
+            else if (item.isEmpty() && !this.isVehicle()) {
+                player.setItemInHand(interactionHand, this.getItemBySlot(EquipmentSlot.SADDLE));
+                this.setItemSlotAndDropWhenKilled(EquipmentSlot.SADDLE, ItemStack.EMPTY);
+                this.holder.getVariantController().setDefaultVariant();
+            }
             return InteractionResult.SUCCESS;
+        } else if (!this.isBaby() && !this.isSaddled() && this.isEquippableInSlot(item, EquipmentSlot.SADDLE)) {
+            return item.interactLivingEntity(player, this, interactionHand);
         } else {
             return super.mobInteract(player, interactionHand);
         }
+    }
+
+    @Override
+    public void onEquipItem(EquipmentSlot equipmentSlot, ItemStack itemStack, ItemStack itemStack2) {
+        super.onEquipItem(equipmentSlot, itemStack, itemStack2);
+
+        if (equipmentSlot == EquipmentSlot.SADDLE && this.getItemBySlot(EquipmentSlot.SADDLE).getItem() instanceof ElephantHarnessItem harnessItem) {
+            this.holder.getVariantController().setVariant(harnessItem.getVariant());
+        }
+        else {
+            this.holder.getVariantController().setDefaultVariant();
+        }
+    }
+
+    @Override
+    public boolean canUseSlot(EquipmentSlot equipmentSlot) {
+        return this.isAlive() && !this.isBaby() && equipmentSlot == EquipmentSlot.SADDLE;
     }
 
     protected void doPlayerRide(Player player) {
@@ -201,18 +244,20 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
             player.setXRot(this.getXRot());
             player.startRiding(this);
             this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
+            this.holder.fastRot(); // clients cancel display rotations when they receive another movement packet / or transform packet before the interpolation finishes :\
         }
     }
 
     @Override
     public void stopRiding() {
         super.stopRiding();
+        this.holder.slowRot();
         this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
     }
 
     @Override
     protected float getRiddenSpeed(Player player) {
-        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.4f;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.35f;
     }
 
     @Override
@@ -250,13 +295,12 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
         this.yRotO = this.yBodyRot = this.yBodyRotO = this.yHeadRot = this.yHeadRotO = this.getYRot();
 
-
         if (attackCooldown == -1 && player instanceof ServerPlayer serverPlayer && serverPlayer.getLastClientInput().jump()) {
             attackCooldown += 30;
-            this.holder.getAnimator().playAnimation("attack");
+            this.holder.getAnimator().playAnimation("attack", 0);
         } else if (attackCooldown == 20) {
 
-            var entities = level().getEntities(player, this.getBoundingBox().move(this.getForward().normalize().scale(1.5f)));
+            var entities = level().getEntities(player, this.getBoundingBox().move(new Vec3(this.getForward().x, 0, this.getForward().z).normalize().scale(3.0f)));
             var factor = (1.0f/6.0f);
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity) {
@@ -265,9 +309,9 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
                     }
 
                     float applyKnockbackResistance = 0;
-                    if (entity instanceof LivingEntity) {
+                    if (entity instanceof LivingEntity livingEntity) {
                         entity.hurt(player.damageSources().mobAttack(this), Math.abs((factor * 5.0f + 1.0f) * 2.0f));
-                        applyKnockbackResistance = (float) ((LivingEntity) entity).getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                        applyKnockbackResistance = (float) livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
                     }
                     var v = this.getForward().multiply(1.0, 0.0, 1.0).add(0, 1, 0);
                     entity.setDeltaMovement(entity.getDeltaMovement().add(v.scale(1.0-applyKnockbackResistance)));
@@ -277,8 +321,52 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
+        Vec3 vec3 = getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()+90);
+        double d = this.getX() + vec3.x;
+        double e = this.getZ() + vec3.z;
+        BlockPos blockPos = BlockPos.containing(d, this.getBoundingBox().minY, e);
+        BlockPos blockPos2 = blockPos.below();
+        if (!this.level().isWaterAt(blockPos2)) {
+            List<Vec3> list = Lists.newArrayList();
+            double f = this.level().getBlockFloorHeight(blockPos);
+            if (DismountHelper.isBlockFloorValid(f)) {
+                list.add(new Vec3(d, (double)blockPos.getY() + f, e));
+            }
+
+            double g = this.level().getBlockFloorHeight(blockPos2);
+            if (DismountHelper.isBlockFloorValid(g)) {
+                list.add(new Vec3(d, (double)blockPos2.getY() + g, e));
+            }
+
+            for (Pose pose : livingEntity.getDismountPoses()) {
+                for (Vec3 pos : list) {
+                    if (DismountHelper.canDismountTo(this.level(), pos, livingEntity, pose)) {
+                        livingEntity.setPose(pose);
+                        return pos;
+                    }
+                }
+            }
+        }
+
+        return super.getDismountLocationForPassenger(livingEntity);
+    }
+
+    @Override
     @NotNull
     protected PathNavigation createNavigation(Level level) {
         return new LessSpinnyGroundPathNavigation(this, level);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput valueInput) {
+        super.readAdditionalSaveData(valueInput);
+
+        var item = this.getItemBySlot(EquipmentSlot.SADDLE);
+        if (!item.isEmpty() && item.getItem() instanceof ElephantHarnessItem harnessItem) {
+            this.holder.getVariantController().setVariant(harnessItem.getVariant());
+        } else {
+            this.holder.getVariantController().setDefaultVariant();
+        }
     }
 }

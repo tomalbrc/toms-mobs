@@ -1,6 +1,7 @@
 package de.tomalbrc.toms_mobs.registry;
 
 import de.tomalbrc.toms_mobs.TomsMobs;
+import de.tomalbrc.toms_mobs.item.ElephantHarnessItem;
 import de.tomalbrc.toms_mobs.item.TexturedPolymerItem;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
@@ -21,10 +22,13 @@ public class ItemRegistry {
     public static final Object2ObjectLinkedOpenHashMap<ResourceLocation, Item> CUSTOM_ITEMS = new Object2ObjectLinkedOpenHashMap<>();
 
     public static final Item NAUTILUS_SHELL_FRAGMENT = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "nautilus_shell_fragment"), (x) -> new TexturedPolymerItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "nautilus_shell_fragment")));
+    public static final Item PINK_ELEPHANT_HARNESS = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "pink_elephant_harness"), (x) -> new ElephantHarnessItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "pink_elephant_harness"), "pink"));
+    public static final Item LIME_ELEPHANT_HARNESS = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "lime_elephant_harness"), (x) -> new ElephantHarnessItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "lime_elephant_harness"), "lime"));
+    public static final Item BLACK_ELEPHANT_HARNESS = register(ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, "black_elephant_harness"), (x) -> new ElephantHarnessItem(x, ResourceLocation.fromNamespaceAndPath("toms_mobs", "black_elephant_harness"), "black"));
 
     public static void registerItems() {
         CreativeModeTab ITEM_GROUP = new CreativeModeTab.Builder(null, -1)
-                .title(Component.literal("Toms Mobs Items").withStyle(ChatFormatting.AQUA))
+                .title(Component.literal("Toms Mobs Items").withStyle(ChatFormatting.BLUE))
                 .icon(NAUTILUS_SHELL_FRAGMENT::getDefaultInstance)
                 .displayItems((parameters, output) -> CUSTOM_ITEMS.forEach((key, value) -> output.accept(value)))
                 .build();

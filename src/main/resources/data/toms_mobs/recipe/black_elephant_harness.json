@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LLL",
+        "C#C"
+    ],
+    "key": {
+        "L": "minecraft:leather",
+        "C": "minecraft:black_carpet",
+        "#": "minecraft:black_wool"
+    },
+    "result": {
+        "id": "toms_mobs:black_elephant_harness",
+        "count": 1
+    }
+}

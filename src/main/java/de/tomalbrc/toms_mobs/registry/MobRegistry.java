@@ -5,6 +5,7 @@ import com.mojang.datafixers.types.Type;
 import de.tomalbrc.toms_mobs.ModConfig;
 import de.tomalbrc.toms_mobs.entity.hostile.*;
 import de.tomalbrc.toms_mobs.entity.passive.*;
+import de.tomalbrc.toms_mobs.item.TexturedPolymerSpawnEggItem;
 import de.tomalbrc.toms_mobs.item.VanillaPolymerSpawnEggItem;
 import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
@@ -254,11 +255,11 @@ public class MobRegistry {
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
-        addSpawnEgg(ELEPHANT, Items.DOLPHIN_SPAWN_EGG);
+        addSpawnEggModeled(ELEPHANT, Util.id("elephant_spawn_egg"));
         addSpawnEgg(FIREMOTH, Items.PARROT_SPAWN_EGG);
         addSpawnEgg(SEAGULL, Items.CAT_SPAWN_EGG);
         addSpawnEgg(BUTTERFLY, Items.ENDER_DRAGON_SPAWN_EGG);
-        addSpawnEgg(CAPYBARA, Items.DONKEY_SPAWN_EGG);
+        addSpawnEggModeled(CAPYBARA, Util.id("capybara_spawn_egg"));
 
         addSpawnEgg(MANTARAY, Items.WARDEN_SPAWN_EGG);
         addSpawnEgg(NAUTILUS, Items.HORSE_SPAWN_EGG);
@@ -267,13 +268,17 @@ public class MobRegistry {
         addSpawnEgg(LOBSTER, Items.PARROT_SPAWN_EGG);
 
         addSpawnEgg(SCULKLING, Items.WARDEN_SPAWN_EGG);
-        addSpawnEgg(SNAKE, Items.PANDA_SPAWN_EGG);
+        addSpawnEggModeled(SNAKE, Util.id("snake_spawn_egg"));
 
         addSpawnEgg(SHOWMASTER, Items.ENDERMITE_SPAWN_EGG);
 
         addSpawnEgg(ICEOLOGER, Items.VEX_SPAWN_EGG);
 
         PolymerItemGroupUtils.registerPolymerItemGroup(Util.id("spawn-eggs"), ITEM_GROUP);
+    }
+
+    private static void addSpawnEggModeled(EntityType<? extends Mob> type, ResourceLocation model) {
+        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new TexturedPolymerSpawnEggItem(type, properties, model));
     }
 
     private static void addSpawnEgg(EntityType<? extends Mob> type, Item vanillaItem) {

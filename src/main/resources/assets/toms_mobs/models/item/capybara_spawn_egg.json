@@ -1,0 +1,6 @@
+{
+ "parent": "item/generated",
+ "textures": {
+ "layer0": "toms_mobs:item/capybara_spawn_egg"
+ }
+}

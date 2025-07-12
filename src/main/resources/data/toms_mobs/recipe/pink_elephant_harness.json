@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LLL",
+        "C#C"
+    ],
+    "key": {
+        "L": "minecraft:leather",
+        "C": "minecraft:pink_carpet",
+        "#": "minecraft:pink_wool"
+    },
+    "result": {
+        "id": "toms_mobs:pink_elephant_harness",
+        "count": 1
+    }
+}
