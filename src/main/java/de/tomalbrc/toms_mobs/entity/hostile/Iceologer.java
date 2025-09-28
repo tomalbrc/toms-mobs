@@ -13,12 +13,14 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -60,10 +62,13 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
                 .rotate(pose.readOnlyLeftRotation())
                 .normalize();
 
+        var power = 0.5f - getRandom().nextFloat();
+        var col = getRandom().nextFloat() * 0.5f + 0.35f;
+
         for (int i = 0; i < 5; i++) {
             Vector3f v = rot.mul(i).add(position);
             holder.sendPacket(new ClientboundLevelParticlesPacket(
-                    ParticleTypes.EFFECT, false, true, v.x, v.y, v.z, 0.3f, 0.3f, 0.95f, 2.f, 0
+                    SpellParticleOption.create(ParticleTypes.EFFECT, ARGB.colorFromFloat(1, col, 0, col), power), false, true, v.x, v.y, v.z, 0.3f, 0.3f, 0.95f, 2.f, 0
             ));
         }
     };
