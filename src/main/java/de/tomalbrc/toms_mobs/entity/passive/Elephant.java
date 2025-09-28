@@ -239,7 +239,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     protected void doPlayerRide(Player player) {
-        if (!this.level().isClientSide()) {
+        if (!this.level().isClientSide) {
             player.setYRot(this.getYRot());
             player.setXRot(this.getXRot());
             player.startRiding(this);
