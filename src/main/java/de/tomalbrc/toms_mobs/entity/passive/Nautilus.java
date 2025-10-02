@@ -252,17 +252,16 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
         if (boostCooldown > 0) boostCooldown--;
     }
 
-    protected void handleAirSupply(ServerLevel serverLevel, int previous) {
+    protected void handleAirSupply(ServerLevel serverLevel, int i) {
         if (this.isAlive() && !this.isInWaterOrRain()) {
-            this.setAirSupply(previous - 1);
-            if (this.shouldTakeDrowningDamage()) {
+            this.setAirSupply(i - 1);
+            if (this.getAirSupply() == -20) {
                 this.setAirSupply(0);
-                this.hurtServer(serverLevel, this.damageSources().dryOut(), 2.0F);
+                this.hurtServer(serverLevel, this.damageSources().dryOut(), 2f);
             }
         } else {
             this.setAirSupply(this.getMaxAirSupply());
         }
-
     }
 
     @Override
