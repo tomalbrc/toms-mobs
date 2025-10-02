@@ -4,6 +4,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import de.tomalbrc.toms_mobs.entity.hostile.*;
 import de.tomalbrc.toms_mobs.entity.passive.*;
+import de.tomalbrc.toms_mobs.entity.passive.butterfly.Butterfly;
 import net.minecraft.util.datafix.schemas.V1460;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

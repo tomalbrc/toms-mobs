@@ -54,6 +54,11 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return true;
+    }
+
+    @Override
     public int getMaxSpawnClusterSize() {
         return 3;
     }

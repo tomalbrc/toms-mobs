@@ -6,7 +6,9 @@
   "mixins": [
     "ClientboundRotateHeadPacketMixin",
     "FallingBlockEntityAccessor",
+    "JukeboxMixin",
     "LivingEntityAccessor",
+    "LivingEntityMixin",
     "MeleeAttackGoalAccessor"
   ],
   "server": [
