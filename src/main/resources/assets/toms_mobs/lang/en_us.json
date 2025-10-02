@@ -19,9 +19,11 @@
     "item.toms_mobs.nautilus_spawn_egg": "Nautilus",
     "item.toms_mobs.mantaray_spawn_egg": "Mantaray",
     "item.toms_mobs.tuna_spawn_egg": "Yellowfin Tuna",
+    "item.toms_mobs.emperor_butterfly_spawn_egg": "Emperor Butterfly",
 
 
     "item.toms_mobs.nautilus_shell_fragment": "Nautilus Shell Fragment",
+    "item.toms_mobs.emperor_wing_pattern": "Emperor Wing Pattern",
     "item.toms_mobs.pink_elephant_harness": "Pink Elephant Harness",
     "item.toms_mobs.lime_elephant_harness": "Lime Elephant Harness",
     "item.toms_mobs.black_elephant_harness": "Black Elephant Harness",
@@ -41,5 +43,6 @@
     "entity.toms_mobs.capybara": "Capybara",
     "entity.toms_mobs.nautilus": "Nautilus",
     "entity.toms_mobs.mantaray": "Mantaray",
-    "entity.toms_mobs.tuna": "Yellowfin Tuna"
+    "entity.toms_mobs.tuna": "Yellowfin Tuna",
+    "entity.toms_mobs.emperor_butterfly": "Emperor Butterfly"
 }

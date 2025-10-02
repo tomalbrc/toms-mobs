@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "toms_mobs:butterfly_elytra",
+  "category": "equipment",
+  "input": "minecraft:elytra",
+  "material": "toms_mobs:emperor_wing_pattern",
+  "result": {
+    "components": {
+      "equippable": {
+        "slot": "chest",
+        "equip_sound": "item.armor.equip_elytra",
+        "asset_id": "toms_mobs:butterfly/emperor",
+        "damage_on_hurt": false
+      },
+      "item_model": "toms_mobs:emperor_elytra"
+    },
+    "count": 1,
+    "id": "minecraft:elytra"
+  }
+}

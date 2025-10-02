@@ -22,8 +22,8 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
 
     @Override
     protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
-        var translation = new Vector3f(0, -0.1f, 0);
-        Matrix4f matrix4f = new Matrix4f().translate(translation);
+        var translation = new Vector3f(0, -parent.getBbHeight(), 0);
+        Matrix4f matrix4f = pose.matrix().get(new Matrix4f()).translateLocal(translation);
 
         Vector3f movement = parent.getDeltaMovement().toVector3f();
         if (movement.lengthSquared() > 0.0001f) {
@@ -31,13 +31,13 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
             float movementYaw = (float) Math.atan2(-movement.x, movement.z);
             float movementPitch = (float) Math.asin(movement.y);
 
-            lastPitch = Mth.rotLerpRad(0.5f, movementPitch, lastPitch);
-            lastYaw = Mth.rotLerpRad(0.5f, movementYaw, lastYaw);
+            lastPitch = Mth.rotLerpRad(0.8f, movementPitch, lastPitch);
+            lastYaw = Mth.rotLerpRad(0.8f, movementYaw, lastYaw);
 
             matrix4f
                     .rotateLocalZ(0)
-                    .rotateLocalX(lastPitch)
-                    .rotateLocalY(-lastYaw + Mth.PI);
+                    .rotateLocalX(-lastPitch)
+                    .rotateLocalY(-lastYaw);
 
             display.element().setTransformation(serverPlayer, matrix4f);
             display.element().startInterpolationIfDirty(serverPlayer);
@@ -61,7 +61,7 @@ public class SimpleMovementRotatingHolder<T extends LivingEntity & AnimatedEntit
                 return;
             }
 
-            this.updateElement(queryResult.owner(), display, queryResult.pose());
+            this.updateElement(null, display, queryResult.pose());
         } else {
             this.updateElement(null, display, display.getDefaultPose());
         }

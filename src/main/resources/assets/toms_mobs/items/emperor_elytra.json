@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "toms_mobs:item/emperor_elytra"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "toms_mobs:item/emperor_elytra_broken"
+    },
+    "property": "minecraft:broken"
+  }
+}

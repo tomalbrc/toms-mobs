@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs;
 
+import de.tomalbrc.toms_mobs.entity.effect.CustomMobEffects;
 import de.tomalbrc.toms_mobs.registry.ItemRegistry;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
@@ -13,6 +14,8 @@ public class TomsMobs implements ModInitializer {
     public void onInitialize() {
         PolymerResourcePackUtils.addModAssets(MODID);
         PolymerResourcePackUtils.markAsRequired();
+
+        CustomMobEffects.init();
 
         SoundRegistry.registerSounds();
         MobRegistry.registerMobs();

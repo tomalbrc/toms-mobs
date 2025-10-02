@@ -59,7 +59,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         return Animal.createAnimalAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.TEMPT_RANGE, 8)
-                .add(Attributes.MAX_HEALTH, 28.0)
+                .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)
                 .add(Attributes.CAMERA_DISTANCE, 6);
     }
@@ -99,7 +99,6 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
         this.goalSelector.addGoal(3, new LargeAnimalBreedGoal(this, 0.5));
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 0.55, tempting(), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this) {

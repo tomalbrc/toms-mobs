@@ -58,6 +58,11 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return true;
+    }
+
+    @Override
     public int getMaxSpawnClusterSize() {
         return 1;
     }
@@ -124,4 +129,5 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         return InteractionResult.PASS;
     }
+
 }
