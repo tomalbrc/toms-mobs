@@ -56,4 +56,9 @@ public class LargeButterfly extends AbstractButterfly {
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
+
+    @Override
+    public boolean removeWhenFarAway(double d) {
+        return false;
+    }
 }
