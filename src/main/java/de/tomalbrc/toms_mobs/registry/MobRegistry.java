@@ -88,7 +88,7 @@ public class MobRegistry {
             Nautilus.ID,
             FabricEntityType.Builder.createMob(Nautilus::new, MobCategory.WATER_CREATURE, x -> x
                             .defaultAttributes(Nautilus::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkDeepWaterSpawnRules))
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkRareDeepWaterSpawnRules))
                     .eyeHeight(0.1f)
                     .sized(1.0f, 1.0f)
     );
@@ -97,7 +97,7 @@ public class MobRegistry {
             Mantaray.ID,
             FabricEntityType.Builder.createMob(Mantaray::new, MobCategory.WATER_CREATURE, x -> x
                             .defaultAttributes(Mantaray::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkDeepWaterSpawnRules))
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkRareDeepWaterSpawnRules))
                     .sized(1.4f, 0.4f)
     );
 

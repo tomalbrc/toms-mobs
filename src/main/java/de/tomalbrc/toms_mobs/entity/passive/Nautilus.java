@@ -463,6 +463,12 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
         return blockPos.getY() >= min && blockPos.getY() <= max && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
     }
 
+    public static boolean checkRareDeepWaterSpawnRules(EntityType<? extends LivingEntity> entityType, LevelAccessor levelAccessor, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource randomSource) {
+        int max = levelAccessor.getSeaLevel() - 7;
+        int min = max - 40;
+        return randomSource.nextInt(5) == 1 && blockPos.getY() >= min && blockPos.getY() <= max && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+    }
+
     static class NautilusPathNavigation extends AmphibiousPathNavigation {
         NautilusPathNavigation(Nautilus nautilus, Level level) {
             super(nautilus, level);
