@@ -27,6 +27,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -75,6 +76,8 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
 
+        this.moveControl = new NautilusMoveControl(this);
+
         this.holder = new LivingEntityHolder<>(this, MODEL);
 
         EntityAttachment.ofTicking(this.holder, this);
@@ -107,19 +110,22 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
             @Override
             protected void followThePath() {
                 Vec3 vec3 = this.getTempMobPos();
-                this.maxDistanceToWaypoint = this.mob.getBbWidth() / 2.0F;
+                this.maxDistanceToWaypoint = this.mob.getBbWidth();
                 Vec3i vec3i = this.path.getNextNodePos();
                 double d = Math.abs(this.mob.getX() - ((double)vec3i.getX() + (double)0.5F));
                 double e = Math.abs(this.mob.getY() - (double)vec3i.getY());
                 double f = Math.abs(this.mob.getZ() - ((double)vec3i.getZ() + (double)0.5F));
-                boolean bl = d < (double)this.maxDistanceToWaypoint && f < (double)this.maxDistanceToWaypoint && e < (double)1.0F;
+                boolean bl = d < (double)this.maxDistanceToWaypoint && f < (double)this.maxDistanceToWaypoint && e < 1.0;
                 if (bl || this.canCutCorner(this.path.getNextNode().type) && this.shouldTargetNextNodeInDirection(vec3)) {
                     this.path.advance();
                 }
-
                 this.doStuckDetection(vec3);
             }
 
+            @Override
+            public boolean canCutCorner(PathType pathType) {
+                return false;
+            }
 
             private boolean shouldTargetNextNodeInDirection(Vec3 vec3) {
                 if (path == null)
@@ -432,7 +438,7 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
 
     @Override
     public void setJumping(boolean bl) {
-
+        super.setJumping(bl);
     }
 
     @Override
@@ -522,27 +528,27 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
                 this.stuck = true;
             } else {
                 if (this.nautilus.getNavigation().isDone()) {
-                    Vec3 vec3 = Vec3.atBottomCenterOf(this.nautilus.travelPos);
-                    Vec3 vec32 = DefaultRandomPos.getPosTowards(this.nautilus, 16, 3, vec3, ((float) Math.PI / 10F));
-                    if (vec32 == null) {
-                        vec32 = DefaultRandomPos.getPosTowards(this.nautilus, 8, 7, vec3, ((float) Math.PI / 2F));
+                    Vec3 travelPos = Vec3.atBottomCenterOf(this.nautilus.travelPos);
+                    Vec3 randomPos = DefaultRandomPos.getPosTowards(this.nautilus, 16, 3, travelPos, ((float) Math.PI / 10F));
+                    if (randomPos == null) {
+                        randomPos = DefaultRandomPos.getPosTowards(this.nautilus, 8, 7, travelPos, ((float) Math.PI / 2F));
                     }
 
-                    if (vec32 != null) {
-                        int i = Mth.floor(vec32.x);
-                        int j = Mth.floor(vec32.z);
+                    if (randomPos != null) {
+                        int i = Mth.floor(randomPos.x);
+                        int j = Mth.floor(randomPos.z);
                         int k = 34;
                         if (!this.nautilus.level().hasChunksAt(i - k, j - k, i + k, j + k)) {
-                            vec32 = null;
+                            randomPos = null;
                         }
                     }
 
-                    if (vec32 == null) {
+                    if (randomPos == null) {
                         this.stuck = true;
                         return;
                     }
 
-                    this.nautilus.getNavigation().moveTo(vec32.x, vec32.y, vec32.z, this.speedModifier);
+                    this.nautilus.getNavigation().moveTo(randomPos.x, randomPos.y, randomPos.z, this.speedModifier);
                 }
 
             }
@@ -555,6 +561,46 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
         public void stop() {
             this.nautilus.travelPos = null;
             super.stop();
+        }
+    }
+
+    static class NautilusMoveControl extends MoveControl {
+        private final Animal animal;
+
+        NautilusMoveControl(Animal animal) {
+            super(animal);
+            this.animal = animal;
+        }
+
+        private void updateSpeed() {
+            this.animal.setDeltaMovement(this.animal.getDeltaMovement().add(0.0F, 0.005, 0.0F));
+
+            if (this.animal.isBaby()) {
+                this.animal.setSpeed(Math.max(this.animal.getSpeed() / 3.0F, 0.06F));
+            }
+        }
+
+        public void tick() {
+            this.updateSpeed();
+            if (this.operation == Operation.MOVE_TO && !this.animal.getNavigation().isDone()) {
+                double dx = this.wantedX - this.animal.getX();
+                double dy = this.wantedY - (this.animal.getY()+1);
+                double dz = this.wantedZ - this.animal.getZ();
+                double len = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                if (len < 1.0E-5F) {
+                    this.mob.setSpeed(0.0F);
+                } else {
+                    dy /= len;
+                    float h = (float)(Mth.atan2(dz, dx) * (double)(180F / (float)Math.PI)) - 90.0F;
+                    this.animal.setYRot(this.rotlerp(this.animal.getYRot(), h, 90.0F));
+                    this.animal.yBodyRot = this.animal.getYRot();
+                    float i = (float)(this.speedModifier * this.animal.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    this.animal.setSpeed(Mth.lerp(0.125F, this.animal.getSpeed(), i));
+                    this.animal.setDeltaMovement(this.animal.getDeltaMovement().add(0.0F, (double)this.animal.getSpeed() * dy, 0.0F));
+                }
+            } else {
+                this.animal.setSpeed(0.0F);
+            }
         }
     }
 }
