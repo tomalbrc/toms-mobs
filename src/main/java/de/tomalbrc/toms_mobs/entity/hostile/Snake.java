@@ -41,6 +41,7 @@ public class Snake extends Animal implements AnimatedEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
+                .add(Attributes.TEMPT_RANGE, 8.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
