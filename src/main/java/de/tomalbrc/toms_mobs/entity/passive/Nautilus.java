@@ -595,7 +595,7 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
                     this.animal.yBodyRot = this.animal.getYRot();
                     float i = (float)(this.speedModifier * this.animal.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     this.animal.setSpeed(Mth.lerp(0.125F, this.animal.getSpeed(), i));
-                    this.animal.setDeltaMovement(this.animal.getDeltaMovement().add(0.0F, (double)this.animal.getSpeed() * dy, 0.0F));
+                    this.animal.setDeltaMovement(this.animal.getDeltaMovement().add(0.0F, (double)this.animal.getSpeed() * dy * 0.8, 0.0F));
                 }
             } else {
                 this.animal.setSpeed(0.0F);
