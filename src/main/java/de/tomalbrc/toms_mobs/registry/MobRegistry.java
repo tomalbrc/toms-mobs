@@ -89,7 +89,7 @@ public class MobRegistry {
             FabricEntityType.Builder.createMob(Nautilus::new, MobCategory.WATER_CREATURE, x -> x
                             .defaultAttributes(Nautilus::createAttributes)
                             .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkRareDeepWaterSpawnRules))
-                    .eyeHeight(0.1f)
+                    .eyeHeight(0.5f)
                     .sized(1.0f, 1.0f)
     );
 
