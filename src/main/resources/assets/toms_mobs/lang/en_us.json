@@ -10,6 +10,7 @@
     "item.toms_mobs.showmaster_spawn_egg": "Showmaster",
     "item.toms_mobs.butterfly_spawn_egg": "Butterfly",
     "item.toms_mobs.sculkling_spawn_egg": "Sculkling",
+    "item.toms_mobs.seagull_spawn_egg": "Seagull",
     "item.toms_mobs.snake_spawn_egg": "Snake",
     "item.toms_mobs.elephant_spawn_egg": "Elephant",
     "item.toms_mobs.ice_spike_spawn_egg": "Ice Spike",
@@ -44,5 +45,7 @@
     "entity.toms_mobs.nautilus": "Nautilus",
     "entity.toms_mobs.mantaray": "Mantaray",
     "entity.toms_mobs.tuna": "Yellowfin Tuna",
-    "entity.toms_mobs.emperor_butterfly": "Emperor Butterfly"
+    "entity.toms_mobs.emperor_butterfly": "Emperor Butterfly",
+
+    "effect.toms_mobs.nautilus_breath": "Nautilus Breath"
 }

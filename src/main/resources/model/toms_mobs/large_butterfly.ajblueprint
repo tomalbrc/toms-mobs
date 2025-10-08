@@ -413,7 +413,7 @@
 	],
 	"textures": [
 		{
-			"path": "/Users/tomalbrecht/Desktop/emperor.png",
+			"path": "",
 			"name": "emperor.png",
 			"folder": "block",
 			"namespace": "",
@@ -438,8 +438,7 @@
 			"internal": true,
 			"saved": false,
 			"uuid": "fbd15017-444c-e46f-11c8-de7b5a5cdc28",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASZJREFUWEftVUEOATEU/TWjQ0JIWGFj6QSO4AbO4SjO4QZOIE5gaYOVBCExUzMq/8vIpJhoMbNpN02T3//ff++1n0HOi+VcHywAy4BlwDJgGfgLA069L6/nFRTKHYj289QaPwfAvLaUwfqRVz2rs4dxXpLvBhLnJRDChwtrUDfg1inUrfZoD3cz2rHLOI8QvlZTqQAwORZXF4FJrK8A2HEMTuXugehE2jnNgUSNg+VYS0u8V+A1uGwmWvfYKwAmifDpxYbUkfUJgNcdyfC4gGg71epEp2gyltE7DQ8PCYqtobyKQ3YAUALm1iD+PEw9YMyACgAZoPevaSZjAKoEyACZKS8PmLrZmAFVAmQEkyUHimnyT+49DZHMAXyC8p8xmXw2aQ1YADdTX4ghWsP0GgAAAABJRU5ErkJggg==",
-			"relative_path": "../../../../../../../../../Desktop/emperor.png"
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASZJREFUWEftVUEOATEU/TWjQ0JIWGFj6QSO4AbO4SjO4QZOIE5gaYOVBCExUzMq/8vIpJhoMbNpN02T3//ff++1n0HOi+VcHywAy4BlwDJgGfgLA069L6/nFRTKHYj289QaPwfAvLaUwfqRVz2rs4dxXpLvBhLnJRDChwtrUDfg1inUrfZoD3cz2rHLOI8QvlZTqQAwORZXF4FJrK8A2HEMTuXugehE2jnNgUSNg+VYS0u8V+A1uGwmWvfYKwAmifDpxYbUkfUJgNcdyfC4gGg71epEp2gyltE7DQ8PCYqtobyKQ3YAUALm1iD+PEw9YMyACgAZoPevaSZjAKoEyACZKS8PmLrZmAFVAmQEkyUHimnyT+49DZHMAXyC8p8xmXw2aQ1YADdTX4ghWsP0GgAAAABJRU5ErkJggg=="
 		},
 		{
 			"path": "/Users/tomalbrecht/Desktop/wings.png",
@@ -465,10 +464,10 @@
 			"frame_interpolate": false,
 			"visible": true,
 			"internal": true,
-			"saved": false,
+			"saved": true,
 			"uuid": "533ebd3c-b1b7-67f1-5c5b-7e05e4704072",
-			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA0ZJREFUWEft1n1IE2EcB/Dvndfc1jYbbqnbKociczOtBv4hUWBgLyxfooKwojcxMJKyKMr+iIJeJSrrn6I3hAKRMiwCkQzLjEp6oXwpBStLG85abvPutp641UVG6c1e/Gf3z/1xD8/v83x/z3N3FMb4osa4PoYAZDI54bjBP0LNXFNNbp/JkTzHkIEpy8sI2ydDV91WjBbi2HCdDLB+1J/KloT4PkhY/dTiarA9SsRreRiZVzhbvj4kSO62pyRKKUOfswM15QtCB1g21UKl1cPb5sL8ZKCsNDO4RaSmsf3YK/LRy+F9byeqjmRJBwirN6+tQI7FjiaODwLmpUXjyq3zaL96WBKicN8LEqdVwPWJg2uARcXuZOmAhbuqSaTBggRejrssGwTMtsWis60B184UwGKdgSePGoedMHPjQ5KeqIeQwAcPh4t7rNIBWTuridKYAvMghXscFwSkJ+nQ1NuO1pOLJSVgW3mHzLLGwKNh4Pb5caUkUTpAaMHq0gY8k6vhZQPwtfcjLV6L+81NeF1bBH2MEd2vO347obB6GUNDq4yETyuDh+VRuyOEFggAR2ElOqOngO1ww6BVIi6KxsvHNWi+sXfEBFJXNZIImgJFAQGdAhoCNBycJj0BoYKAyN1fD+Icj48+Hj10L1rL84L9b33e/MuTENy8jgoYTWYwNP0NIIeaULhcagkNICLS846C1iTinbcFXZVbvr+pfz6KQnHhoT3/KiYZjDDHqEDTFLrghzJA43RxfOgAEWGaU4Q3dSeCxYX+O3u7hyQgFE+ZXwyb1QEXq4JJp0JinPorgAQQ6Sc4tM44OoCIEO5i/D+/jARAbMYurFyyAi1v3Miw6KGWj4NrgINHzWDPUp2k4sK8ww4UY/5d/EnZ5zB5igWzbTHoH+AxjqGh0EZixzL93wEM96kWcMlzDyApdQ5Y/jPa37qDEJVOgbIC078HTLPPIhGGBbBNn4cOJw8v64d5ohoqvQIXShL+PUBsz6KiKjgDsfCwAXgG/Xh6PkNy8RH3wEgtiJ5owIzMzeAn2OHzM2AiaNw8bv9/ABE4PfsIAowGDy7lh1T8jxIQi4utCOW/4cdkQxb/7Z/YMCCcQDiBcAJjnsAXymBDMLAbn94AAAAASUVORK5CYII=",
-			"relative_path": "../../../../../../../../../Desktop/wings.png"
+			"relative_path": "../../../../../../../../../Desktop/wings.png",
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAzxJREFUWEft1mtIU1EAB/D/rte92rSLm9NtpaMhczO1Bn6QSFAoE7MHFUQPemJgJGVRlH2Igp4ilfWlqAyhIKKMikCiwh5GJZWEtlLQrLTlTNvDe+/WibtaYA93l5lf3JfBdjj/3/mfc88mwSi/JKOcj0EAqVROOG5gWKhpq2rJ3VNzRM8xaGDa0grC9kjRfnML/hZSuP46cbN+3D5RJArxY5Cw+smltWC7lEhmeBjoDpyuWhcRZO7WJhKrlKLH2YqrVQWRAywb66BitPC+dGFWKlBRnhs8ImLb2Hakg/R5OXzobsPFyhniAcLqTatrMMdiRwPHBwH5GXG4fKcajiuHRCGK974iiYwCrs8cXG4WNbtSxQNm76wlMr0Fk3g5HrBsEJBjS0Dby3pcO7UWFutUPH96f8gJczc8IVlmLYQGPnk4nNttFQ+YsaOWKA1pMA1I8JDjgoCsFA0auh1oOb5AVAO25ffIdKsOnhga/T4/LpeZxQOELVhZXo8XcjW8bAA+Ry8ykhk8amzAm7qSsABh9VKaAqOUwcdI4WF51G2PYAsEQGHxBbTFJYFt7YeeUSIxlsLrZ1fReGNPWED6ivskipJAIgECGgViCFB/IFN8A0KCgJi77zaIcxz6fDy6qG60VM37cVH+7kkIHt7CGhiMJtAU9R0gh5pIcKncEhkghMiadxhUjBnvvc1ov7D5jwAhXPjSvuQKJugNMOlUoCgJ2uGHMkDhZGly5IAQwphXgs6bx4LhWp0Bzu63g+4CITxtVils1kK4WBWMGhXMiepvABKAzE9wcI3h7wAhhPAey2jQ1/vxlzMgABKyd2L5wmVo7uxHtkULtTwaLjcHj5rG7kUaUeHCxEMODNX8820Y+jyl6AwmJlmQY9Oh180jmqagYGTYvlj7bwBD/VQLiNSZ+5GSngeW/wLHu/4gRKVRoGKtceQBmfbpJEpfANuUfLQ6eXhZP0zxaqi0CpwtmzTygNA2zC+5CGcgAR42AM+AH03V2aLDw56BcFsQF6/H1NxN4Mfb4fPToKMo3Dpq/3+AEHBKUSUCdAwen18SUfiwGgiF/+lJEftfM2Kx2InFjhsDjDUw1sBYA6PewFdrb0AwzybTbwAAAABJRU5ErkJggg=="
 		}
 	],
 	"variants": {
@@ -768,7 +767,8 @@
 							"time": 1.95,
 							"color": -1,
 							"interpolation": "catmullrom",
-							"easing": "linear"
+							"easing": "linear",
+							"easingArgs": []
 						}
 					]
 				}
@@ -781,7 +781,7 @@
 			"override": false,
 			"length": 10,
 			"snapping": 20,
-			"selected": true,
+			"selected": false,
 			"saved": false,
 			"path": "",
 			"anim_time_update": "",

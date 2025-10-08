@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"format": "animated_java_blueprint",
-		"format_version": "1.7.2",
+		"format_version": "1.7.3",
 		"uuid": "c3adbc13-2dd6-1107-27da-fa040a10cbd3",
 		"save_location": "/Users/tomalbrecht/Minecraft/minecraft-software/projects/toms-mobs/src/main/resources/model/toms_mobs/butterfly.ajblueprint",
 		"last_used_export_namespace": ""
@@ -34,7 +34,7 @@
 	},
 	"resolution": {
 		"width": 16,
-		"height": 48
+		"height": 16
 	},
 	"elements": [
 		{
@@ -52,7 +52,7 @@
 			"origin": [-1, 0, 0],
 			"faces": {
 				"north": {
-					"uv": [7, 2, 8, 3],
+					"uv": [5, 2, 6, 3],
 					"tint": 0,
 					"texture": 0
 				},
@@ -62,7 +62,7 @@
 					"texture": 0
 				},
 				"south": {
-					"uv": [8, 2, 9, 3],
+					"uv": [5, 2, 6, 3],
 					"tint": 0,
 					"texture": 0
 				},
@@ -101,24 +101,24 @@
 			"origin": [-1, 0.5, -0.5],
 			"faces": {
 				"north": {
-					"uv": [0, 0, 5, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"east": {
-					"uv": [0, 0, 7, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"south": {
-					"uv": [0, 0, 5, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"west": {
-					"uv": [0, 0, 7, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"up": {
 					"uv": [5, 11, 0, 0],
@@ -150,24 +150,24 @@
 			"origin": [0, 0.5, -0.5],
 			"faces": {
 				"north": {
-					"uv": [0, 0, 5, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"east": {
-					"uv": [0, 0, 7, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"south": {
-					"uv": [0, 0, 5, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"west": {
-					"uv": [0, 0, 7, 0],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"up": {
 					"uv": [0, 11, 5, 0],
@@ -199,7 +199,7 @@
 			"origin": [0, 0, -2],
 			"faces": {
 				"north": {
-					"uv": [0, 0, 0, 4],
+					"uv": [0, 0, 0, 1.33333],
 					"tint": 0,
 					"texture": 0
 				},
@@ -209,7 +209,7 @@
 					"texture": 0
 				},
 				"south": {
-					"uv": [0, 0, 0, 4],
+					"uv": [0, 0, 0, 1.33333],
 					"tint": 0,
 					"texture": 0
 				},
@@ -219,12 +219,12 @@
 					"texture": 0
 				},
 				"up": {
-					"uv": [0, 5, 0, 0],
+					"uv": [0, 3, 0, 0],
 					"tint": 0,
 					"texture": 0
 				},
 				"down": {
-					"uv": [0, 0, 0, 5],
+					"uv": [0, 0, 0, 1.66667],
 					"tint": 0,
 					"texture": 0
 				}
@@ -248,9 +248,9 @@
 			"origin": [-1, 0, -2],
 			"faces": {
 				"north": {
-					"uv": [0, 0, 0, 3],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"east": {
 					"uv": [7, 3, 10, 5],
@@ -258,9 +258,9 @@
 					"texture": 0
 				},
 				"south": {
-					"uv": [0, 0, 0, 3],
+					"uv": [0, 0, 0, 0],
 					"tint": 0,
-					"texture": 0
+					"texture": null
 				},
 				"west": {
 					"uv": [7, 3, 10, 5],
@@ -268,14 +268,14 @@
 					"texture": 0
 				},
 				"up": {
-					"uv": [0, 5, 0, 8],
-					"tint": 0,
-					"texture": 0
-				},
-				"down": {
 					"uv": [0, 0, 0, 3],
 					"tint": 0,
-					"texture": 0
+					"texture": null
+				},
+				"down": {
+					"uv": [0, 0, 0, 0],
+					"tint": 0,
+					"texture": null
 				}
 			},
 			"type": "cube",

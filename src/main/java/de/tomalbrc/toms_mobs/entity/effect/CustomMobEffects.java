@@ -14,7 +14,7 @@ public class CustomMobEffects {
     public static final Holder<MobEffect> NAUTILUS_BREATH = register("nautilus_breath", new NautilusBreathEffect(MobEffectCategory.BENEFICIAL, 8954814).addAttributeModifier(Attributes.SUBMERGED_MINING_SPEED, ResourceLocation.fromNamespaceAndPath("toms_mobs", "nautilus_breath"), 1.0, AttributeModifier.Operation.ADD_VALUE));
 
     public static Holder<MobEffect> register(String string, MobEffect mobEffect) {
-        return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ResourceLocation.withDefaultNamespace(TomsMobs.MODID), mobEffect);
+        return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(TomsMobs.MODID, string), mobEffect);
     }
 
     public static void init() {
