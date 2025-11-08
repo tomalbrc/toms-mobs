@@ -25,6 +25,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -405,7 +406,7 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
 
         if (p.getLastClientInput().jump()) {
             if (canBoost()) {
-                boostTime = 10*20;
+                boostTime = 6*20;
                 boosting = true;
             }
         } else if (boostTime > 0) {
@@ -444,6 +445,9 @@ public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEn
     @Override
     protected void readAdditionalSaveData(ValueInput valueInput) {
         super.readAdditionalSaveData(valueInput);
+
+        var a = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (a != null) a.setBaseValue(0.08);
 
         var item = this.getItemBySlot(EquipmentSlot.SADDLE);
         if (!item.isEmpty() && item.getItem() == Items.SADDLE) {
