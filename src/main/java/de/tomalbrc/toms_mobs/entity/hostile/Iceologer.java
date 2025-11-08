@@ -62,8 +62,8 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
                 .rotate(pose.readOnlyLeftRotation())
                 .normalize();
 
-        var power = 0.5f - getRandom().nextFloat();
-        var col = getRandom().nextFloat() * 0.5f + 0.35f;
+        float power = 0.5f - (float)Math.random();
+        float col = (float)Math.random() * 0.5f + 0.35f;
 
         for (int i = 0; i < 5; i++) {
             Vector3f v = rot.mul(i).add(position);
