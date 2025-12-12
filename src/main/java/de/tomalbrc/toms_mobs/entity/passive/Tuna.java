@@ -7,15 +7,19 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.NoDeathRotationLivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,7 +27,9 @@ import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +52,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
         return this.holder;
     }
 
-    public Tuna(EntityType<? extends AbstractFish> type, Level level) {
+    public Tuna(EntityType<? extends @NotNull AbstractFish> type, Level level) {
         super(type, level);
 
         this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
@@ -89,7 +95,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.SALMON_HURT;
     }
 
@@ -107,12 +113,12 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
     @Override
     @NotNull
-    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand interactionHand) {
         return InteractionResult.PASS;
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
         if (this.getAttribute(Attributes.SCALE) != null) {
@@ -125,7 +131,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
         super.addAdditionalSaveData(output);
 
         if (this.getAttribute(Attributes.SCALE) != null) {
@@ -136,11 +142,17 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
+    public @Nullable SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor serverLevelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
         var scaleVal = this.getRandom().nextInt(1,4);
         var scale = this.getAttribute(Attributes.SCALE);
         if (scale != null) scale.setBaseValue(0.75f + scaleVal * 0.125f);
 
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, entitySpawnReason, spawnGroupData);
+    }
+
+    public static boolean checkDeepWaterSpawnRules(EntityType<? extends @NotNull LivingEntity> entityType, LevelAccessor levelAccessor, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource randomSource) {
+        int max = levelAccessor.getSeaLevel() - 7;
+        int min = max - 40;
+        return blockPos.getY() >= min && blockPos.getY() <= max && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
     }
 }

@@ -84,20 +84,11 @@ public class MobRegistry {
                     .sized(0.8f, 0.9f)
     );
 
-    public static final EntityType<Nautilus> NAUTILUS = register(
-            Nautilus.ID,
-            FabricEntityType.Builder.createMob(Nautilus::new, MobCategory.WATER_CREATURE, x -> x
-                            .defaultAttributes(Nautilus::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkRareDeepWaterSpawnRules))
-                    .eyeHeight(0.5f)
-                    .sized(1.0f, 1.0f)
-    );
-
     public static final EntityType<Mantaray> MANTARAY = register(
             Mantaray.ID,
             FabricEntityType.Builder.createMob(Mantaray::new, MobCategory.WATER_CREATURE, x -> x
                             .defaultAttributes(Mantaray::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Nautilus::checkRareDeepWaterSpawnRules))
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mantaray::checkRareDeepWaterSpawnRules))
                     .sized(1.4f, 0.4f)
     );
 
@@ -105,7 +96,7 @@ public class MobRegistry {
             Tuna.ID,
             FabricEntityType.Builder.createMob(Tuna::new, MobCategory.WATER_AMBIENT, x -> x
                             .defaultAttributes(Tuna::createAttributes)
-                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, Nautilus::checkDeepWaterSpawnRules))
+                            .spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, Tuna::checkDeepWaterSpawnRules))
                     .sized(0.55f, 0.55f)
     );
 
@@ -261,13 +252,9 @@ public class MobRegistry {
             BiomeHelper.addSpawn(MANTARAY, 1, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID))
             BiomeHelper.addSpawn(TUNA, 1, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
-        if (!ModConfig.getInstance().disabledMobs.contains(Nautilus.ID))
-            BiomeHelper.addSpawn(NAUTILUS, 1, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID)) BiomeHelper.addSpawn(LOBSTER, 1, 1, 3,
-                BiomeSelectors.spawnsOneOf(EntityType.TURTLE).and(
-                        BiomeSelectors.tag(ConventionalBiomeTags.IS_BEACH).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN))
-                )
+                BiomeSelectors.spawnsOneOf(EntityType.TURTLE)
         );
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
@@ -279,7 +266,6 @@ public class MobRegistry {
         addSpawnEggModeled(CAPYBARA, Util.id("capybara_spawn_egg"));
 
         addSpawnEgg(MANTARAY, Items.WARDEN_SPAWN_EGG);
-        addSpawnEgg(NAUTILUS, Items.HORSE_SPAWN_EGG);
         addSpawnEgg(TUNA, Items.COD_SPAWN_EGG);
         //addSpawnEgg(JELLYFISH, Items.SALMON_SPAWN_EGG);
         addSpawnEgg(LOBSTER, Items.PARROT_SPAWN_EGG);
