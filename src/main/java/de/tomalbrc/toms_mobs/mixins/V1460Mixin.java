@@ -2,9 +2,7 @@ package de.tomalbrc.toms_mobs.mixins;
 
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
-import de.tomalbrc.toms_mobs.entity.hostile.*;
-import de.tomalbrc.toms_mobs.entity.passive.*;
-import de.tomalbrc.toms_mobs.entity.passive.butterfly.Butterfly;
+import de.tomalbrc.toms_mobs.util.Util;
 import net.minecraft.util.datafix.schemas.V1460;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,22 +26,22 @@ public abstract class V1460Mixin {
     )
     public void tm$registerEntities(Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> cir) {
         var map = cir.getReturnValue();
-        registerMob(schema, map, IceCluster.ID.toString());
-        registerMob(schema, map, IceSpike.ID.toString());
-        registerMob(schema, map, IceSpikeSmall.ID.toString());
-        registerMob(schema, map, Iceologer.ID.toString());
-        registerMob(schema, map, Sculkling.ID.toString());
-        registerMob(schema, map, Showmaster.ID.toString());
-        registerMob(schema, map, Snake.ID.toString());
-        registerMob(schema, map, Butterfly.ID.toString());
-        registerMob(schema, map, Capybara.ID.toString());
-        registerMob(schema, map, Elephant.ID.toString());
-        registerMob(schema, map, Firemoth.ID.toString());
-        registerMob(schema, map, Lobster.ID.toString());
-        registerMob(schema, map, Mantaray.ID.toString());
-        registerMob(schema, map, Nautilus.ID.toString());
-        registerMob(schema, map, Penguin.ID.toString());
-        registerMob(schema, map, Seagull.ID.toString());
-        registerMob(schema, map, Tuna.ID.toString());
+        registerMob(schema, map, Util.id("ice_cluster").toString());
+        registerMob(schema, map, Util.id("ice_spike").toString());
+        registerMob(schema, map, Util.id("ice_spike_small").toString());
+        registerMob(schema, map, Util.id("iceologer").toString());
+        registerMob(schema, map, Util.id("sculkling").toString());
+        registerMob(schema, map, Util.id("showmaster").toString());
+        registerMob(schema, map, Util.id("snake").toString());
+        registerMob(schema, map, Util.id("butterfly").toString());
+        registerMob(schema, map, Util.id("capybara").toString());
+        registerMob(schema, map, Util.id("elephant").toString());
+        registerMob(schema, map, Util.id("firemoth").toString());
+        registerMob(schema, map, Util.id("lobster").toString());
+        registerMob(schema, map, Util.id("mantaray").toString());
+        registerMob(schema, map, Util.id("nautilus").toString());
+        registerMob(schema, map, Util.id("penguin").toString());
+        registerMob(schema, map, Util.id("seagull").toString());
+        registerMob(schema, map, Util.id("tuna").toString());
     }
 }

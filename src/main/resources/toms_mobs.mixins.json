@@ -5,11 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ClientboundRotateHeadPacketMixin",
+    "DatafixersMixin",
     "FallingBlockEntityAccessor",
     "JukeboxMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
-    "MeleeAttackGoalAccessor"
+    "MeleeAttackGoalAccessor",
+    "V4656Mixin"
   ],
   "server": [
     "EntityMixin",
