@@ -9,7 +9,7 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -35,7 +35,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeAttackGoal.IMeleeAttackAnimatable {
-    public static final ResourceLocation ID = Util.id("sculkling");
+    public static final Identifier ID = Util.id("sculkling");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Sculkling> holder;
     private int stolenXP = 0;

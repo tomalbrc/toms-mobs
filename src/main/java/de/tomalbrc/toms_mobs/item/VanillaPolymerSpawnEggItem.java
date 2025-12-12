@@ -3,7 +3,7 @@ package de.tomalbrc.toms_mobs.item;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
@@ -17,7 +17,7 @@ public class VanillaPolymerSpawnEggItem extends PolymerSpawnEggItem {
     }
 
     @Override
-    public ResourceLocation getPolymerItemModel(ItemStack itemStack, PacketContext context) {
+    public Identifier getPolymerItemModel(ItemStack itemStack, PacketContext context) {
         return this.getPolymerItem(itemStack, context).getDefaultInstance().get(DataComponents.ITEM_MODEL);
     }
 }

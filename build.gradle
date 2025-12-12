@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'fabric-loom' version '1.14-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -13,7 +13,7 @@ loom {
 repositories {
     maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
-    mavenLocal()
+    maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -47,7 +47,7 @@ processResources {
 jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${project.archives_base_name}" }
     }
 }
 

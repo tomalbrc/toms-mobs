@@ -7,7 +7,7 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.NoDeathRotationLivingEntityHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Tuna extends AbstractFish implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("tuna");
+    public static final Identifier ID = Util.id("tuna");
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Tuna> holder;
 

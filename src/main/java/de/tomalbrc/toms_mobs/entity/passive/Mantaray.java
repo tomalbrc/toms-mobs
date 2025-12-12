@@ -11,7 +11,7 @@ import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -21,7 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,7 +30,7 @@ import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 
 public class Mantaray extends AbstractFish implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("mantaray");
+    public static final Identifier ID = Util.id("mantaray");
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Mantaray> holder;
 

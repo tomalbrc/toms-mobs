@@ -14,7 +14,7 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
-    public static final ResourceLocation ID = Util.id("elephant");
+    public static final Identifier ID = Util.id("elephant");
     public static final Model MODEL = Util.loadModel(ID);
     private final ElephantHolder<Elephant> holder;
 

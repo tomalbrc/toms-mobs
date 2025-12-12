@@ -24,7 +24,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.datafix.DataFixers;
@@ -202,7 +202,7 @@ public class MobRegistry {
                     .sized(2, 1)
     );
 
-    private static <T extends Entity> EntityType<T> register(ResourceLocation id, EntityType.Builder<T> builder) {
+    private static <T extends Entity> EntityType<T> register(Identifier id, EntityType.Builder<T> builder) {
         @SuppressWarnings("unchecked") Map<String, Type<?>> types = (Map<String, Type<?>>) DataFixers.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().dataVersion().version())).findChoiceType(References.ENTITY).types();
         types.put(id.toString(), types.get(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIE).toString()));
 
@@ -294,7 +294,7 @@ public class MobRegistry {
         PolymerItemGroupUtils.registerPolymerItemGroup(Util.id("spawn-eggs"), ITEM_GROUP);
     }
 
-    private static void addSpawnEggModeled(EntityType<? extends Mob> type, ResourceLocation model) {
+    private static void addSpawnEggModeled(EntityType<? extends Mob> type, Identifier model) {
         register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new TexturedPolymerSpawnEggItem(type, properties, model));
     }
 
@@ -302,13 +302,13 @@ public class MobRegistry {
         register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new VanillaPolymerSpawnEggItem(type, vanillaItem, properties));
     }
 
-    static public <T extends Item> void register(ResourceLocation identifier, Function<Item.Properties, T> function) {
+    static public <T extends Item> void register(Identifier identifier, Function<Item.Properties, T> function) {
         var x = function.apply(new Item.Properties().stacksTo(64).setId(ResourceKey.create(Registries.ITEM, identifier)));
         Registry.register(BuiltInRegistries.ITEM, identifier, x);
         SPAWN_EGGS.putIfAbsent(identifier, x);
     }
 
-    public static final Object2ObjectOpenHashMap<ResourceLocation, Item> SPAWN_EGGS = new Object2ObjectOpenHashMap<>();
+    public static final Object2ObjectOpenHashMap<Identifier, Item> SPAWN_EGGS = new Object2ObjectOpenHashMap<>();
     public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab.Builder(null, -1)
             .title(Component.literal("Toms Mobs").withStyle(ChatFormatting.DARK_GREEN))
             .icon(Items.BAT_SPAWN_EGG::getDefaultInstance)

@@ -11,7 +11,7 @@ import de.tomalbrc.toms_mobs.entity.goal.ThrowPotionsUpwardGoal;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,17 +21,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.SpellcasterIllager;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("showmaster");
+    public static final Identifier ID = Util.id("showmaster");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Showmaster> holder;
 

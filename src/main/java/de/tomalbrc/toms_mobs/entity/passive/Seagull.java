@@ -12,7 +12,7 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.DifficultyInstance;
@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Seagull extends Animal implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("seagull");
+    public static final Identifier ID = Util.id("seagull");
     public static final Model MODEL = Util.loadBbModel(ID);
 
     private final EntityHolder<Seagull> holder;

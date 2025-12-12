@@ -6,7 +6,7 @@ import de.tomalbrc.toms_mobs.util.SimpleMovementRotatingHolder;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends AbstractButterfly {
-    public static final ResourceLocation ID = Util.id("butterfly");
+    public static final Identifier ID = Util.id("butterfly");
     public static final Model MODEL = Util.loadModel(ID);
 
     private int color;

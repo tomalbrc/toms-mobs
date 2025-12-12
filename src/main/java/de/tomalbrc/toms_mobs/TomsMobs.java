@@ -7,7 +7,7 @@ import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,7 +36,7 @@ public class TomsMobs implements ModInitializer {
         PolymerResourcePackUtils.RESOURCE_PACK_CREATION_EVENT.register(x -> {
             for (String override : overrides) {
                 try {
-                    ResourcePackUtil.add(ResourceLocation.withDefaultNamespace(override), TomsMobs.class.getResourceAsStream("/"+override).readAllBytes());
+                    ResourcePackUtil.add(Identifier.withDefaultNamespace(override), TomsMobs.class.getResourceAsStream("/"+override).readAllBytes());
                 } catch (IOException ignored) {}
             }
         });

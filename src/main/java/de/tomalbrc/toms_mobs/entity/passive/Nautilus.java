@@ -12,7 +12,7 @@ import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -52,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Nautilus extends TamableAnimal implements AnimatedEntity, OwnableEntity, PlayerRideable {
-    public static final ResourceLocation ID = Util.id("nautilus");
+    public static final Identifier ID = Util.id("nautilus");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Nautilus> holder;
     private BlockPos travelPos;

@@ -10,7 +10,7 @@ import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class IceCluster extends Entity implements AnimatedEntity, TraceableEntity {
-    public static final ResourceLocation ID = Util.id("ice_cluster");
+    public static final Identifier ID = Util.id("ice_cluster");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<IceCluster> holder;
 

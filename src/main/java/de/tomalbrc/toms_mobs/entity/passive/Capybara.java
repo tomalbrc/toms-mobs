@@ -16,7 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
@@ -48,7 +48,7 @@ import org.spongepowered.include.com.google.common.collect.ImmutableList;
 import java.util.Objects;
 
 public class Capybara extends Animal implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("capybara");
+    public static final Identifier ID = Util.id("capybara");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Capybara> holder;
 

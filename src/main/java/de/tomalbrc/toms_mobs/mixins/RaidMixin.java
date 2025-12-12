@@ -1,6 +1,8 @@
 package de.tomalbrc.toms_mobs.mixins;
 
 import de.tomalbrc.toms_mobs.ModConfig;
+import de.tomalbrc.toms_mobs.entity.hostile.Iceologer;
+import de.tomalbrc.toms_mobs.entity.hostile.Showmaster;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -30,8 +32,12 @@ public class RaidMixin {
             Holder<Biome> biome = serverLevel.getBiome(blockPos);
             Raider mob;
             if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES) && biome.is(BiomeTags.IS_MOUNTAIN)) {
+                if (ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
+                    return;
                 mob = MobRegistry.ICEOLOGER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             } else {
+                if (ModConfig.getInstance().disabledMobs.contains(Showmaster.ID))
+                    return;
                 mob = MobRegistry.SHOWMASTER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             }
 

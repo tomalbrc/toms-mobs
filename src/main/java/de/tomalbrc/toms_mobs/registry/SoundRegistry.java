@@ -1,6 +1,6 @@
 package de.tomalbrc.toms_mobs.registry;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
 public class SoundRegistry {
@@ -9,7 +9,7 @@ public class SoundRegistry {
     public static final SoundEvent PENGUIN_DEATH = register("penguin.death");
 
     private static SoundEvent register(String name) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("toms_mobs", name);
+        Identifier id = Identifier.fromNamespaceAndPath("toms_mobs", name);
         return SoundEvent.createVariableRangeEvent(id);
     }
 

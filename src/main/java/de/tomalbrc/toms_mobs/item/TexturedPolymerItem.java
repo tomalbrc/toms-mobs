@@ -1,7 +1,7 @@
 package de.tomalbrc.toms_mobs.item;
 
 import eu.pb4.polymer.core.api.item.PolymerItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 public class TexturedPolymerItem extends Item implements PolymerItem {
-    private final ResourceLocation model;
+    private final Identifier model;
 
-    public TexturedPolymerItem(Properties settings, ResourceLocation modelPath) {
+    public TexturedPolymerItem(Properties settings, Identifier modelPath) {
         super(settings);
         this.model = modelPath;
     }
@@ -22,7 +22,7 @@ public class TexturedPolymerItem extends Item implements PolymerItem {
     }
 
     @Override
-    public @Nullable ResourceLocation getPolymerItemModel(ItemStack stack, PacketContext context) {
+    public @Nullable Identifier getPolymerItemModel(ItemStack stack, PacketContext context) {
         return this.model;
     }
 }

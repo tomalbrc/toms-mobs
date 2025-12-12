@@ -10,7 +10,7 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
-    public static final ResourceLocation ID = Util.id("firemoth");
+    public static final Identifier ID = Util.id("firemoth");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Firemoth> holder;
 

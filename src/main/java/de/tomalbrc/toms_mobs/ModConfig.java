@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.tomalbrc.bil.json.SimpleCodecDeserializer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,13 +20,13 @@ public class ModConfig {
     private static ModConfig instance;
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeHierarchyAdapter(ResourceLocation.class, new SimpleCodecDeserializer<>(ResourceLocation.CODEC))
+            .registerTypeHierarchyAdapter(Identifier.class, new SimpleCodecDeserializer<>(Identifier.CODEC))
             .setPrettyPrinting()
             .create();
 
     // entries
 
-    public List<ResourceLocation> disabledMobs = new ObjectArrayList<>();
+    public List<Identifier> disabledMobs = new ObjectArrayList<>();
     public boolean noAdditionalRaidMobs = true;
 
     public static ModConfig getInstance() {

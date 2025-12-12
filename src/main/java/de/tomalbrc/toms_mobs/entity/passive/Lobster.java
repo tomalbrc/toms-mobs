@@ -11,7 +11,7 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +33,7 @@ import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.Nullable;
 
 public class Lobster extends Animal implements AnimatedEntity {
-    public static final ResourceLocation ID = Util.id("lobster");
+    public static final Identifier ID = Util.id("lobster");
     public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Lobster> holder;
 
