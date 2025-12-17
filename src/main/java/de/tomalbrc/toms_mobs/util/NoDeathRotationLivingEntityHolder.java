@@ -19,7 +19,7 @@ public class NoDeathRotationLivingEntityHolder<T extends LivingEntity & Animated
     @Override
     protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
         Vector3f translation = pose.translation();
-        boolean isHead = display.isHead();
+        boolean isHead = display.node().tag().isHead();
         boolean isDead = this.parent.deathTime > 0;
         if (!isHead && !isDead) {
             display.element().setLeftRotation(serverPlayer, pose.readOnlyLeftRotation());

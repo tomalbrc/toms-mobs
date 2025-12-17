@@ -22,7 +22,6 @@ import java.util.function.Function;
 public class ItemRegistry {
     public static final Object2ObjectLinkedOpenHashMap<Identifier, Item> CUSTOM_ITEMS = new Object2ObjectLinkedOpenHashMap<>();
 
-    public static final Item NAUTILUS_SHELL_FRAGMENT = register(Identifier.fromNamespaceAndPath(TomsMobs.MODID, "nautilus_shell_fragment"), (x) -> new TexturedPolymerItem(x, Identifier.fromNamespaceAndPath("toms_mobs", "nautilus_shell_fragment")));
     public static final Item PINK_ELEPHANT_HARNESS = register(Identifier.fromNamespaceAndPath(TomsMobs.MODID, "pink_elephant_harness"), (x) -> new ElephantHarnessItem(x, Identifier.fromNamespaceAndPath("toms_mobs", "pink_elephant_harness"), "pink"));
     public static final Item LIME_ELEPHANT_HARNESS = register(Identifier.fromNamespaceAndPath(TomsMobs.MODID, "lime_elephant_harness"), (x) -> new ElephantHarnessItem(x, Identifier.fromNamespaceAndPath("toms_mobs", "lime_elephant_harness"), "lime"));
     public static final Item BLACK_ELEPHANT_HARNESS = register(Identifier.fromNamespaceAndPath(TomsMobs.MODID, "black_elephant_harness"), (x) -> new ElephantHarnessItem(x, Identifier.fromNamespaceAndPath("toms_mobs", "black_elephant_harness"), "black"));

@@ -2,8 +2,8 @@ package de.tomalbrc.toms_mobs.entity.hostile;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
-import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.LivingEntityHolder;
 import de.tomalbrc.toms_mobs.entity.goal.CircularFangGoal;
 import de.tomalbrc.toms_mobs.entity.goal.IceSpikeGoal;
 import de.tomalbrc.toms_mobs.entity.goal.RapidfireGoal;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     public static final Identifier ID = Util.id("showmaster");
-    public static final Model MODEL = Util.loadModel(ID);
+    public static final Model MODEL = Util.loadBbModel(ID);
     private final EntityHolder<Showmaster> holder;
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -51,7 +51,60 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     public Showmaster(EntityType<? extends SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
 
-        this.holder = new LivingEntityHolder<>(this, MODEL);
+        this.holder = new LivingEntityHolder<>(this, MODEL) {
+
+//            @Nullable
+//            private Node getRotationParent(Node node) {
+//                var currentNode = node;
+//                while (currentNode != null) {
+//                    if (currentNode.tag() == Node.NodeTag.HEAD)
+//                        return currentNode;
+//
+//                    currentNode = currentNode.parent();
+//                }
+//
+//                return null;
+//            }
+//
+//            @Override
+//            protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper<?> display) {
+//                Matrix4f matrix4f = new Matrix4f();
+//                matrix4f.translate(pose.readOnlyTranslation().sub(0f, parent.getBbHeight()/this.entityScale, 0f, new Vector3f()));
+//                matrix4f.rotate(pose.readOnlyLeftRotation());
+//                matrix4f.scale(new Vector3f(1.f));
+//                matrix4f.rotate(pose.readOnlyRightRotation());
+//
+//                var node = getRotationParent(display.node());
+//
+//                boolean isHead = node != null;
+//                boolean isDead = this.parent.deathTime > 0;
+//
+//                if (isHead) {
+//                    var y = (Mth.DEG_TO_RAD * Mth.rotLerp(0.5F, -this.parent.yHeadRotO + this.parent.yBodyRotO, -this.parent.yHeadRot + this.parent.yBodyRot));
+//                    var x = (Mth.DEG_TO_RAD * Mth.lerp(0.5F, this.parent.xRotO, this.parent.getXRot()));
+//
+//                    Vector3f pivotOffset = node.transform().origin().get(new Vector3f()).mul(1, 0, 1);
+//                    matrix4f.translateLocal(pivotOffset);
+//
+//                    matrix4f.rotateLocalX(x);
+//                    matrix4f.rotateLocalY(y);
+//
+//                    matrix4f.translateLocal(pivotOffset.negate());
+//                }
+//
+//                if (isDead) {
+//                    matrix4f.translateLocal(0, this.parent.getBbHeight(), 0);
+//                    matrix4f.rotateLocalZ(-this.deathAngle * ((float)Math.PI / 2F));
+//                    matrix4f.translateLocal(0, -this.parent.getBbHeight(), 0);
+//                }
+//                matrix4f.scaleLocal(this.entityScale);
+//
+//                matrix4f.scale(pose.readOnlyScale());
+//
+//                display.element().setTransformation(serverPlayer, matrix4f);
+//                display.element().startInterpolationIfDirty(serverPlayer);
+//            }
+        };
         EntityAttachment.ofTicking(this.holder, this);
     }
 

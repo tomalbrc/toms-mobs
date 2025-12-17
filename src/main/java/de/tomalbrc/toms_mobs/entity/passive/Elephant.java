@@ -69,7 +69,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         return this.holder;
     }
 
-    public Elephant(EntityType<? extends Animal> type, Level level) {
+    public Elephant(EntityType<? extends @NotNull Animal> type, Level level) {
         super(type, level);
         this.moveControl = new MoveControl(this);
         this.jumpControl = new JumpControl(this);
@@ -89,7 +89,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
+    public boolean isFood(@NotNull ItemStack itemStack) {
         return tempting().test(itemStack);
     }
 
@@ -101,17 +101,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
         this.goalSelector.addGoal(4, new PanicGoal(this, 0.7));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.7));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && !isVehicle();
-            }
-
-            @Override
-            public boolean canContinueToUse() {
-                return super.canContinueToUse() && !isVehicle();
-            }
-        });
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
     }
 
@@ -126,7 +116,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public boolean causeFallDamage(double f, float g, DamageSource damageSource) {
+    public boolean causeFallDamage(double f, float g, @NotNull DamageSource damageSource) {
         int i = this.calculateFallDamage(f, g);
         if (i <= 0) {
             return false;
@@ -154,7 +144,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.SNIFFER_HURT;
     }
 
@@ -164,7 +154,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         this.playSound(SoundEvents.SNIFFER_STEP, 0.15F, 1.0F);
     }
 
@@ -183,7 +173,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
+    public void customServerAiStep(@NotNull ServerLevel serverLevel) {
         super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
@@ -196,13 +186,13 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public Elephant getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public Elephant getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return MobRegistry.ELEPHANT.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
     @NotNull
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public InteractionResult mobInteract(Player player, @NotNull InteractionHand interactionHand) {
         var item = player.getItemInHand(interactionHand);
         if (!this.isBaby() && this.isSaddled()) {
             if (!player.isSecondaryUseActive())
@@ -221,7 +211,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public void onEquipItem(EquipmentSlot equipmentSlot, ItemStack itemStack, ItemStack itemStack2) {
+    public void onEquipItem(@NotNull EquipmentSlot equipmentSlot, @NotNull ItemStack itemStack, @NotNull ItemStack itemStack2) {
         super.onEquipItem(equipmentSlot, itemStack, itemStack2);
 
         if (equipmentSlot == EquipmentSlot.SADDLE && this.getItemBySlot(EquipmentSlot.SADDLE).getItem() instanceof ElephantHarnessItem harnessItem) {
@@ -233,7 +223,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public boolean canUseSlot(EquipmentSlot equipmentSlot) {
+    public boolean canUseSlot(@NotNull EquipmentSlot equipmentSlot) {
         return this.isAlive() && !this.isBaby() && equipmentSlot == EquipmentSlot.SADDLE;
     }
 
@@ -242,21 +232,17 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
             player.setYRot(this.getYRot());
             player.setXRot(this.getXRot());
             player.startRiding(this);
-            this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
-            this.holder.fastRot(); // clients cancel display rotations when they receive another movement packet / or transform packet before the interpolation finishes :\
         }
     }
 
     @Override
-    public void stopRiding() {
-        super.stopRiding();
-        this.holder.slowRot();
-        this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
+    protected float getRiddenSpeed(@NotNull Player player) {
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.35f;
     }
 
     @Override
-    protected float getRiddenSpeed(Player player) {
-        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.35f;
+    public boolean isImmobile() {
+        return super.isImmobile();
     }
 
     @Override
@@ -273,7 +259,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     @NotNull
-    protected Vec3 getRiddenInput(Player player, Vec3 vec3) {
+    protected Vec3 getRiddenInput(@NotNull Player player, @NotNull Vec3 vec3) {
         if (attackCooldown != -1)
             return Vec3.ZERO;
 
@@ -288,7 +274,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    protected void tickRidden(Player player, Vec3 vec3) {
+    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
         if (attackCooldown >= 0) attackCooldown--;
 
         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
@@ -353,12 +339,12 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
+    protected PathNavigation createNavigation(@NotNull Level level) {
         return new LessSpinnyGroundPathNavigation(this, level);
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput valueInput) {
+    protected void readAdditionalSaveData(@NotNull ValueInput valueInput) {
         super.readAdditionalSaveData(valueInput);
 
         var item = this.getItemBySlot(EquipmentSlot.SADDLE);
