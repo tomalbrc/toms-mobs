@@ -1,7 +1,6 @@
 package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
-import de.tomalbrc.bil.core.component.AnimationComponent;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
@@ -51,9 +50,11 @@ import java.util.Objects;
 public class Capybara extends Animal implements AnimatedEntity {
     public static final Identifier ID = Util.id("capybara");
     public static final Model MODEL = Util.loadModel(ID);
+    private static final int MAX_PET_DELAY = 6*20;
     private final EntityHolder<Capybara> holder;
 
     private float exhaustion = 0f;
+    private int petDelay = 0;
 
     private static Ingredient tempting() {
         return Ingredient.of(Items.APPLE, Items.MELON, Items.PUMPKIN, Items.SUGAR_CANE);
@@ -99,9 +100,31 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     private void jumpOutOfFluid(double d) {
-        Vec3 vec3 = this.getDeltaMovement();
-        if (this.horizontalCollision && this.isFree(vec3.x, vec3.y + 0.6F - this.getY() + d, vec3.z)) {
-            this.setDeltaMovement(vec3.x, 0.3F, vec3.z);
+        Vec3 delta = this.getDeltaMovement();
+        if (this.horizontalCollision && this.isFree(delta.x, delta.y + 0.6F - this.getY() + d, delta.z)) {
+            this.setDeltaMovement(delta.x, 0.3F, delta.z);
+        }
+    }
+
+    void maybePet(@NotNull Player player, @NotNull InteractionHand interactionHand) {
+        if (this.onGround() && this.petDelay <= 0 && player.getItemInHand(interactionHand).isEmpty()) {
+            this.getNavigation().stop();
+
+            if (!this.isRelaxing())
+                this.holder.getAnimator().playAnimation("pet1", 0);
+
+            this.petDelay = MAX_PET_DELAY;
+        }
+    }
+
+    void petParticle() {
+        if (this.level() instanceof ServerLevel level) {
+            for (int i = 0; i < 4; ++i) {
+                double xOffset = this.random.nextGaussian() * 0.25;
+                double yOffset = this.random.nextGaussian() * 0.25;
+                double zOffset = this.random.nextGaussian() * 0.25;
+                level.sendParticles(ParticleTypes.HEART, this.getRandomX(1), this.getRandomY() + .25, this.getRandomZ(1), 0, xOffset, yOffset, zOffset, 0);
+            }
         }
     }
 
@@ -109,6 +132,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     @NotNull
     public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand interactionHand) {
         if (this.isBaby()) {
+            maybePet(player, interactionHand);
             return super.mobInteract(player, interactionHand);
         }
 
@@ -130,6 +154,7 @@ public class Capybara extends Animal implements AnimatedEntity {
 
             return InteractionResult.SUCCESS;
         } else {
+            maybePet(player, interactionHand);
             return super.mobInteract(player, interactionHand);
         }
     }
@@ -174,6 +199,16 @@ public class Capybara extends Animal implements AnimatedEntity {
         if (isInWater())
             exhaustion += 0.01f;
         else exhaustion -= 0.005f;
+
+        if (petDelay > 0) {
+            petDelay--;
+            if (petDelay == MAX_PET_DELAY-10) {
+                petParticle();
+            }
+            else if (petDelay == MAX_PET_DELAY-20) {
+                petParticle();
+            }
+        }
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateCapybaraWalkAnimation(this, this.holder);
@@ -237,6 +272,9 @@ public class Capybara extends Animal implements AnimatedEntity {
             this.apple = itemStack;
         });
 
+        this.exhaustion = input.getFloatOr("Exhaustion", 0);
+        this.petDelay = input.getIntOr("PetDelay", 0);
+
         if (!this.apple.isEmpty()) {
             this.holder.getVariantController().setVariant("apple");
         } else {
@@ -249,6 +287,9 @@ public class Capybara extends Animal implements AnimatedEntity {
         super.addAdditionalSaveData(output);
         if (!this.apple.isEmpty())
             output.store("Apple", ItemStack.CODEC, this.apple);
+
+        output.putFloat("Exhaustion", this.exhaustion);
+        output.putInt("PetDelay", this.petDelay);
     }
 
     public void setRelaxing(boolean b) {

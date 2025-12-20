@@ -21,7 +21,7 @@ public class CapybaraRelaxGoal extends Goal {
     }
 
     public boolean canUse() {
-        if (this.entity.getRandom().nextInt(10) == 1 && this.entity.getNavigation().isDone()) {
+        if (this.entity.getRandom().nextInt(20) == 1 && this.entity.getNavigation().isDone()) {
             return this.canSleep() && !this.entity.isRelaxing();
         } else {
             return false;
@@ -48,7 +48,7 @@ public class CapybaraRelaxGoal extends Goal {
     }
 
     public void start() {
-        this.useTime = 180*20;
+        this.useTime = 120*20;
         this.entity.setJumping(false);
         this.entity.setRelaxing(true);
         this.entity.getNavigation().stop();
