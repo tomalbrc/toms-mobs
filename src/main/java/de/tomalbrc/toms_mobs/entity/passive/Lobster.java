@@ -121,7 +121,7 @@ public class Lobster extends Animal implements AnimatedEntity {
                 this.holder.getAnimator().playAnimation("party");
             } else {
                 AnimationHelper.updateWalkAnimation(this, this.holder);
-                AnimationHelper.updateHurtVariant(this, this.holder);
+                AnimationHelper.updateHurtColor(this, this.holder);
             }
         }
     }

@@ -99,7 +99,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 

@@ -186,7 +186,7 @@ public class Seagull extends Animal implements AnimatedEntity {
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateBirdAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 

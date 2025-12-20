@@ -1,10 +1,7 @@
 package de.tomalbrc.toms_mobs.entity.goal;
 
 import de.tomalbrc.toms_mobs.entity.passive.Capybara;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 
 import java.util.EnumSet;
 
@@ -19,12 +16,12 @@ public class CapybaraRelaxGoal extends Goal {
     public CapybaraRelaxGoal(Capybara entity) {
         super();
         this.countdown = entity.getRandom().nextInt(WAIT_TIME_BEFORE_SLEEP);
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Flag.LOOK));
         this.entity = entity;
     }
 
     public boolean canUse() {
-        if (this.entity.getRandom().nextInt(30) == 0 && this.entity.xxa == 0.0F && this.entity.yya == 0.0F && this.entity.zza == 0.0F) {
+        if (this.entity.getRandom().nextInt(10) == 1 && this.entity.getNavigation().isDone()) {
             return this.canSleep() && !this.entity.isRelaxing();
         } else {
             return false;
@@ -41,7 +38,7 @@ public class CapybaraRelaxGoal extends Goal {
             --this.countdown;
             return false;
         } else {
-            return this.canRelax();
+            return true;
         }
     }
 
@@ -56,9 +53,5 @@ public class CapybaraRelaxGoal extends Goal {
         this.entity.setRelaxing(true);
         this.entity.getNavigation().stop();
         this.entity.getMoveControl().setWantedPosition(this.entity.getX(), this.entity.getY(), this.entity.getZ(), 0.0);
-    }
-
-    protected boolean canRelax() {
-        return !((ServerLevel) this.entity.level()).getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat().selector((livingEntity,serverLevel) -> !(livingEntity instanceof Capybara)), this.entity, this.entity.getBoundingBox().inflate(6.0, 3.0, 6.0)).isEmpty();
     }
 }

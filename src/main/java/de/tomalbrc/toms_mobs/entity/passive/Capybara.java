@@ -1,6 +1,7 @@
 package de.tomalbrc.toms_mobs.entity.passive;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
+import de.tomalbrc.bil.core.component.AnimationComponent;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
@@ -18,15 +19,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -41,6 +41,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.include.com.google.common.collect.ImmutableList;
@@ -51,6 +52,8 @@ public class Capybara extends Animal implements AnimatedEntity {
     public static final Identifier ID = Util.id("capybara");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Capybara> holder;
+
+    private float exhaustion = 0f;
 
     private static Ingredient tempting() {
         return Ingredient.of(Items.APPLE, Items.MELON, Items.PUMPKIN, Items.SUGAR_CANE);
@@ -71,24 +74,40 @@ public class Capybara extends Animal implements AnimatedEntity {
         return this.holder;
     }
 
-    public Capybara(EntityType<? extends Animal> type, Level level) {
+    public Capybara(EntityType<? extends @NotNull Animal> type, Level level) {
         super(type, level);
 
-        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, -1.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
         this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_OPEN, -1.0F);
+        this.setPathfindingMalus(PathType.WALKABLE, 0.0F);
 
         this.moveControl = new SemiAquaticMoveControl(this);
-        this.jumpControl = new JumpControl(this);
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
     }
 
     @Override
+    protected void travelInWater(@NotNull Vec3 vec3, double d, boolean bl, double e) {
+        this.moveRelative(this.getSpeed(), vec3);
+        this.move(MoverType.SELF, this.getDeltaMovement());
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+        this.jumpOutOfFluid(e);
+    }
+
+    private void jumpOutOfFluid(double d) {
+        Vec3 vec3 = this.getDeltaMovement();
+        if (this.horizontalCollision && this.isFree(vec3.x, vec3.y + 0.6F - this.getY() + d, vec3.z)) {
+            this.setDeltaMovement(vec3.x, 0.3F, vec3.z);
+        }
+    }
+
+    @Override
     @NotNull
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand interactionHand) {
         if (this.isBaby()) {
             return super.mobInteract(player, interactionHand);
         }
@@ -101,7 +120,6 @@ public class Capybara extends Animal implements AnimatedEntity {
 
             player.setItemInHand(interactionHand, this.apple);
             this.apple = ItemStack.EMPTY;
-
             this.holder.getVariantController().setDefaultVariant();
 
             return InteractionResult.SUCCESS;
@@ -117,12 +135,10 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
-        if (levelReader.getFluidState(blockPos).is(FluidTags.WATER)) {
-            return 1;
-        } else {
-            return levelReader.getPathfindingCostFromLightLevels(blockPos);
-        }
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, @NotNull LevelReader levelReader) {
+        var v = 1f - (Math.max(0, Math.min(2.f, this.exhaustion)));
+        this.setPathfindingMalus(PathType.WATER, v);
+        return 1 - (Math.max(0, Math.min(1.f, this.exhaustion)));
     }
 
     @Override
@@ -131,7 +147,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
+    public boolean isFood(@NotNull ItemStack itemStack) {
         return tempting().test(itemStack);
     }
 
@@ -141,7 +157,7 @@ public class Capybara extends Animal implements AnimatedEntity {
         this.goalSelector.addGoal(1, new AquaticBreedGoal(this, 0.3));
         this.goalSelector.addGoal(2, new TemptGoal(this, 0.3, tempting(), false));
         this.goalSelector.addGoal(2, new AquaticFollowParentGoal(this, 0.25));
-        this.goalSelector.addGoal(3, new PathfinderMobSwimGoal(this, 2.5));
+        this.goalSelector.addGoal(3, new PathfinderMobSwimGoal(this, 0.2));
         this.goalSelector.addGoal(4, new CapybaraRelaxGoal(this));
 
         this.goalSelector.addGoal(5, new AquaticRandomStrollGoal(this, 0.25));
@@ -155,9 +171,13 @@ public class Capybara extends Animal implements AnimatedEntity {
     public void tick() {
         super.tick();
 
+        if (isInWater())
+            exhaustion += 0.01f;
+        else exhaustion -= 0.005f;
+
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateCapybaraWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 
@@ -176,7 +196,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
+    public void customServerAiStep(@NotNull ServerLevel serverLevel) {
         super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
@@ -199,18 +219,18 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public Capybara getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public Capybara getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return MobRegistry.CAPYBARA.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
+    protected PathNavigation createNavigation(@NotNull Level level) {
         return new SemiAmphibiousPathNavigation(this, level);
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
         input.read("Apple", ItemStack.CODEC).ifPresent(itemStack -> {
@@ -225,7 +245,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
         super.addAdditionalSaveData(output);
         if (!this.apple.isEmpty())
             output.store("Apple", ItemStack.CODEC, this.apple);
@@ -237,6 +257,7 @@ public class Capybara extends Animal implements AnimatedEntity {
 
         this.relaxing = b;
         if (this.relaxing) {
+            this.holder.getModel().animations().keySet().forEach(this.holder.getAnimator()::stopAnimation);
             this.holder.getAnimator().playAnimation("relax");
         } else {
             this.holder.getAnimator().stopAnimation("relax");

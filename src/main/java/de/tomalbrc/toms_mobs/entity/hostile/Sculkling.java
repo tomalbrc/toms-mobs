@@ -116,7 +116,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 

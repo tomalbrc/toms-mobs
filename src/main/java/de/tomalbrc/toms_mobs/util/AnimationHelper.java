@@ -2,12 +2,12 @@ package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
+import de.tomalbrc.bil.core.component.AnimationComponent;
 import de.tomalbrc.toms_mobs.entity.passive.Capybara;
 import de.tomalbrc.toms_mobs.entity.passive.Seagull;
 import net.minecraft.world.entity.LivingEntity;
 
 public class AnimationHelper {
-
     public static void updateWalkAnimation(LivingEntity entity, AnimatedHolder holder) {
         updateWalkAnimation(entity, holder, 0);
     }
@@ -110,10 +110,6 @@ public class AnimationHelper {
                 animator.playAnimation(entity.isRelaxing() ? "relax":"idle");
             }
         }
-    }
-
-    public static void updateHurtVariant(LivingEntity entity, AnimatedHolder holder) {
-        updateHurtColor(entity, holder);
     }
 
     public static void updateHurtColor(LivingEntity entity, AnimatedHolder holder) {

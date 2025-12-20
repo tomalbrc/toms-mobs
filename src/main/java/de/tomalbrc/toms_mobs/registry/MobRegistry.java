@@ -55,7 +55,7 @@ public class MobRegistry {
             FabricEntityType.Builder.createMob(Elephant::new, MobCategory.CREATURE, x -> x
                             .defaultAttributes(Elephant::createAttributes)
                             .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules))
-                    .sized(3.0f, 3.65f)
+                    .sized(2.99f, 3.65f)
     );
 
     public static final EntityType<Capybara> CAPYBARA = register(
@@ -63,7 +63,7 @@ public class MobRegistry {
             FabricEntityType.Builder.createMob(Capybara::new, MobCategory.CREATURE, x -> x
                             .defaultAttributes(Capybara::createAttributes)
                             .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules))
-                    .sized(0.9f, 1.1f)
+                    .sized(0.9f, 1.f)
     );
 
     /*public static final EntityType<Vulture> VULTURE = register(

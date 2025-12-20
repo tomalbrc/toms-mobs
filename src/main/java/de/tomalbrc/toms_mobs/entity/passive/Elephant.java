@@ -25,9 +25,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
+                .add(Attributes.STEP_HEIGHT, 1.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.TEMPT_RANGE, 8)
                 .add(Attributes.MAX_HEALTH, 30.0)
@@ -72,10 +74,23 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     public Elephant(EntityType<? extends @NotNull Animal> type, Level level) {
         super(type, level);
         this.moveControl = new MoveControl(this);
-        this.jumpControl = new JumpControl(this);
+
+        this.getNavigation().setCanFloat(true);
+        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS, -1.0F);
 
         this.holder = new ElephantHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
+    }
+
+    @Override
+    public boolean supportQuadLeash() {
+        return true;
+    }
+
+    @Override
+    public Vec3 @NotNull [] getQuadLeashOffsets() {
+        return Leashable.createQuadLeashOffsets(this, -0.01, 0.63, 0.38, 1.15);
     }
 
     @Override
@@ -111,7 +126,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 
@@ -241,11 +256,6 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     }
 
     @Override
-    public boolean isImmobile() {
-        return super.isImmobile();
-    }
-
-    @Override
     @Nullable
     public LivingEntity getControllingPassenger() {
         Entity passenger = this.getFirstPassenger();
@@ -284,7 +294,6 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
             attackCooldown += 30;
             this.holder.getAnimator().playAnimation("attack", 0);
         } else if (attackCooldown == 20) {
-
             var entities = level().getEntities(player, this.getBoundingBox().move(new Vec3(this.getForward().x, 0, this.getForward().z).normalize().scale(3.0f)));
             var factor = (1.0f/6.0f);
             for (Entity entity : entities) {
@@ -340,7 +349,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
     @Override
     @NotNull
     protected PathNavigation createNavigation(@NotNull Level level) {
-        return new LessSpinnyGroundPathNavigation(this, level);
+        return new GroundPathNavigation(this, level);
     }
 
     @Override

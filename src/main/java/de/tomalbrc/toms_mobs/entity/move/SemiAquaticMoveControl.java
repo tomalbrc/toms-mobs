@@ -13,16 +13,7 @@ public class SemiAquaticMoveControl extends MoveControl {
         this.animal = animal;
     }
 
-    private void updateSpeed() {
-        if (this.animal.isInWater()) {
-            this.animal.setDeltaMovement(this.animal.getDeltaMovement().add(0.0, 0.005, 0.0));
-        }
-
-        this.animal.setSpeed((float)(this.speedModifier*this.animal.getAttributeValue(Attributes.MOVEMENT_SPEED)*(this.animal.isBaby()?0.5:1.0)));
-    }
-
     public void tick() {
-        this.updateSpeed();
         if (this.animal.isInWater()) {
             if (this.operation == Operation.MOVE_TO && !this.animal.getNavigation().isDone()) {
                 double xDiff = this.wantedX - this.animal.getX();

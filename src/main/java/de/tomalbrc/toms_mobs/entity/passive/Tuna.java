@@ -80,7 +80,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateFishAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 

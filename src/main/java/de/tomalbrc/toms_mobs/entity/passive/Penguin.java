@@ -133,7 +133,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
                 this.holder.getAnimator().stopAnimation("slide");
                 AnimationHelper.updateAquaticWalkAnimation(this, this.holder);
             }
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 

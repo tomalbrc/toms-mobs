@@ -32,6 +32,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Snake extends Animal implements AnimatedEntity {
@@ -52,7 +53,7 @@ public class Snake extends Animal implements AnimatedEntity {
         return this.holder;
     }
 
-    public Snake(EntityType<? extends Snake> type, Level level) {
+    public Snake(EntityType<? extends @NotNull Snake> type, Level level) {
         super(type, level);
 
         this.moveControl = new MoveControl(this);
@@ -86,12 +87,12 @@ public class Snake extends Animal implements AnimatedEntity {
 
         if (this.tickCount % 2 == 0) {
             AnimationHelper.updateWalkAnimation(this, this.holder);
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
     }
 
     @Override
-    public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+    public boolean doHurtTarget(@NotNull ServerLevel serverLevel, @NotNull Entity entity) {
         boolean result = super.doHurtTarget(serverLevel, entity);
 
         if (result) {
@@ -109,7 +110,7 @@ public class Snake extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return MobRegistry.SNAKE.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
@@ -138,7 +139,7 @@ public class Snake extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
+    public void customServerAiStep(@NotNull ServerLevel serverLevel) {
         super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {

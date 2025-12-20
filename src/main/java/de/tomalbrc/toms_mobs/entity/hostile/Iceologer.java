@@ -131,7 +131,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
 
             if (!this.isCastingSpell()) {
                 AnimationHelper.updateWalkAnimation(this, this.holder);

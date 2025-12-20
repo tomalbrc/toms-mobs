@@ -1,10 +1,9 @@
 package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedEntity;
-import de.tomalbrc.bil.core.holder.wrapper.Bone;
+import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.bil.util.Utils;
-import de.tomalbrc.toms_mobs.LivingEntityHolder;
 import de.tomalbrc.toms_mobs.mixins.LivingEntityAccessor;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -86,16 +85,4 @@ public class ElephantHolder<T extends LivingEntity & AnimatedEntity> extends Liv
 
         this.collisionElement.getDataTracker().set(LivingEntityAccessor.getDATA_HEALTH_ID(), this.parent.getEntityData().get(LivingEntityAccessor.getDATA_HEALTH_ID()));
     }
-
-//    public void slowRot() {
-//        for (Bone<?> bone : this.bones) {
-//            bone.element().setTeleportDuration(null, 3);
-//        }
-//    }
-//
-//    public void fastRot() {
-//        for (Bone<?> bone : this.bones) {
-//            bone.element().setTeleportDuration(null, 1);
-//        }
-//    }
 }

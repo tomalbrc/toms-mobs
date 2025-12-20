@@ -97,7 +97,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         super.tick();
 
         if (this.tickCount % 2 == 0) {
-            AnimationHelper.updateHurtVariant(this, this.holder);
+            AnimationHelper.updateHurtColor(this, this.holder);
         }
 
         if (this.tickCount % 8 == 3 && this.level() instanceof ServerLevel serverLevel) {
