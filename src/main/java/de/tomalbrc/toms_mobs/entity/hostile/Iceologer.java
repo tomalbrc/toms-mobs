@@ -73,7 +73,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         }
     };
 
-    public static boolean checkIceologerSpawnRules(EntityType<? extends Monster> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnReason, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkIceologerSpawnRules(EntityType<? extends @NotNull Monster> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnReason, BlockPos blockPos, RandomSource randomSource) {
         BlockPos blockPos2 = blockPos.below();
         var bs = levelAccessor.getBlockState(blockPos2);
         return blockPos2.getY() > 150 && (bs.is(BlockTags.ICE) || bs.is(BlockTags.SNOW)) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnReason, blockPos, randomSource);
@@ -83,7 +83,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.FOLLOW_RANGE, 30.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.15);
+                .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         return this.holder;
     }
 
-    public Iceologer(EntityType<? extends SpellcasterIllager> entityType, Level level) {
+    public Iceologer(EntityType<? extends @NotNull SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
@@ -103,7 +103,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         super.registerGoals();
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 12.0F, 1.1, 1.2));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 5.0F, 1.1, 1.2));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, IronGolem.class, 8.0F, 1.1, 1.2));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -119,10 +119,10 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
     }
 
     @Override
-    public void applyRaidBuffs(ServerLevel serverLevel, int i, boolean bl) {
+    public void applyRaidBuffs(@NotNull ServerLevel serverLevel, int i, boolean bl) {
     }
 
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, @NotNull LevelReader levelReader) {
         return 0.0F;
     }
 
@@ -150,7 +150,7 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
         leftArm.addListener(this.listener);
         rightArm.addListener(this.listener);
 
-        this.holder.getAnimator().playAnimation(animationName, 10, (serverPlayer) -> {
+        this.holder.getAnimator().playAnimation(animationName, 0, (serverPlayer) -> {
             leftArm.removeAllListeners();
             rightArm.removeAllListeners();
         });
@@ -170,12 +170,12 @@ public class Iceologer extends SpellcasterIllager implements AnimatedEntity {
 
     @Override
     @NotNull
-    public ItemStack getItemBySlot(EquipmentSlot equipmentSlot) {
+    public ItemStack getItemBySlot(@NotNull EquipmentSlot equipmentSlot) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+    public void setItemSlot(@NotNull EquipmentSlot equipmentSlot, @NotNull ItemStack itemStack) {
     }
 
     @Override

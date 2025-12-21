@@ -31,7 +31,7 @@ public class IceSpikeGoal extends AnimatedGoal {
     public boolean canUse() {
         goalUseDelay--;
         LivingEntity livingEntity = this.mob.getTarget();
-        return super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceToSqr(this.mob) < 11.f;
+        return super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceTo(this.mob) < 11.f;
     }
 
     public boolean canContinueToUse() {

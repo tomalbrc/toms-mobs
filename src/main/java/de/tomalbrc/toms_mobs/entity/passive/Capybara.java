@@ -118,6 +118,8 @@ public class Capybara extends Animal implements AnimatedEntity {
     }
 
     void petParticle() {
+        this.getNavigation().stop();
+
         if (this.level() instanceof ServerLevel level) {
             for (int i = 0; i < 4; ++i) {
                 double xOffset = this.random.nextGaussian() * 0.25;
@@ -268,9 +270,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
-        input.read("Apple", ItemStack.CODEC).ifPresent(itemStack -> {
-            this.apple = itemStack;
-        });
+        input.read("Apple", ItemStack.CODEC).ifPresent(itemStack -> this.apple = itemStack);
 
         this.exhaustion = input.getFloatOr("Exhaustion", 0);
         this.petDelay = input.getIntOr("PetDelay", 0);

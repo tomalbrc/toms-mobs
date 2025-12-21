@@ -47,7 +47,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
                 .add(Attributes.MOVEMENT_SPEED, 0.4);
     }
 
-    public static boolean checkSculklingSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+    public static boolean checkSculklingSpawnRules(EntityType<? extends @NotNull Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return pos.getY() < 10 && !level.canSeeSky(pos) && checkMonsterSpawnRules(type, level, spawnReason, pos, random);
     }
 
@@ -56,7 +56,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
         return this.holder;
     }
 
-    public Sculkling(EntityType<? extends Sculkling> type, Level level) {
+    public Sculkling(EntityType<? extends @NotNull Sculkling> type, Level level) {
         super(type, level);
 
         this.moveControl = new MoveControl(this);
@@ -69,7 +69,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 0.7, 0.7, x -> this.stolenXP > 0));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 0.9, 0.9, x -> this.stolenXP > 0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 2.0F));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.4));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -79,7 +79,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public boolean isInvulnerableTo(ServerLevel serverLevel, DamageSource damageSource) {
+    public boolean isInvulnerableTo(@NotNull ServerLevel serverLevel, DamageSource damageSource) {
         return damageSource.is(DamageTypeTags.IS_FIRE) && damageSource.is(DamageTypeTags.IS_DROWNING);
     }
 
@@ -100,7 +100,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
 
     @Override
     @NotNull
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.SCULK_CLICKING;
     }
 
@@ -121,7 +121,7 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+    public boolean doHurtTarget(@NotNull ServerLevel serverLevel, @NotNull Entity entity) {
         boolean result = super.doHurtTarget(serverLevel, entity);
 
         if (result && entity instanceof ServerPlayer player) {
@@ -135,19 +135,19 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
     }
 
     @Override
-    public int getBaseExperienceReward(ServerLevel serverLevel) {
+    public int getBaseExperienceReward(@NotNull ServerLevel serverLevel) {
         return (int) ((stolenXP * 1.25) + 2);
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
         this.stolenXP = input.getIntOr("XP", 0);
     }
 
     @Override
-    public void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
         super.addAdditionalSaveData(output);
 
         output.putInt("XP", this.stolenXP);

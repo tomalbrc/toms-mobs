@@ -34,7 +34,7 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
 
     public boolean canUse() {
         LivingEntity livingEntity = this.mob.getTarget();
-        return this.mob instanceof Showmaster showmaster && showmaster.canCast() && super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceToSqr(this.mob) < 10.f;
+        return this.mob instanceof Showmaster showmaster && showmaster.canCast() && super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceTo(this.mob) < 10.f;
     }
 
     public boolean canContinueToUse() {

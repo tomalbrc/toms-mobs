@@ -28,7 +28,7 @@ public class SummonIceClusterGoal extends AnimatedGoal {
     public boolean canUse() {
         goalUseDelay--;
         LivingEntity livingEntity = this.mob.getTarget();
-        return !this.mob.getNavigation().isInProgress() && super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceToSqr(this.mob) > 8.f;
+        return !this.mob.getNavigation().isInProgress() && super.canUse() && livingEntity != null && livingEntity.isAlive() && livingEntity.distanceTo(this.mob) > 8.f;
     }
 
     public boolean canContinueToUse() {

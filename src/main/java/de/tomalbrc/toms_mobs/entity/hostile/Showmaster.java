@@ -48,7 +48,7 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
         return this.holder;
     }
 
-    public Showmaster(EntityType<? extends SpellcasterIllager> entityType, Level level) {
+    public Showmaster(EntityType<? extends @NotNull SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
 
         this.holder = new LivingEntityHolder<>(this, MODEL);
@@ -75,7 +75,7 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     }
 
     @Override
-    public void applyRaidBuffs(ServerLevel serverLevel, int i, boolean bl) {
+    public void applyRaidBuffs(@NotNull ServerLevel serverLevel, int i, boolean bl) {
         // TODO
     }
 
@@ -130,12 +130,12 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
 
     @Override
     @NotNull
-    public ItemStack getItemBySlot(EquipmentSlot equipmentSlot) {
+    public ItemStack getItemBySlot(@NotNull EquipmentSlot equipmentSlot) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+    public void setItemSlot(@NotNull EquipmentSlot equipmentSlot, @NotNull ItemStack itemStack) {
     }
 
     @Override
