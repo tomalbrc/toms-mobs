@@ -111,7 +111,7 @@ public class Capybara extends Animal implements AnimatedEntity {
             this.getNavigation().stop();
 
             if (!this.isRelaxing())
-                this.holder.getAnimator().playAnimation("pet1", 0);
+                this.holder.getAnimator().playAnimation("pet1", 2);
 
             this.petDelay = MAX_PET_DELAY;
         }
