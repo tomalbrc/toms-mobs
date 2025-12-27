@@ -5,7 +5,6 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.entity.goal.LargeAnimalBreedGoal;
-import de.tomalbrc.toms_mobs.entity.navigation.LessSpinnyGroundPathNavigation;
 import de.tomalbrc.toms_mobs.item.ElephantHarnessItem;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
