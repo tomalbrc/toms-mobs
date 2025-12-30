@@ -26,12 +26,14 @@ import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothGroundNavigation;
 import org.jetbrains.annotations.NotNull;
 
 public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeAttackGoal.IMeleeAttackAnimatable {
@@ -151,5 +153,10 @@ public class Sculkling extends Monster implements AnimatedEntity, AnimatedMeleeA
         super.addAdditionalSaveData(output);
 
         output.putInt("XP", this.stolenXP);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothGroundNavigation(this, level);
     }
 }

@@ -22,6 +22,7 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
         return this.holder;
     }
 
-    public IceSpikeSmall(EntityType<? extends Entity> entityType, Level level) {
+    public IceSpikeSmall(EntityType<? extends @NotNull Entity> entityType, Level level) {
         super(entityType, level);
 
         this.setInvisible(true);
@@ -56,12 +57,12 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
 
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
         return false;
     }
 
@@ -98,11 +99,11 @@ public class IceSpikeSmall extends Entity implements AnimatedEntity, TraceableEn
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
     }
 
     private void dealDamageTo(LivingEntity livingEntity) {

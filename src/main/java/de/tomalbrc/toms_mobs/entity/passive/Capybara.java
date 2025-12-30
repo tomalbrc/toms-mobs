@@ -4,10 +4,9 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entity.control.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.entity.goal.CapybaraRelaxGoal;
 import de.tomalbrc.toms_mobs.entity.goal.aquatic.*;
-import de.tomalbrc.toms_mobs.entity.move.SemiAquaticMoveControl;
-import de.tomalbrc.toms_mobs.entity.navigation.SemiAmphibiousPathNavigation;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
@@ -41,6 +40,7 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothGroundNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.include.com.google.common.collect.ImmutableList;
@@ -263,7 +263,7 @@ public class Capybara extends Animal implements AnimatedEntity {
     @Override
     @NotNull
     protected PathNavigation createNavigation(@NotNull Level level) {
-        return new SemiAmphibiousPathNavigation(this, level);
+        return new SmoothGroundNavigation(this, level);
     }
 
     @Override

@@ -2,7 +2,6 @@ package de.tomalbrc.toms_mobs.util;
 
 import de.tomalbrc.bil.api.AnimatedHolder;
 import de.tomalbrc.bil.api.Animator;
-import de.tomalbrc.bil.core.component.AnimationComponent;
 import de.tomalbrc.toms_mobs.entity.passive.Capybara;
 import de.tomalbrc.toms_mobs.entity.passive.Seagull;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +13,7 @@ public class AnimationHelper {
 
     public static void updateBirdAnimation(Seagull entity, AnimatedHolder holder) {
         Animator animator = holder.getAnimator();
-        if (!entity.canFlyCurrently() || entity.onGround()) {
+        if (!entity.isFlying()) {
             if (entity.walkAnimation.isMoving() && entity.walkAnimation.speed() > 0.02) {
                 animator.playAnimation("walk", 0);
                 animator.pauseAnimation("idle");

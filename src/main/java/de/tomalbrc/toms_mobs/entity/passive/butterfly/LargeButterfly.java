@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class LargeButterfly extends AbstractButterfly {
@@ -31,11 +32,11 @@ public class LargeButterfly extends AbstractButterfly {
                 .add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
-    public static boolean checkLargeButterflySpawnRules(EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+    public static boolean checkLargeButterflySpawnRules(EntityType<? extends @NotNull Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return random.nextInt(1000) == 42 && level.canSeeSky(pos) && !level.getBlockState(pos.below()).getFluidState().is(FluidTags.WATER);
     }
 
-    public LargeButterfly(EntityType<? extends Animal> entityType, Level level) {
+    public LargeButterfly(EntityType<? extends @NotNull Animal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -53,7 +54,7 @@ public class LargeButterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 

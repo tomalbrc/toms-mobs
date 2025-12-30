@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
@@ -35,6 +34,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothFlyingPathNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +50,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
                 .add(Attributes.MOVEMENT_SPEED, 0.1);
     }
 
-    public static boolean checkFiremothSpawnRules(EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+    public static boolean checkFiremothSpawnRules(EntityType<? extends @NotNull Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return checkMobSpawnRules(type, level, spawnReason, pos, random);
     }
 
@@ -59,7 +59,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         return this.holder;
     }
 
-    public Firemoth(EntityType<? extends Animal> entityType, Level level) {
+    public Firemoth(EntityType<? extends @NotNull Animal> entityType, Level level) {
         super(entityType, level);
 
         this.moveControl = new FlyingMoveControl(this, 0, false);
@@ -83,7 +83,7 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.WIND_CHARGE_BURST.value();
     }
 
@@ -106,22 +106,22 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    protected void checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos) {
+    protected void checkFallDamage(double d, boolean bl, @NotNull BlockState blockState, @NotNull BlockPos blockPos) {
     }
 
     @Override
-    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource damageSource) {
         return false;
     }
 
     @Override
-    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
     }
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
+    protected PathNavigation createNavigation(@NotNull Level level) {
+        SmoothFlyingPathNavigation flyingPathNavigation = new SmoothFlyingPathNavigation(this, level) {
             public boolean isStableDestination(BlockPos blockPos) {
                 return this.level.getBlockState(blockPos.below()).isAir();
             }
@@ -132,18 +132,18 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, LevelReader levelReader) {
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
+    public boolean isFood(@NotNull ItemStack itemStack) {
         return false;
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 

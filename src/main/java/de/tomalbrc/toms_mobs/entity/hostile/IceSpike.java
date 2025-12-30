@@ -6,7 +6,6 @@ import de.tomalbrc.bil.core.holder.entity.simple.SimpleEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import eu.pb4.polymer.virtualentity.api.elements.DisplayElement;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
@@ -22,6 +21,7 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
         return this.holder;
     }
 
-    public IceSpike(EntityType<? extends Entity> entityType, Level level) {
+    public IceSpike(EntityType<? extends @NotNull Entity> entityType, Level level) {
         super(entityType, level);
 
         this.setInvisible(true);
@@ -53,18 +53,7 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-    }
-
-    @Override
-    public void setYRot(float f) {
-        super.setYRot(f);
-
-        this.holder.getElements().forEach(element -> {
-            if (element instanceof DisplayElement displayElement) {
-                //displayElement.setYaw(f);
-            }
-        });
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
     }
 
     @Override
@@ -101,17 +90,17 @@ public class IceSpike extends Entity implements AnimatedEntity, TraceableEntity 
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
         return false;
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
         this.setNoGravity(true);
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
     }
 
     private void dealDamageTo(LivingEntity livingEntity) {

@@ -30,10 +30,11 @@ public class FollowButterflyGoal extends Goal {
             return false;
         } else {
             this.nextStartTick = this.nextStartTick(this.mob);
-            List<? extends AbstractButterfly> list = this.mob.level().getEntitiesOfClass(LargeButterfly.class, this.mob.getBoundingBox().inflate(8.0F, 8.0F, 8.0F));
+            List<? extends AbstractButterfly> list = this.mob.level().getEntitiesOfClass(AbstractButterfly.class, this.mob.getBoundingBox().inflate(8.0F, 8.0F, 8.0F));
             AbstractButterfly butterfly = DataFixUtils.orElse(list.stream().filter(AbstractButterfly::canBeFollowed).findAny(), null);
             if (butterfly != null)
                 butterfly.addFollowers(list.stream().filter((b) -> !b.isFollower()));
+
             return this.mob.isFollower();
         }
     }

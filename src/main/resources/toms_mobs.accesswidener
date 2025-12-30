@@ -3,3 +3,5 @@ accessible field net/minecraft/world/entity/ai/goal/BreedGoal loveTime I
 accessible field net/minecraft/world/entity/ai/goal/BreedGoal speedModifier D
 
 accessible field net/minecraft/world/entity/LivingEntity jumping Z
+
+accessible method net/minecraft/world/level/pathfinder/Path setDebug ([Lnet/minecraft/world/level/pathfinder/Node;[Lnet/minecraft/world/level/pathfinder/Node;Ljava/util/Set;)V

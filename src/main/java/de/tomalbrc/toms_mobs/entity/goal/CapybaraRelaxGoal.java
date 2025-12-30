@@ -21,7 +21,7 @@ public class CapybaraRelaxGoal extends Goal {
     }
 
     public boolean canUse() {
-        if (this.entity.getRandom().nextInt(20) == 1 && this.entity.getNavigation().isDone()) {
+        if (!this.entity.isInWater() && this.entity.getRandom().nextInt(20) == 1 && this.entity.getNavigation().isDone()) {
             return this.canSleep() && !this.entity.isRelaxing();
         } else {
             return false;

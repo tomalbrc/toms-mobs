@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.entity.move;
+package de.tomalbrc.toms_mobs.entity.control;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.PathfinderMob;

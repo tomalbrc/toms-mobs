@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothGroundNavigation;
 import org.jetbrains.annotations.NotNull;
 
 public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
@@ -141,5 +143,10 @@ public class Showmaster extends SpellcasterIllager implements AnimatedEntity {
     @Override
     public boolean removeWhenFarAway(double d) {
         return false;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothGroundNavigation(this, level);
     }
 }

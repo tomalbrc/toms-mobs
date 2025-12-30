@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    },
+    {
+      "id": "#minecraft:logs",
+      "required": false
+    },
+    {
+      "id": "#minecraft:walls",
+      "required": false
+    },
+    {
+      "id": "#minecraft:fences",
+      "required": false
+    },
+    {
+      "id": "#minecraft:fence_gates",
+      "required": false
+    }
+  ]
+}

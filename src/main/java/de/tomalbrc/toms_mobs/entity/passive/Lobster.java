@@ -22,6 +22,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +31,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothGroundNavigation;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Lobster extends Animal implements AnimatedEntity {
@@ -51,7 +54,7 @@ public class Lobster extends Animal implements AnimatedEntity {
         return this.holder;
     }
 
-    public Lobster(EntityType<? extends Animal> type, Level level) {
+    public Lobster(EntityType<? extends @NotNull Animal> type, Level level) {
         super(type, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
 
@@ -60,13 +63,13 @@ public class Lobster extends Animal implements AnimatedEntity {
     }
 
     @Override
-    public void setRecordPlayingNearby(BlockPos blockPos, boolean play) {
+    public void setRecordPlayingNearby(@NotNull BlockPos blockPos, boolean play) {
         this.jukebox = blockPos;
         this.partyMode = play;
     }
 
     @Override
-    protected void customServerAiStep(ServerLevel serverLevel) {
+    protected void customServerAiStep(@NotNull ServerLevel serverLevel) {
         if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 3.5) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
             this.partyMode = false;
             this.jukebox = null;
@@ -142,18 +145,18 @@ public class Lobster extends Animal implements AnimatedEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
+    public boolean isFood(@NotNull ItemStack itemStack) {
         return Ingredient.of(Items.SEAGRASS, Items.SALMON, Items.TROPICAL_FISH, Items.COD).test(itemStack);
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return MobRegistry.LOBSTER.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
@@ -179,5 +182,10 @@ public class Lobster extends Animal implements AnimatedEntity {
         } else {
             this.holder.setScale(1.f);
         }
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothGroundNavigation(this, level);
     }
 }

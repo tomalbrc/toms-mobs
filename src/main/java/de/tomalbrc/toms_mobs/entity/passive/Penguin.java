@@ -1,13 +1,13 @@
 package de.tomalbrc.toms_mobs.entity.passive;
 
+import aqario.fowlplay.common.entity.ai.navigation.AmphibiousNavigation;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entity.control.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.entity.goal.PenguinSlideGoal;
 import de.tomalbrc.toms_mobs.entity.goal.aquatic.*;
-import de.tomalbrc.toms_mobs.entity.move.SemiAquaticMoveControl;
-import de.tomalbrc.toms_mobs.entity.navigation.SemiAmphibiousPathNavigation;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
@@ -67,7 +67,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
         return this.holder;
     }
 
-    public Penguin(EntityType<? extends Penguin> type, Level level) {
+    public Penguin(EntityType<? extends @NotNull Penguin> type, Level level) {
         super(type, level);
 
         this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -112,7 +112,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, LevelReader levelReader) {
         if (levelReader.getFluidState(blockPos).is(FluidTags.WATER)) {
             return 1;
         } else {
@@ -138,7 +138,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
+    public void customServerAiStep(@NotNull ServerLevel serverLevel) {
         super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {
@@ -151,7 +151,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    public Penguin getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public Penguin getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return MobRegistry.PENGUIN.create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
@@ -185,7 +185,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundRegistry.PENGUIN_HURT;
     }
 
@@ -195,14 +195,14 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
     }
 
     @Override
-    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         this.playSound(SoundEvents.FROG_STEP, 0.15F, 1.0F);
     }
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
-        return new SemiAmphibiousPathNavigation(this, level);
+    protected PathNavigation createNavigation(@NotNull Level level) {
+        return new AmphibiousNavigation(this, level);
     }
 
     @Override

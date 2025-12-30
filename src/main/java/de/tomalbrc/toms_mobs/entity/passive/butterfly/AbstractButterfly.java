@@ -11,13 +11,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
@@ -27,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothFlyingPathNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +52,7 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
         return this.holder;
     }
 
-    public AbstractButterfly(EntityType<? extends Animal> entityType, Level level) {
+    public AbstractButterfly(EntityType<? extends @NotNull Animal> entityType, Level level) {
         super(entityType, level);
 
         this.moveControl = new FlyingMoveControl(this, 1, true);
@@ -68,7 +69,7 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
     protected abstract void setupModel();
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.WIND_CHARGE_BURST.value();
     }
 
@@ -89,22 +90,22 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
     }
 
     @Override
-    protected void checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos) {
+    protected void checkFallDamage(double d, boolean bl, @NotNull BlockState blockState, @NotNull BlockPos blockPos) {
     }
 
     @Override
-    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource damageSource) {
         return false;
     }
 
     @Override
-    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+    protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
     }
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
+    protected PathNavigation createNavigation(@NotNull Level level) {
+        SmoothFlyingPathNavigation flyingPathNavigation = new SmoothFlyingPathNavigation(this, level) {
             public boolean isStableDestination(BlockPos blockPos) {
                 return this.level.getBlockState(blockPos.below()).isAir();
             }
@@ -115,7 +116,7 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, LevelReader levelReader) {
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
@@ -125,7 +126,7 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
     }
 
     @Override
-    protected int getBaseExperienceReward(ServerLevel serverLevel) {
+    protected int getBaseExperienceReward(@NotNull ServerLevel serverLevel) {
         return 0;
     }
     
@@ -154,7 +155,7 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
     }
 
     @Override
-    public void customServerAiStep(ServerLevel serverLevel) {
+    public void customServerAiStep(@NotNull ServerLevel serverLevel) {
         super.customServerAiStep(serverLevel);
 
         if (this.forcedAgeTimer > 0) {

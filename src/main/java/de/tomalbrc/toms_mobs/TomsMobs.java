@@ -1,5 +1,9 @@
 package de.tomalbrc.toms_mobs;
 
+import aqario.fowlplay.common.entity.ai.brain.sensor.FowlPlaySensorTypes;
+import aqario.fowlplay.core.FowlPlayActivities;
+import aqario.fowlplay.core.FowlPlayMemoryTypes;
+import aqario.fowlplay.core.FowlPlaySchedules;
 import de.tomalbrc.bil.util.ResourcePackUtil;
 import de.tomalbrc.toms_mobs.registry.ItemRegistry;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
@@ -19,6 +23,11 @@ public class TomsMobs implements ModInitializer {
         PolymerResourcePackUtils.addModAssets(MODID);
         PolymerResourcePackUtils.markAsRequired();
 
+        FowlPlaySchedules.init();
+        FowlPlaySensorTypes.init();
+        FowlPlayMemoryTypes.init();
+        FowlPlayActivities.init();
+
         SoundRegistry.registerSounds();
         MobRegistry.registerMobs();
         ItemRegistry.registerItems();
@@ -32,9 +41,11 @@ public class TomsMobs implements ModInitializer {
 
         PolymerResourcePackUtils.RESOURCE_PACK_CREATION_EVENT.register(x -> {
             for (String override : overrides) {
-                try {
-                    ResourcePackUtil.add(Identifier.withDefaultNamespace(override), TomsMobs.class.getResourceAsStream("/"+override).readAllBytes());
-                } catch (IOException ignored) {}
+                try (var resource = TomsMobs.class.getResourceAsStream("/"+override)){
+                    if (resource != null) ResourcePackUtil.add(Identifier.withDefaultNamespace(override), resource.readAllBytes());
+                } catch (IOException ignored) {
+
+                }
             }
         });
     }

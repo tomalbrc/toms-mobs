@@ -4,9 +4,9 @@ import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.holder.entity.living.LivingEntityHolder;
 import de.tomalbrc.bil.core.model.Model;
+import de.tomalbrc.toms_mobs.entity.control.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.entity.goal.aquatic.AquaticPanicGoal;
 import de.tomalbrc.toms_mobs.entity.goal.aquatic.PathfinderMobSwimGoal;
-import de.tomalbrc.toms_mobs.entity.move.SemiAquaticMoveControl;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
@@ -24,6 +24,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothWaterBoundPathNavigation;
 import org.jetbrains.annotations.NotNull;
 
 public class Mantaray extends AbstractFish implements AnimatedEntity {
@@ -46,7 +48,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
                 .add(Attributes.MAX_HEALTH, 16.0);
     }
 
-    public static boolean checkRareDeepWaterSpawnRules(EntityType<? extends LivingEntity> entityType, LevelAccessor levelAccessor, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkRareDeepWaterSpawnRules(EntityType<? extends @NotNull LivingEntity> entityType, LevelAccessor levelAccessor, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource randomSource) {
         int max = levelAccessor.getSeaLevel() - 7;
         int min = max - 40;
         return randomSource.nextInt(5) == 1 && blockPos.getY() >= min && blockPos.getY() <= max && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
@@ -57,7 +59,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
         return this.holder;
     }
 
-    public Mantaray(EntityType<? extends AbstractFish> type, Level level) {
+    public Mantaray(EntityType<? extends @NotNull AbstractFish> type, Level level) {
         super(type, level);
 
         this.setPathfindingMalus(PathType.WATER, 0.F);
@@ -85,7 +87,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {
+    public float getWalkTargetValue(@NotNull BlockPos blockPos, LevelReader levelReader) {
         if (levelReader.getFluidState(blockPos).is(FluidTags.WATER)) {
             return 1;
         } else {
@@ -114,7 +116,7 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.GUARDIAN_HURT;
     }
 
@@ -137,8 +139,12 @@ public class Mantaray extends AbstractFish implements AnimatedEntity {
 
     @Override
     @NotNull
-    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand interactionHand) {
         return InteractionResult.PASS;
     }
 
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothWaterBoundPathNavigation(this, level);
+    }
 }

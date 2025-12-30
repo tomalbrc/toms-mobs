@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
         return this.holder;
     }
 
-    public IceCluster(EntityType<? extends Entity> entityType, Level level) {
+    public IceCluster(EntityType<? extends @NotNull Entity> entityType, Level level) {
         super(entityType, level);
 
         this.setInvisible(true);
@@ -55,12 +56,12 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
 
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
         return false;
     }
 
@@ -154,7 +155,7 @@ public class IceCluster extends Entity implements AnimatedEntity, TraceableEntit
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
         if (this.ownerUUID != null) {
             output.storeNullable("Owner", UUIDUtil.CODEC, this.ownerUUID);
         }

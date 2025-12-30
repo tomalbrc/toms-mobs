@@ -13,9 +13,11 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> extends LivingEntityHolder<T> {
+    public float roll;
+
+    private float lastRoll = 0.f;
     private float lastYaw = 0.f;
     private float lastPitch = 0.f;
-    private float lastRoll = 0.f;
 
     private boolean init = false;
 
@@ -25,42 +27,28 @@ public class MovementRotatingHolder<T extends LivingEntity & AnimatedEntity> ext
 
     @Override
     protected void applyPose(ServerPlayer serverPlayer, Pose pose, DisplayWrapper display) {
-        if (((this.parent instanceof Seagull seagull && !seagull.canFlyCurrently())) || !init) {
+        if ((this.parent instanceof Seagull seagull && !seagull.isFlying()) || !init) {
             super.applyPose(serverPlayer, pose, display);
             init = true;
             return;
         }
 
-        Matrix4f matrix4f = new Matrix4f();
-        matrix4f.translate(pose.readOnlyTranslation());
-        matrix4f.rotate(pose.readOnlyLeftRotation());
-        matrix4f.scale(pose.readOnlyScale());
-        matrix4f.rotate(pose.readOnlyRightRotation());
-
-        matrix4f.translateLocal(0, -this.parent.getBbHeight(), 0);
-
+        Matrix4f matrix4f = pose.matrix().get(new Matrix4f());
         Vector3f movement = parent.getDeltaMovement().toVector3f();
         if (movement.lengthSquared() > 0.0001f) {
             movement.normalize();
             float movementYaw = (float) Math.atan2(-movement.x, movement.z);
             float movementPitch = (float) Math.asin(movement.y);
 
-            float movementRoll = 0.f; // Default roll is zero
+            lastPitch = Mth.rotLerpRad(.5f, movementPitch, lastPitch);
+            lastYaw = Mth.rotLerpRad(.5f, movementYaw, lastYaw);
+            lastRoll = Mth.rotLerp(.5f, roll, lastRoll);
 
-            if (Math.abs(movementPitch) < Math.PI / 4) {
-                movementRoll = (float) Math.sin(movementYaw) * 0.1f;
-            }
-            lastPitch = Mth.rotLerpRad(0.5f, movementPitch, lastPitch);
-            lastYaw = Mth.rotLerpRad(0.5f, movementYaw, lastYaw);
-            lastRoll = Mth.rotLerpRad(0.5f, movementRoll, lastRoll);
-
-            matrix4f
-                    .rotateLocalX(-lastPitch)
-                    .rotateLocalZ(lastRoll);
-//                  .rotateLocalY(-lastYaw + Mth.PI);
+            matrix4f.rotateLocalX(-lastPitch)
+                    .rotateLocalZ(-lastRoll*Mth.DEG_TO_RAD);
         }
 
-        display.element().setTransformation(serverPlayer, matrix4f);
+        display.element().setTransformation(serverPlayer, matrix4f.scaleLocal(this.scale).translateLocal(0, -this.parent.getBbHeight(), 0));
         display.element().startInterpolationIfDirty(serverPlayer);
     }
 }

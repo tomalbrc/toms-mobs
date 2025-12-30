@@ -23,6 +23,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +34,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.tslat.smartbrainlib.api.core.navigation.SmoothWaterBoundPathNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,6 +57,7 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
 
     public Tuna(EntityType<? extends @NotNull AbstractFish> type, Level level) {
         super(type, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 25, 15, 1.0f, 0.5f, true);
 
         this.holder = new NoDeathRotationLivingEntityHolder<>(this, MODEL);
         EntityAttachment.ofTicking(this.holder, this);
@@ -154,5 +158,10 @@ public class Tuna extends AbstractFish implements AnimatedEntity {
         int max = levelAccessor.getSeaLevel() - 7;
         int min = max - 40;
         return blockPos.getY() >= min && blockPos.getY() <= max && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothWaterBoundPathNavigation(this, level);
     }
 }

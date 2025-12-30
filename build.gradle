@@ -14,6 +14,7 @@ repositories {
     maven { url 'https://maven.tomalbrc.de' }
     maven { url 'https://maven.nucleoid.xyz' }
     maven { url 'https://maven.blamejared.com' }
+    maven { url 'https://dl.cloudsmith.io/public/tslat/sbl/maven/' }
 }
 
 dependencies {
@@ -29,6 +30,8 @@ dependencies {
     modImplementation("eu.pb4:polymer-autohost:${project.polymer_version}")
 
     modImplementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
+
+    modImplementation include("net.tslat.smartbrainlib:SmartBrainLib-fabric-${project.minecraft_version}:${project.sbl_version}")
 }
 
 processResources {

@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends AbstractButterfly {
@@ -34,11 +35,13 @@ public class Butterfly extends AbstractButterfly {
             "2"
     };
 
-    public static boolean checkButterflySpawnRules(EntityType<? extends Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+
+
+    public static boolean checkButterflySpawnRules(EntityType<? extends @NotNull Mob> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return level.canSeeSky(pos) && !level.getBlockState(pos.below()).getFluidState().is(FluidTags.WATER);
     }
 
-    public Butterfly(EntityType<? extends Animal> entityType, Level level) {
+    public Butterfly(EntityType<? extends @NotNull Animal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -66,7 +69,7 @@ public class Butterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         var special = level().random.nextInt(1000) == 42;
         if (special) {
             return MobRegistry.EMPEROR_BUTTERFLY.create(serverLevel, EntitySpawnReason.BREEDING);
@@ -76,7 +79,7 @@ public class Butterfly extends AbstractButterfly {
     }
 
     @Override
-    public void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
         input.getInt("Color").ifPresent(this::setColor);
@@ -87,7 +90,7 @@ public class Butterfly extends AbstractButterfly {
     }
 
     @Override
-    public void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
         super.addAdditionalSaveData(output);
 
         output.putInt("Color", this.color);
