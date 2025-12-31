@@ -61,7 +61,7 @@ public abstract class TameableBirdEntity extends TrustingBirdEntity implements O
             double d = this.random.nextGaussian() * 0.02;
             double e = this.random.nextGaussian() * 0.02;
             double f = this.random.nextGaussian() * 0.02;
-            this.level().addParticle(particleEffect, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
+            ((ServerLevel)this.level()).sendParticles(particleEffect, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 1, 0.25, d, e, f);
         }
     }
 

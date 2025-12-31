@@ -5,6 +5,7 @@ import aqario.fowlplay.common.entity.ai.navigation.GroundNavigation;
 import aqario.fowlplay.common.util.BirdUtils;
 import aqario.fowlplay.common.util.CylindricalRadius;
 import com.mojang.datafixers.util.Pair;
+import de.tomalbrc.toms_mobs.CustomTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -81,8 +82,7 @@ public abstract class FlyingBirdEntity extends BirdEntity {
     @SuppressWarnings("unused")
     public static boolean canSpawnShorebirds(EntityType<? extends @NotNull BirdEntity> type, LevelAccessor world, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return hasSkyAccess(world, pos)
-                // && (world.getBlockState(pos.below()).is(FowlPlayBlockTags.SHOREBIRDS_SPAWNABLE_ON)
-                && (world.getBlockState(pos.below()).is(ConventionalBlockTags.STONES)
+                 && (world.getBlockState(pos.below()).is(CustomTags.SHOREBIRDS_SPAWNABLE_ON)
                 || world.getFluidState(pos.below()).is(FluidTags.WATER)
                 || isMidairSpawn(world, pos));
     }

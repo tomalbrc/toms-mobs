@@ -101,7 +101,7 @@ public abstract class BirdEntity extends Animal {
 
     protected boolean shouldBeAmbient() {
         // TODO: non ambient?
-        return true;
+        return !this.getType().getCategory().isPersistent();
         //return this.getType().getCategory() == CustomMobCategory.AMBIENT_BIRDS.mobCategory;
     }
 
@@ -277,13 +277,13 @@ public abstract class BirdEntity extends Animal {
                         this.setItemSlot(EquipmentSlot.MAINHAND, usedStack);
                     }
                     this.playEatingSound();
-                    this.level().broadcastEntityEvent(this, EntityEvent.FOX_EAT);
+                    this.handleEntityEvent(EntityEvent.FOX_EAT);
                     this.eatingTime = 0;
                     return;
                 }
                 if (this.eatingTime > 20 && this.random.nextFloat() < 0.05f) {
                     this.playEatingSound();
-                    this.level().broadcastEntityEvent(this, EntityEvent.FOX_EAT);
+                    handleEntityEvent(EntityEvent.FOX_EAT);
                 }
             } else if (this.shouldDropBeakItem(stack)) {
                 if (this.random.nextFloat() < 0.1f) {

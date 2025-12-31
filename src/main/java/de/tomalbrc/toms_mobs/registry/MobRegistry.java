@@ -1,5 +1,6 @@
 package de.tomalbrc.toms_mobs.registry;
 
+import aqario.fowlplay.common.entity.bird.FlyingBirdEntity;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
 import de.tomalbrc.toms_mobs.ModConfig;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -61,7 +63,7 @@ public class MobRegistry {
                     .spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)
     );
 */
-    public static final EntityType<@NotNull Seagull> SEAGULL = register(Seagull.ID, FabricEntityType.Builder.createMob(Seagull::new, MobCategory.CREATURE, x -> x.defaultAttributes(Seagull::createAttributes).spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)).sized(0.6f, 0.8f).eyeHeight(0.7f));
+    public static final EntityType<@NotNull Seagull> SEAGULL = register(Seagull.ID, FabricEntityType.Builder.createMob(Seagull::new, MobCategory.CREATURE, x -> x.defaultAttributes(Seagull::createAttributes).spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBirdEntity::canSpawnShorebirds)).sized(0.6f, 0.8f).eyeHeight(0.7f));
 
     public static final EntityType<@NotNull Mantaray> MANTARAY = register(Mantaray.ID, FabricEntityType.Builder.createMob(Mantaray::new, MobCategory.WATER_CREATURE, x -> x.defaultAttributes(Mantaray::createAttributes).spawnRestriction(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mantaray::checkRareDeepWaterSpawnRules)).sized(1.4f, 0.4f));
 
@@ -112,23 +114,23 @@ public class MobRegistry {
 
     public static void registerMobs() {
         if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID))
-            BiomeHelper.addSpawn(PENGUIN, 9, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR).or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES)).or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO)).or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES)));
+            BiomeHelper.addSpawn(PENGUIN, 6, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR).or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES)).or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO)).or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID))
-            BiomeHelper.addSpawn(SNAKE, 9, 1, 2, BiomeSelectors.spawnsOneOf(EntityType.HUSK).and(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)).or(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID)).or(BiomeSelectors.tag(BiomeTags.HAS_VILLAGE_DESERT)).or(BiomeSelectors.tag(BiomeTags.HAS_RUINED_PORTAL_DESERT)).or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP))));
+            BiomeHelper.addSpawn(SNAKE, 5, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_DESERT)).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_SWAMP)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID))
-            BiomeHelper.addSpawn(ELEPHANT, 18, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)));
+            BiomeHelper.addSpawn(ELEPHANT, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID))
             BiomeHelper.addSpawn(SCULKLING, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Firemoth.ID))
-            BiomeHelper.addSpawn(FIREMOTH, 5, 2, 3, BiomeSelectors.foundInTheNether().and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS)));
+            BiomeHelper.addSpawn(FIREMOTH, 7, 2, 3, BiomeSelectors.foundInTheNether().and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS)));
 
         if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID)) {
-            BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BIRCH_FOREST).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_FLORAL)).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_FLOWER_FOREST)));
-            BiomeHelper.addSpawn(BUTTERFLY, 10, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_PLAINS));
+            BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BIRCH_FOREST).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_FLOWER_FOREST)));
+            BiomeHelper.addSpawn(BUTTERFLY, 5, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_PLAINS));
         }
 
         if (!ModConfig.getInstance().disabledMobs.contains(LargeButterfly.ID))
@@ -148,13 +150,11 @@ public class MobRegistry {
             BiomeHelper.addSpawn(MANTARAY, 1, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
         if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID))
             BiomeHelper.addSpawn(TUNA, 1, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
-
         if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID))
-            BiomeHelper.addSpawn(LOBSTER, 1, 1, 3, BiomeSelectors.spawnsOneOf(EntityType.TURTLE));
+            BiomeHelper.addSpawn(LOBSTER, 1, 1, 3, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BEACH));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID))
-            BiomeHelper.addSpawn(SEAGULL, 20, 4, 6, BiomeSelectors.spawnsOneOf(EntityType.TURTLE));
-
+        if (!ModConfig.getInstance().disabledMobs.contains(Seagull.ID))
+            BiomeHelper.addSpawn(SEAGULL, 50, 8, 10, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BEACH));
 
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
         addSpawnEggModeled(ELEPHANT, Util.id("elephant_spawn_egg"));
