@@ -1,23 +1,48 @@
 {
-    "penguin.ambient": {
-      "sounds": [
-        "toms_mobs:penguin/penguin_call1",
-        "toms_mobs:penguin/penguin_call2",
-        "toms_mobs:penguin/penguin_call3"
-      ],
-      "subtitle": "subtitles.penguin.ambient"
-    },
-    "penguin.hurt": {
-      "sounds": [
-        "toms_mobs:penguin/penguin_hurt1"
-      ],
-      "subtitle": "subtitles.penguin.hurt"
-    },
-    "penguin.death": {
-      "sounds": [
-          "toms_mobs:penguin/penguin_death1",
-          "toms_mobs:penguin/penguin_death2"
-      ],
-      "subtitle": "subtitles.penguin.death"
-    }
+  "penguin.ambient": {
+    "sounds": [
+      "toms_mobs:penguin/penguin_call1",
+      "toms_mobs:penguin/penguin_call2",
+      "toms_mobs:penguin/penguin_call3"
+    ],
+    "subtitle": "subtitles.penguin.ambient"
+  },
+  "penguin.hurt": {
+    "sounds": [
+      "toms_mobs:penguin/penguin_hurt1"
+    ],
+    "subtitle": "subtitles.penguin.hurt"
+  },
+  "penguin.death": {
+    "sounds": [
+      "toms_mobs:penguin/penguin_death1",
+      "toms_mobs:penguin/penguin_death2"
+    ],
+    "subtitle": "subtitles.penguin.death"
+  },
+  "seagull.ambient": {
+    "sounds": [
+      "toms_mobs:seagull/call1",
+      "toms_mobs:seagull/call2",
+      "toms_mobs:seagull/call3"
+    ],
+    "subtitle": "subtitles.seagull.ambient"
+  },
+  "seagull.hurt": {
+    "sounds": [
+      "toms_mobs:seagull/hit1",
+      "toms_mobs:seagull/hit2",
+      "toms_mobs:seagull/hit3",
+      "toms_mobs:seagull/hit4"
+    ],
+    "subtitle": "subtitles.seagull.hurt"
+  },
+  "seagull.death": {
+    "sounds": [
+      "toms_mobs:seagull/death1",
+      "toms_mobs:seagull/death2",
+      "toms_mobs:seagull/death3"
+    ],
+    "subtitle": "subtitles.seagull.death"
+  }
 }
