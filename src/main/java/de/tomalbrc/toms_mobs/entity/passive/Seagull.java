@@ -16,6 +16,7 @@ import de.tomalbrc.bil.core.holder.entity.EntityHolder;
 import de.tomalbrc.bil.core.model.Model;
 import de.tomalbrc.toms_mobs.CustomTags;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
+import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.MovementRotatingHolder;
 import de.tomalbrc.toms_mobs.util.SetEntityLookTarget;
@@ -245,13 +246,13 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     @Nullable
     @Override
     protected SoundEvent getCallSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return SoundRegistry.SEAGULL_AMBIENT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getSongSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return SoundRegistry.SEAGULL_AMBIENT;
     }
 
     @Override
@@ -264,10 +265,14 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
         return 0.7f;
     }
 
-    @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return SoundEvents.PARROT_HURT;
+        return SoundRegistry.SEAGULL_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundRegistry.SEAGULL_DEATH;
     }
 
     @Override
