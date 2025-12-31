@@ -11,7 +11,7 @@
   "contact": {
     "repo": "https://github.com/tomalbrc/toms-mobs"
   },
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -23,12 +23,13 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=1.21.6",
+    "minecraft": ">=1.21.11",
     "fabric-api": "*",
     "polymer-resource-pack": "*",
     "polymer-core": "*",
     "polymer-virtual-entity": "*",
-    "bil": ">=1.5.0"
+    "bil": ">=2.0.0-",
+    "smartbrainlib": "*"
   },
   "accessWidener": "toms_mobs.accesswidener"
 }
