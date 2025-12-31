@@ -4,19 +4,20 @@
   "package": "de.tomalbrc.toms_mobs.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BlockStateBaseMixin",
     "ClientboundRotateHeadPacketMixin",
-    "DatafixersMixin",
     "EntityMixin",
-    "FallingBlockEntityAccessor",
     "JukeboxMixin",
-    "LivingEntityAccessor",
-    "MeleeAttackGoalAccessor",
     "RaidMixin",
     "SBLFabricMixin",
-    "V1460Mixin",
-    "V4656Mixin",
-    "WallBlockMixin"
+    "WorldLoaderMixin",
+    "accessor.FallingBlockEntityAccessor",
+    "accessor.LivingEntityAccessor",
+    "accessor.MeleeAttackGoalAccessor",
+    "bird.BlockStateBaseMixin",
+    "bird.WallBlockMixin",
+    "datafix.DatafixersMixin",
+    "datafix.V1460Mixin",
+    "datafix.V4656Mixin"
   ],
   "injectors": {
     "defaultRequire": 1

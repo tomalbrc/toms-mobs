@@ -1,16 +1,16 @@
-package de.tomalbrc.toms_mobs;
+package de.tomalbrc.toms_mobs.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import de.tomalbrc.bil.json.SimpleCodecDeserializer;
+import de.tomalbrc.toms_mobs.TomsMobs;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
@@ -25,6 +25,8 @@ public class ModConfig {
             .create();
 
     // entries
+
+    public JsonElement spawnsJson;
 
     public List<Identifier> disabledMobs = new ObjectArrayList<>();
     public boolean noAdditionalRaidMobs = true;
@@ -52,6 +54,11 @@ public class ModConfig {
 
         try {
             ModConfig.instance = gson.fromJson(new FileReader(ModConfig.CONFIG_FILE_PATH.toFile()), ModConfig.class);
+            if (ModConfig.instance.spawnsJson == null) {
+                var resource = TomsMobs.class.getResourceAsStream("default-spawns.json");
+                if (resource != null)
+                    ModConfig.instance.spawnsJson = JsonParser.parseReader(new InputStreamReader(resource));
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

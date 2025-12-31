@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.mixins;
+package de.tomalbrc.toms_mobs.mixins.datafix;
 
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;

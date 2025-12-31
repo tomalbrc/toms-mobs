@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.mixins;
+package de.tomalbrc.toms_mobs.mixins.accessor;
 
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

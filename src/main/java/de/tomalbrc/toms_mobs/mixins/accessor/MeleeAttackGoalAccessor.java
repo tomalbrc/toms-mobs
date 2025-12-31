@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.mixins;
+package de.tomalbrc.toms_mobs.mixins.accessor;
 
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import org.spongepowered.asm.mixin.Mixin;

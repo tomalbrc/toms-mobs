@@ -1,4 +1,4 @@
-package de.tomalbrc.toms_mobs.mixins;
+package de.tomalbrc.toms_mobs.mixins.bird;
 
 import aqario.fowlplay.common.util.BirdUtils;
 import net.minecraft.core.BlockPos;

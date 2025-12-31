@@ -3,7 +3,10 @@ package de.tomalbrc.toms_mobs.registry;
 import aqario.fowlplay.common.entity.bird.FlyingBirdEntity;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
-import de.tomalbrc.toms_mobs.ModConfig;
+import com.mojang.serialization.JsonOps;
+import de.tomalbrc.toms_mobs.TomsMobs;
+import de.tomalbrc.toms_mobs.config.ConfiguredSpawn;
+import de.tomalbrc.toms_mobs.config.ModConfig;
 import de.tomalbrc.toms_mobs.entity.hostile.*;
 import de.tomalbrc.toms_mobs.entity.passive.*;
 import de.tomalbrc.toms_mobs.entity.passive.butterfly.Butterfly;
@@ -15,18 +18,19 @@ import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
+import net.minecraft.server.RegistryLayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.References;
@@ -35,8 +39,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.SpawnData;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
@@ -112,50 +114,19 @@ public class MobRegistry {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
 
-    public static void registerMobs() {
-        if (!ModConfig.getInstance().disabledMobs.contains(Penguin.ID))
-            BiomeHelper.addSpawn(PENGUIN, 6, 2, 5, BiomeSelectors.spawnsOneOf(EntityType.POLAR_BEAR).or(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES)).or(BiomeSelectors.tag(BiomeTags.HAS_IGLOO)).or(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.ICE_SPIKES)));
+    public static void registerMobs(LayeredRegistryAccess<@NotNull RegistryLayer> layeredRegistryAccess) {
+        var res = ConfiguredSpawn.CODEC.codec().listOf().decode(RegistryOps.create(JsonOps.INSTANCE, HolderLookup.Provider.create(layeredRegistryAccess.compositeAccess().listRegistries())), ModConfig.getInstance().spawnsJson);
+        res.ifError(x -> TomsMobs.LOGGER.info("Could not decode spawn data! {}", x.message()));
 
-        if (!ModConfig.getInstance().disabledMobs.contains(Snake.ID))
-            BiomeHelper.addSpawn(SNAKE, 5, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_DESERT)).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_SWAMP)));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Elephant.ID))
-            BiomeHelper.addSpawn(ELEPHANT, 15, 1, 3, BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU).or(BiomeSelectors.tag(ConventionalBiomeTags.IS_JUNGLE)));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Sculkling.ID))
-            BiomeHelper.addSpawn(SCULKLING, 15, 2, 4, BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE).and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Firemoth.ID))
-            BiomeHelper.addSpawn(FIREMOTH, 7, 2, 3, BiomeSelectors.foundInTheNether().and(BiomeSelectors.excludeByKey(Biomes.BASALT_DELTAS)));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Butterfly.ID)) {
-            BiomeHelper.addSpawn(BUTTERFLY, 50, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BIRCH_FOREST).or(BiomeHelper.includeTag(ConventionalBiomeTags.IS_FLOWER_FOREST)));
-            BiomeHelper.addSpawn(BUTTERFLY, 5, 2, 5, BiomeHelper.includeTag(ConventionalBiomeTags.IS_PLAINS));
+        if (res.hasResultOrPartial()) {
+            var list = res.getPartialOrThrow().getFirst();
+            for (ConfiguredSpawn config : list) {
+                BiomeHelper.addSpawn(BuiltInRegistries.ENTITY_TYPE.getValue(config.mob()), config.weight(), config.minGroup(), config.maxGroup(), context -> config.biomes().contains(context.getBiomeRegistryEntry()));
+            }
         }
+    }
 
-        if (!ModConfig.getInstance().disabledMobs.contains(LargeButterfly.ID))
-            BiomeHelper.addSpawn(EMPEROR_BUTTERFLY, 2, 1, 1, BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST).and(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_OCEAN).or(BiomeHelper.excludeTag(ConventionalBiomeTags.IS_RIVER)).or(BiomeHelper.excludeTag(BiomeTags.SPAWNS_SNOW_FOXES))));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Capybara.ID))
-            BiomeHelper.addSpawn(CAPYBARA, 5, 1, 3, BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, Biomes.RIVER));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Possum.ID))
-            BiomeHelper.addSpawn(POSSUM, 10, 1, 1, BiomeHelper.includeTag(ConventionalBiomeTags.IS_FOREST));
-
-        // Icy
-        if (!ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
-            BiomeHelper.addSpawn(ICEOLOGER, 1, 1, 3, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(ConventionalBiomeTags.IS_MOUNTAIN)));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Mantaray.ID))
-            BiomeHelper.addSpawn(MANTARAY, 1, 1, 1, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
-        if (!ModConfig.getInstance().disabledMobs.contains(Tuna.ID))
-            BiomeHelper.addSpawn(TUNA, 1, 1, 2, BiomeSelectors.tag(ConventionalBiomeTags.IS_OCEAN));
-        if (!ModConfig.getInstance().disabledMobs.contains(Lobster.ID))
-            BiomeHelper.addSpawn(LOBSTER, 1, 1, 3, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BEACH));
-
-        if (!ModConfig.getInstance().disabledMobs.contains(Seagull.ID))
-            BiomeHelper.addSpawn(SEAGULL, 50, 8, 10, BiomeHelper.includeTag(ConventionalBiomeTags.IS_BEACH));
-
+    public static void registerContent() {
         addSpawnEgg(PENGUIN, Items.POLAR_BEAR_SPAWN_EGG);
         addSpawnEggModeled(ELEPHANT, Util.id("elephant_spawn_egg"));
         addSpawnEgg(FIREMOTH, Items.PARROT_SPAWN_EGG);

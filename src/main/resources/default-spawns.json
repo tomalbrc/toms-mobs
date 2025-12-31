@@ -1,0 +1,144 @@
+[
+  {
+    "mob": "toms_mobs:penguin",
+    "biomes": [
+      "#c:is_snowy",
+      "#c:is_icy"
+    ],
+    "weight": 6,
+    "min-group": 2,
+    "max-group": 5
+  },
+  {
+    "mob": "toms_mobs:snake",
+    "biomes": [
+      "#c:is_jungle",
+      "#c:is_desert",
+      "#c:is_swamp"
+    ],
+    "weight": 5,
+    "min-group": 1,
+    "max-group": 2
+  },
+  {
+    "mob": "toms_mobs:elephant",
+    "biomes": [
+      "#c:is_desert",
+      "#c:is_jungle"
+    ],
+    "weight": 15,
+    "min-group": 1,
+    "max-group": 3
+  },
+  {
+    "mob": "toms_mobs:sculkling",
+    "biomes": [
+      "#c:is_cave"
+    ],
+    "weight": 15,
+    "min-group": 2,
+    "max-group": 4
+  },
+  {
+    "mob": "toms_mobs:firemoth",
+    "biomes": [
+      "#c:is_nether_forest"
+    ],
+    "weight": 7,
+    "min-group": 2,
+    "max-group": 3
+  },
+  {
+    "mob": "toms_mobs:butterfly",
+    "biomes": [
+      "#c:is_birch_forest",
+      "#c:is_flower_forest"
+    ],
+    "weight": 50,
+    "min-group": 2,
+    "max-group": 5
+  },
+  {
+    "mob": "toms_mobs:butterfly",
+    "biomes": [
+      "#c:is_plains"
+    ],
+    "weight": 5,
+    "min-group": 2,
+    "max-group": 5
+  },
+  {
+    "mob": "toms_mobs:emperor_butterfly",
+    "biomes": [
+      "#c:is_birch_forest",
+      "#c:is_flower_forest"
+    ],
+    "weight": 2,
+    "min-group": 1,
+    "max-group": 1
+  },
+  {
+    "mob": "toms_mobs:capybara",
+    "biomes": [
+      "#c:is_swamp",
+      "#c:is_river"
+    ],
+    "weight": 5,
+    "min-group": 1,
+    "max-group": 3
+  },
+  {
+    "mob": "toms_mobs:possum",
+    "biomes": [
+      "#c:is_forest"
+    ],
+    "weight": 10,
+    "min-group": 1,
+    "max-group": 1
+  },
+  {
+    "mob": "toms_mobs:iceologer",
+    "biomes": [
+      "#c:is_mountain"
+    ],
+    "weight": 1,
+    "min-group": 1,
+    "max-group": 3
+  },
+  {
+    "mob": "toms_mobs:mantaray",
+    "biomes": [
+      "#c:is_ocean"
+    ],
+    "weight": 1,
+    "min-group": 1,
+    "max-group": 1
+  },
+  {
+    "mob": "toms_mobs:tuna",
+    "biomes": [
+      "#c:is_ocean"
+    ],
+    "weight": 1,
+    "min-group": 1,
+    "max-group": 2
+  },
+  {
+    "mob": "toms_mobs:lobster",
+    "biomes": [
+      "#c:is_beach"
+    ],
+    "weight": 1,
+    "min-group": 1,
+    "max-group": 3
+  },
+  {
+    "mob": "toms_mobs:seagull",
+    "biomes": [
+      "#c:is_beach"
+    ],
+    "weight": 50,
+    "min-group": 8,
+    "max-group": 10
+  }
+]

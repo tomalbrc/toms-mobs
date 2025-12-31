@@ -1,7 +1,7 @@
 package de.tomalbrc.toms_mobs.util;
 
-import de.tomalbrc.toms_mobs.mixins.LivingEntityAccessor;
-import de.tomalbrc.toms_mobs.mixins.MeleeAttackGoalAccessor;
+import de.tomalbrc.toms_mobs.mixins.accessor.LivingEntityAccessor;
+import de.tomalbrc.toms_mobs.mixins.accessor.MeleeAttackGoalAccessor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 

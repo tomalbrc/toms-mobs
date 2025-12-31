@@ -1,9 +1,10 @@
 package de.tomalbrc.toms_mobs.mixins;
 
-import de.tomalbrc.toms_mobs.ModConfig;
+import de.tomalbrc.toms_mobs.config.ModConfig;
 import de.tomalbrc.toms_mobs.entity.hostile.Iceologer;
 import de.tomalbrc.toms_mobs.entity.hostile.Showmaster;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,9 +31,9 @@ public class RaidMixin {
         Raid raid = Raid.class.cast(this);
         // last wave
         if (raid.getGroupsSpawned() >= raid.getNumGroups(serverLevel.getDifficulty())) {
-            Holder<Biome> biome = serverLevel.getBiome(blockPos);
+            Holder<@NotNull Biome> biome = serverLevel.getBiome(blockPos);
             Raider mob;
-            if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES) && biome.is(BiomeTags.IS_MOUNTAIN)) {
+            if (biome.is(ConventionalBiomeTags.IS_ICY) && biome.is(BiomeTags.IS_MOUNTAIN)) {
                 if (ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
                     return;
                 mob = MobRegistry.ICEOLOGER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
