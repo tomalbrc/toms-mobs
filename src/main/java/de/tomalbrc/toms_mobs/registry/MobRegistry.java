@@ -1,8 +1,6 @@
 package de.tomalbrc.toms_mobs.registry;
 
 import aqario.fowlplay.common.entity.bird.FlyingBirdEntity;
-import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.JsonOps;
 import de.tomalbrc.toms_mobs.TomsMobs;
 import de.tomalbrc.toms_mobs.config.ConfiguredSpawn;
@@ -20,7 +18,7 @@ import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.ChatFormatting;
-import net.minecraft.SharedConstants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.core.Registry;
@@ -32,18 +30,19 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.RegistryLayer;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.datafix.DataFixers;
-import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class MobRegistry {
@@ -112,13 +111,27 @@ public class MobRegistry {
     }
 
     public static void registerMobs(LayeredRegistryAccess<@NotNull RegistryLayer> layeredRegistryAccess) {
-        var res = ConfiguredSpawn.CODEC.codec().listOf().decode(RegistryOps.create(JsonOps.INSTANCE, HolderLookup.Provider.create(layeredRegistryAccess.compositeAccess().listRegistries())), ModConfig.getInstance().spawnsJson);
+        var lookup = HolderLookup.Provider.create(layeredRegistryAccess.compositeAccess().listRegistries());
+        var biomeLookup = HolderLookup.Provider.create(layeredRegistryAccess.compositeAccess().listRegistries()).lookup(Registries.BIOME).get();
+        var res = ConfiguredSpawn.CODEC.codec().listOf().decode(RegistryOps.create(JsonOps.INSTANCE, lookup), ModConfig.getInstance().spawnsJson);
         res.ifError(x -> TomsMobs.LOGGER.info("Could not decode spawn data! {}", x.message()));
 
         if (res.hasResultOrPartial()) {
             var list = res.getPartialOrThrow().getFirst();
             for (ConfiguredSpawn config : list) {
-                BiomeHelper.addSpawn(BuiltInRegistries.ENTITY_TYPE.getValue(config.mob()), config.weight(), config.minGroup(), config.maxGroup(), context -> config.biomes().contains(context.getBiomeRegistryEntry()));
+                List<Holder<@NotNull Biome>> biomes = new ArrayList<>();
+
+                for (String biome : config.biomes()) {
+                    if (!biome.startsWith("#")) {
+                        var ughWhyMojank = biomeLookup.get(ResourceKey.create(Registries.BIOME, Identifier.parse(biome)));
+                        ughWhyMojank.ifPresent(biomes::add);
+                    } else if (biome.startsWith("#")) {
+                        var ughWhyMojank = biomeLookup.get(TagKey.create(Registries.BIOME, Identifier.parse(biome.substring(1))));
+                        ughWhyMojank.ifPresent(x -> biomes.addAll(x.stream().toList()));
+                    }
+                }
+
+                BiomeHelper.addSpawn(BuiltInRegistries.ENTITY_TYPE.getValue(config.mob()), config.weight(), config.minGroup(), config.maxGroup(), context -> biomes.contains(context.getBiomeRegistryEntry()));
             }
         }
     }
