@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.annotations.SerializedName;
 import de.tomalbrc.bil.json.SimpleCodecDeserializer;
 import de.tomalbrc.toms_mobs.TomsMobs;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -26,6 +27,7 @@ public class ModConfig {
 
     // entries
 
+    @SerializedName("spawns")
     public JsonElement spawnsJson;
 
     public List<Identifier> disabledMobs = new ObjectArrayList<>();
