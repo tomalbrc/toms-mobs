@@ -125,7 +125,7 @@ public class MobRegistry {
                     if (!biome.startsWith("#")) {
                         var ughWhyMojank = biomeLookup.get(ResourceKey.create(Registries.BIOME, Identifier.parse(biome)));
                         ughWhyMojank.ifPresent(biomes::add);
-                    } else if (biome.startsWith("#")) {
+                    } else {
                         var ughWhyMojank = biomeLookup.get(TagKey.create(Registries.BIOME, Identifier.parse(biome.substring(1))));
                         ughWhyMojank.ifPresent(x -> biomes.addAll(x.stream().toList()));
                     }
