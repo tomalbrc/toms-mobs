@@ -105,9 +105,6 @@ public class MobRegistry {
     public static final EntityType<@NotNull IceCluster> ICE_CLUSTER = register(IceCluster.ID, EntityType.Builder.of(IceCluster::new, MobCategory.MISC).sized(2, 1));
 
     private static <T extends Entity> EntityType<@NotNull T> register(Identifier id, EntityType.Builder<@NotNull T> builder) {
-        @SuppressWarnings("unchecked") Map<String, Type<?>> types = (Map<String, Type<?>>) DataFixers.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().dataVersion().version())).findChoiceType(References.ENTITY).types();
-        types.put(id.toString(), types.get(BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.ZOMBIE).toString()));
-
         EntityType<@NotNull T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
         PolymerEntityUtils.registerType(type);
 

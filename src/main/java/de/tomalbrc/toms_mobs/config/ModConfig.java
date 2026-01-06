@@ -41,25 +41,36 @@ public class ModConfig {
     public static void load() {
         if (!CONFIG_FILE_PATH.toFile().exists()) {
             instance = new ModConfig();
-            try {
-                if (CONFIG_FILE_PATH.toFile().createNewFile()) {
-                    FileOutputStream stream = new FileOutputStream(CONFIG_FILE_PATH.toFile());
-                    stream.write(gson.toJson(instance).getBytes(StandardCharsets.UTF_8));
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            var resource = TomsMobs.class.getResourceAsStream("/default-spawns.json");
+            if (resource != null)
+                ModConfig.instance.spawnsJson = JsonParser.parseReader(new InputStreamReader(resource));
+
+            save();
+
             return;
         }
 
         try {
             ModConfig.instance = gson.fromJson(new FileReader(ModConfig.CONFIG_FILE_PATH.toFile()), ModConfig.class);
             if (ModConfig.instance.spawnsJson == null) {
-                var resource = TomsMobs.class.getResourceAsStream("default-spawns.json");
-                if (resource != null)
+                var resource = TomsMobs.class.getResourceAsStream("/default-spawns.json");
+                if (resource != null) {
                     ModConfig.instance.spawnsJson = JsonParser.parseReader(new InputStreamReader(resource));
+                    save();
+                }
             }
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static void save() {
+        try {
+            if (CONFIG_FILE_PATH.toFile().createNewFile()) {
+                FileOutputStream stream = new FileOutputStream(CONFIG_FILE_PATH.toFile());
+                stream.write(gson.toJson(instance).getBytes(StandardCharsets.UTF_8));
+            }
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
