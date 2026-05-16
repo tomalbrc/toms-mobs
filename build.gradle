@@ -31,8 +31,9 @@ dependencies {
 
     implementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
 
-    //SmartBrainLib-fabric-26.1-snapshot-11-1.16.11.jar
-    implementation include("net.tslat.smartbrainlib:SmartBrainLib-fabric-26.1-snapshot-11:1.16.11")
+    implementation include("net.tslat:smartbrainlib-fabric-26.1.2:${project.sbl_version}") {
+        transitive = false
+    }
 }
 
 processResources {

@@ -46,8 +46,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
+import net.tslat.smartbrainlib.api.core.ActivityBuilder;
 import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableMeleeAttack;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
@@ -63,8 +62,10 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.InWaterSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyPlayersSensor;
+import net.tslat.smartbrainlib.api.internal.SmartBrainProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -152,8 +153,8 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     protected void customServerAiStep(@NotNull ServerLevel serverLevel) {
         Brain<?> brain = this.getBrain();
         Activity activity = brain.getActiveNonCoreActivity().orElse(null);
-        this.tickBrain(this);
-        if (activity == Activity.FIGHT && brain.getActiveNonCoreActivity().orElse(null) != Activity.FIGHT) {
+
+        if (activity == Activity.FIGHT) {
             brain.setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, 2400L);
         }
 
@@ -220,7 +221,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
 
     @Override
     public float getFlapVolume() {
-        return 0.8f;
+        return 0.01f;
     }
 
     @Override
@@ -271,12 +272,12 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    protected Brain<Seagull> makeBrain(Brain.Packed packedBrain) {
-        return new SmartBrainProvider<Seagull>(false).makeBrain(this, packedBrain);
+    protected @NonNull Brain<Seagull> makeBrain(Brain.@NonNull Packed packedBrain) {
+        return new SmartBrainProvider<>(this.getBrainBuilder()).makeBrain(this, packedBrain);
     }
 
     @Override
-    public List<? extends ExtendedSensor<Seagull>> getSensors() {
+    public List<? extends ExtendedSensor<? extends Seagull>> getSensors(Seagull seagull) {
         return ObjectArrayList.of(
                 new NearbyLivingEntitySensor<>(),
                 new NearbyPlayersSensor<>(),
@@ -290,7 +291,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getCoreTasks() {
+    public ActivityBuilder<Seagull> getCoreBehaviourGroup(Seagull seagull) {
         return BirdBrain.coreActivity(
                 FlightBehaviours.stopFalling(),
                 new SetAttackTarget<>(),
@@ -300,14 +301,14 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getAvoidTasks() {
+    public ActivityBuilder<Seagull> getAvoidTasks() {
         return BirdBrain.avoidActivity(
                 CustomBehaviours.setAvoidEntityWalkTarget()
         );
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getFightTasks() {
+    public ActivityBuilder<Seagull> getFightingBehaviourGroup(Seagull seagull) {
         return BirdBrain.fightActivity(
                 new InvalidateAttackTarget<>(),
                 FlightBehaviours.startFlying(),
@@ -318,7 +319,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getForageTasks() {
+    public ActivityBuilder<Seagull> getForageTasks() {
         return BirdBrain.forageActivity(
                 new OneRandomBehaviour<>(
                         Pair.of(
@@ -336,7 +337,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getIdleTasks() {
+    public ActivityBuilder<Seagull> getIdleBehaviourGroup(Seagull seagull) {
         return BirdBrain.idleActivity(
                 new BreedWithPartner<>(),
                 new FollowParent<>(),
@@ -352,14 +353,14 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getPickupFoodTasks() {
+    public ActivityBuilder<Seagull> getPickupFoodTasks() {
         return BirdBrain.pickupFoodActivity(
                 CompositeBehaviours.tryPickUpFood()
         );
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getRestTasks() {
+    public ActivityBuilder<Seagull> getRestTasks() {
         return BirdBrain.restActivity(
                 CompositeBehaviours.trySetWaterRestTarget(),
                 CustomBehaviours.idleIfInWater()
@@ -367,7 +368,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public BrainActivityGroup<Seagull> getSoarTasks() {
+    public ActivityBuilder<Seagull> getSoarTasks() {
         return BirdBrain.soarActivity(
                 new SetRandomFlightTarget<>()
         );
@@ -376,6 +377,6 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     @Nullable
     @Override
     public SmartBrainSchedule getSchedule() {
-        return FowlPlaySchedules.SEABIRD;
+        return FowlPlaySchedules.SEABIRD.get();
     }
 }

@@ -120,7 +120,7 @@ public abstract class FlyingBirdEntity extends BirdEntity {
     @Override
     protected void onFlap() {
         //this.playSound(FowlPlaySoundEvents.ENTITY_BIRD_FLAP.get(), this.getFlapVolume(), this.getFlapPitch());
-        this.playSound(SoundEvents.ENDER_DRAGON_FLAP, this.getFlapVolume(), this.getFlapPitch());
+        //this.playSound(SoundEvents.ENDER_DRAGON_FLAP, this.getFlapVolume(), this.getFlapPitch());
     }
 
     public abstract float getFlapVolume();

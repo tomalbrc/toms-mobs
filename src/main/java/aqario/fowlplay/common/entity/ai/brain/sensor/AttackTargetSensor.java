@@ -6,8 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.tslat.smartbrainlib.api.core.sensor.EntityFilteringSensor;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.api.core.sensor.base.NearestVisibleEntityFilteredSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import net.tslat.smartbrainlib.util.SensoryUtil;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class AttackTargetSensor<E extends BirdEntity> extends EntityFilteringSensor<LivingEntity, E> {
+public class AttackTargetSensor<E extends BirdEntity> extends NearestVisibleEntityFilteredSensor<E, LivingEntity> {
     private static boolean canAttack(BirdEntity bird, LivingEntity target) {
         return SensoryUtil.isEntityAttackable(bird, target)
                 && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target);
@@ -43,8 +43,8 @@ public class AttackTargetSensor<E extends BirdEntity> extends EntityFilteringSen
     }
 
     @Override
-    protected BiPredicate<LivingEntity, E> predicate() {
-        return (target, self) -> {
+    protected BiPredicate<E, LivingEntity> predicate() {
+        return (self, target) -> {
             if (self.shouldAttack(target) && canAttack(self, target)) {
                 return true;
             }
@@ -55,6 +55,6 @@ public class AttackTargetSensor<E extends BirdEntity> extends EntityFilteringSen
     @Nullable
     @Override
     protected LivingEntity findMatches(E entity, NearestVisibleLivingEntities matcher) {
-        return matcher.findClosest(target -> predicate().test(target, entity)).orElse(null);
+        return matcher.findClosest(target -> predicate().test(entity, target)).orElse(null);
     }
 }

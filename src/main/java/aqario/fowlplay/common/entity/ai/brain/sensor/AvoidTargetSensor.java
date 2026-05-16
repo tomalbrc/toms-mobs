@@ -9,8 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.tslat.smartbrainlib.api.core.sensor.EntityFilteringSensor;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.api.core.sensor.base.NearestVisibleEntityFilteredSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,9 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class AvoidTargetSensor<E extends BirdEntity> extends EntityFilteringSensor<LivingEntity, E> {
+public class AvoidTargetSensor<E extends BirdEntity> extends NearestVisibleEntityFilteredSensor<E, LivingEntity> {
     public AvoidTargetSensor() {
-        this.setScanRate(bird -> 10);
+        this.scanRate(10);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class AvoidTargetSensor<E extends BirdEntity> extends EntityFilteringSens
     }
 
     @Override
-    protected BiPredicate<LivingEntity, E> predicate() {
-        return (target, self) -> BirdUtils.shouldAvoid(self, target);
+    protected BiPredicate<E, LivingEntity> predicate() {
+        return (target, self) -> BirdUtils.shouldAvoid(target, self);
     }
 
     @Override
     protected @Nullable LivingEntity findMatches(E bird, NearestVisibleLivingEntities matcher) {
-        return matcher.findClosest(target -> this.predicate().test(target, bird)).orElse(null);
+        return matcher.findClosest(target -> this.predicate().test(bird, target)).orElse(null);
     }
 
     @Override

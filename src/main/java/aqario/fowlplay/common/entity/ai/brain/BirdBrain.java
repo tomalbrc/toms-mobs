@@ -3,138 +3,124 @@ package aqario.fowlplay.common.entity.ai.brain;
 import aqario.fowlplay.common.entity.bird.BirdEntity;
 import aqario.fowlplay.core.FowlPlayActivities;
 import aqario.fowlplay.core.FowlPlayMemoryTypes;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.ActivityBuilder;
+import org.jspecify.annotations.NonNull;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface BirdBrain<T extends BirdEntity & BirdBrain<T>> extends SmartBrainOwner<T> {
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> coreActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(Activity.CORE).priority(0).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<@NonNull T> coreActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(Activity.CORE).behaviourPriorityBase(0).behaviours(behaviours);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> avoidActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(Activity.AVOID).priority(10).behaviours(behaviours)
-                .requireAndWipeMemoriesOnUse(FowlPlayMemoryTypes.IS_AVOIDING.get());
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<@NonNull T> avoidActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(Activity.AVOID).behaviourPriorityBase(10).behaviours(behaviours)
+                .requireAndClearMemoriesOnUse(FowlPlayMemoryTypes.IS_AVOIDING.get());
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> deliverActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(FowlPlayActivities.DELIVER.get()).priority(10).behaviours(behaviours)
-                .requireAndWipeMemoriesOnUse(FowlPlayMemoryTypes.RECIPIENT.get());
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<@NonNull T> deliverActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(FowlPlayActivities.DELIVER.get()).behaviourPriorityBase(10).behaviours(behaviours)
+                .requireAndClearMemoriesOnUse(FowlPlayMemoryTypes.RECIPIENT.get());
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> fightActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(Activity.FIGHT).priority(10).behaviours(behaviours)
-                .requireAndWipeMemoriesOnUse(MemoryModuleType.ATTACK_TARGET);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<@NonNull T> fightActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(Activity.FIGHT).behaviourPriorityBase(10).behaviours(behaviours)
+                .requireAndClearMemoriesOnUse(MemoryModuleType.ATTACK_TARGET);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> forageActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(FowlPlayActivities.FORAGE.get()).priority(10).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<T> forageActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(FowlPlayActivities.FORAGE.get()).behaviourPriorityBase(10).behaviours(behaviours);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> idleActivity(Behavior... behaviours) {
-        return new BrainActivityGroup<T>(Activity.IDLE).priority(10).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<@NonNull T> idleActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(Activity.IDLE).behaviourPriorityBase(10).behaviours(behaviours);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> perchActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(FowlPlayActivities.PERCH.get()).priority(10).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<T> perchActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(FowlPlayActivities.PERCH.get()).behaviourPriorityBase(10).behaviours(behaviours);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> pickupFoodActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(FowlPlayActivities.PICK_UP.get()).priority(10).behaviours(behaviours)
-                .requireAndWipeMemoriesOnUse(FowlPlayMemoryTypes.SEES_FOOD.get());
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<T> pickupFoodActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(FowlPlayActivities.PICK_UP.get()).behaviourPriorityBase(10).behaviours(behaviours)
+                .requireAndClearMemoriesOnUse(FowlPlayMemoryTypes.SEES_FOOD.get());
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> restActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(Activity.REST).priority(10).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<T> restActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(Activity.REST).behaviourPriorityBase(10).behaviours(behaviours);
     }
 
     @SafeVarargs
-    static <T extends BirdEntity & BirdBrain<T>> BrainActivityGroup<T> soarActivity(Behavior<? super T>... behaviours) {
-        return new BrainActivityGroup<T>(FowlPlayActivities.SOAR.get()).priority(10).behaviours(behaviours);
+    static <T extends BirdEntity & BirdBrain<T>> ActivityBuilder<T> soarActivity(Behavior<? super T>... behaviours) {
+        return ActivityBuilder.<T>create(FowlPlayActivities.SOAR.get()).behaviourPriorityBase(10).behaviours(behaviours);
     }
 
-    default BrainActivityGroup<T> getAvoidTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getAvoidTasks() {
+        return ActivityBuilder.create(Activity.AVOID);
     }
 
-    default BrainActivityGroup<T> getDeliverTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getDeliverTasks() {
+        return ActivityBuilder.create(FowlPlayActivities.DELIVER.get());
     }
 
-    default BrainActivityGroup<T> getForageTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getForageTasks() {
+        return ActivityBuilder.create(FowlPlayActivities.FORAGE.get());
     }
 
-    default BrainActivityGroup<T> getPerchTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getPerchTasks() {
+        return ActivityBuilder.create(FowlPlayActivities.PERCH.get());
     }
 
-    default BrainActivityGroup<T> getPickupFoodTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getPickupFoodTasks() {
+        return ActivityBuilder.create(FowlPlayActivities.PICK_UP.get());
     }
 
-    default BrainActivityGroup<T> getRestTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getRestTasks() {
+        return ActivityBuilder.create(Activity.REST);
     }
 
-    default BrainActivityGroup<T> getSoarTasks() {
-        return BrainActivityGroup.empty();
+    default ActivityBuilder<@NonNull T> getSoarTasks() {
+        return ActivityBuilder.create(FowlPlayActivities.SOAR.get());
     }
 
     @Override
-    default Map<Activity, BrainActivityGroup<T>> getAdditionalTasks() {
-        Object2ObjectOpenHashMap<Activity, BrainActivityGroup<T>> taskList = new Object2ObjectOpenHashMap<>();
-        BrainActivityGroup<T> activityGroup;
+    default ActivityBuilder<? extends @NonNull T> getActivityGroupFor(Activity activity) {
 
-        // core is already handled
-        if (!(activityGroup = this.getDeliverTasks()).getBehaviours().isEmpty()) {
-            taskList.put(FowlPlayActivities.DELIVER.get(), activityGroup);
-        }
-        if (!(activityGroup = this.getAvoidTasks()).getBehaviours().isEmpty()) {
-            taskList.put(Activity.AVOID, activityGroup);
-        }
-        // fight is already handled
-        if (!(activityGroup = this.getPickupFoodTasks()).getBehaviours().isEmpty()) {
-            taskList.put(FowlPlayActivities.PICK_UP.get(), activityGroup);
-        }
-        if (!(activityGroup = this.getForageTasks()).getBehaviours().isEmpty()) {
-            taskList.put(FowlPlayActivities.FORAGE.get(), activityGroup);
-        }
-        if (!(activityGroup = this.getSoarTasks()).getBehaviours().isEmpty()) {
-            taskList.put(FowlPlayActivities.SOAR.get(), activityGroup);
-        }
-        if (!(activityGroup = this.getPerchTasks()).getBehaviours().isEmpty()) {
-            taskList.put(FowlPlayActivities.PERCH.get(), activityGroup);
-        }
-        // idle is already handled
-        if (!(activityGroup = this.getRestTasks()).getBehaviours().isEmpty()) {
-            taskList.put(Activity.REST, activityGroup);
-        }
+        if (activity == FowlPlayActivities.DELIVER.get())
+            return this.getDeliverTasks();
+        if (activity == Activity.AVOID)
+            return this.getAvoidTasks();
+        if (activity == FowlPlayActivities.PICK_UP.get())
+            return this.getPickupFoodTasks();
+        if (activity == FowlPlayActivities.FORAGE.get())
+            return this.getForageTasks();
+        if (activity == FowlPlayActivities.SOAR.get())
+            return this.getSoarTasks();
+        if (activity == FowlPlayActivities.PERCH.get())
+            return this.getPerchTasks();
+        if (activity == Activity.REST)
+            return this.getRestTasks();
 
-        return taskList;
+        return ActivityBuilder.create(activity);
     }
 
+
     @Override
-    default List<Activity> getActivityPriorities() {
-        return ObjectArrayList.of(
+    default Activity @NonNull [] getActivityActivationPriority() {
+        return new Activity[]{
                 FowlPlayActivities.DELIVER.get(),
                 Activity.AVOID,
                 Activity.FIGHT,
@@ -144,11 +130,11 @@ public interface BirdBrain<T extends BirdEntity & BirdBrain<T>> extends SmartBra
                 FowlPlayActivities.PERCH.get(),
                 Activity.IDLE,
                 Activity.REST
-        );
+        };
     }
 
     @Override
-    default Set<Activity> getScheduleIgnoringActivities() {
+    default @NonNull Set<Activity> getScheduleIgnoringActivities() {
         return ObjectArraySet.of(
                 FowlPlayActivities.DELIVER.get(),
                 Activity.AVOID,
@@ -158,7 +144,7 @@ public interface BirdBrain<T extends BirdEntity & BirdBrain<T>> extends SmartBra
     }
 
     @Override
-    default Activity getDefaultActivity() {
+    default @NonNull Activity getDefaultActivity(@NonNull T owner) {
         return Activity.REST;
     }
 }

@@ -12,13 +12,13 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.player.Player;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.api.core.sensor.PredicateSensor;
+import net.tslat.smartbrainlib.api.core.sensor.base.PredicateSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AttackedSensor<E extends BirdEntity> extends PredicateSensor<DamageSource, E> {
+public class AttackedSensor<E extends BirdEntity> extends PredicateSensor<E, DamageSource> {
     private static final List<MemoryModuleType<?>> MEMORIES = ImmutableList.of(
             MemoryModuleType.HURT_BY,
             MemoryModuleType.HURT_BY_ENTITY,
@@ -29,7 +29,7 @@ public class AttackedSensor<E extends BirdEntity> extends PredicateSensor<Damage
 
     public AttackedSensor() {
         super((damageSource, entity) -> true);
-        this.setScanRate(bird -> 10);
+        this.scanRate(10);
     }
 
     public static <T extends BirdEntity> void onAttacked(T bird, LivingEntity attacker) {
@@ -66,7 +66,7 @@ public class AttackedSensor<E extends BirdEntity> extends PredicateSensor<Damage
             BrainUtil.clearMemory(brain, MemoryModuleType.HURT_BY_ENTITY);
             return;
         }
-        if (this.predicate().test(damageSource, bird)) {
+        if (this.predicate().test(bird, damageSource)) {
             BrainUtil.setMemory(brain, MemoryModuleType.HURT_BY, damageSource);
 
             if (damageSource.getEntity() instanceof LivingEntity attacker && attacker.isAlive() && attacker.level() == bird.level()) {

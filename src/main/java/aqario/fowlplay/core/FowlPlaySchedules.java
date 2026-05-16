@@ -1,55 +1,52 @@
 package aqario.fowlplay.core;
 
-import aqario.fowlplay.common.entity.ai.brain.ExtendedSchedule;
 import net.minecraft.world.entity.schedule.Activity;
+import net.tslat.smartbrainlib.api.core.schedule.SmartBrainSchedule;
 
 import java.util.function.Supplier;
 
 public class FowlPlaySchedules {
     // TODO: have separate schedules for babies and adults, and separate schedules for domestic and wild variants
-    public static final Supplier<ExtendedSchedule> FORAGER = register("forager", new ExtendedSchedule()
-            .activityAt(0, FowlPlayActivities.PERCH)
-            .activityAt(1000, FowlPlayActivities.FORAGE)
-            .activityAt(6000, FowlPlayActivities.PERCH)
-            .activityAt(8000, FowlPlayActivities.FORAGE)
-            .activityAt(11000, FowlPlayActivities.PERCH)
-            .activityAt(12500, Activity.REST)
-            .activityAt(23000, FowlPlayActivities.PERCH)
+    public static final Supplier<SmartBrainSchedule> FORAGER = register("forager", SmartBrainSchedule.byDaytime()
+            .activityAt(0L, FowlPlayActivities.PERCH.get())
+            .activityAt(1000L, FowlPlayActivities.FORAGE.get())
+            .activityAt(6000L, FowlPlayActivities.PERCH.get())
+            .activityAt(8000L, FowlPlayActivities.FORAGE.get())
+            .activityAt(11000L, FowlPlayActivities.PERCH.get())
+            .activityAt(12500L, Activity.REST)
+            .activityAt(23000L, FowlPlayActivities.PERCH.get())
     );
-    public static final Supplier<ExtendedSchedule> RAPTOR = register("raptor", new ExtendedSchedule()
-            .activityAt(0, FowlPlayActivities.PERCH)
-            .activityAt(1000, FowlPlayActivities.SOAR)
-            .activityAt(6000, FowlPlayActivities.PERCH)
-            .activityAt(8000, FowlPlayActivities.SOAR)
-            .activityAt(11000, FowlPlayActivities.PERCH)
-            .activityAt(12500, Activity.REST)
-            .activityAt(23000, FowlPlayActivities.PERCH)
+    public static final Supplier<SmartBrainSchedule> RAPTOR = register("raptor", SmartBrainSchedule.byDaytime()
+            .activityAt(0L, FowlPlayActivities.PERCH.get())
+            .activityAt(1000L, FowlPlayActivities.SOAR.get())
+            .activityAt(6000L, FowlPlayActivities.PERCH.get())
+            .activityAt(8000L, FowlPlayActivities.SOAR.get())
+            .activityAt(11000L, FowlPlayActivities.PERCH.get())
+            .activityAt(12500L, Activity.REST)
+            .activityAt(23000L, FowlPlayActivities.PERCH.get())
     );
-    public static final ExtendedSchedule SEABIRD = register("seabird", new ExtendedSchedule()
-            .activityAt(0, Activity.IDLE)
-            .activityAt(1000, FowlPlayActivities.SOAR)
-            .activityAt(6000, FowlPlayActivities.FORAGE)
-            .activityAt(8000, FowlPlayActivities.SOAR)
-            .activityAt(11000, Activity.IDLE)
-            .activityAt(12500, Activity.REST)
-            .activityAt(23000, Activity.IDLE)
-    ).get();
-    public static final Supplier<ExtendedSchedule> WATERFOWL = register("waterfowl", new ExtendedSchedule()
-            .activityAt(0, Activity.IDLE)
-            .activityAt(1000, FowlPlayActivities.FORAGE)
-            .activityAt(6000, Activity.IDLE)
-            .activityAt(8000, FowlPlayActivities.FORAGE)
-            .activityAt(11000, Activity.IDLE)
-            .activityAt(12500, Activity.REST)
-            .activityAt(23000, Activity.IDLE)
+    public static final Supplier<SmartBrainSchedule> SEABIRD = register("seabird", SmartBrainSchedule.byDaytime()
+            .activityAt(0L, Activity.IDLE)
+            .activityAt(1000L, FowlPlayActivities.SOAR.get())
+            .activityAt(6000L, FowlPlayActivities.FORAGE.get())
+            .activityAt(8000L, FowlPlayActivities.SOAR.get())
+            .activityAt(11000L, Activity.IDLE)
+            .activityAt(12500L, Activity.REST)
+            .activityAt(23000L, Activity.IDLE)
     );
 
-    private static Supplier<ExtendedSchedule> register(String id, ExtendedSchedule schedule) {
-        return registerSchedule(id, () -> schedule);
-    }
+    public static final Supplier<SmartBrainSchedule> WATERFOWL = register("waterfowl", SmartBrainSchedule.byDaytime()
+            .activityAt(0L, Activity.IDLE)
+            .activityAt(1000L, FowlPlayActivities.FORAGE.get())
+            .activityAt(6000L, Activity.IDLE)
+            .activityAt(8000L, FowlPlayActivities.FORAGE.get())
+            .activityAt(11000L, Activity.IDLE)
+            .activityAt(12500L, Activity.REST)
+            .activityAt(23000L, Activity.IDLE)
+    );
 
-    public static Supplier<ExtendedSchedule> registerSchedule(String id, Supplier<ExtendedSchedule> schedule) {
-        return schedule;
+    private static Supplier<SmartBrainSchedule> register(String id, SmartBrainSchedule schedule) {
+        return () -> schedule;
     }
 
     public static void init() {

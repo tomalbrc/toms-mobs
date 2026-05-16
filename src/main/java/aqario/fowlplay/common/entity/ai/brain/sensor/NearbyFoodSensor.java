@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.api.core.sensor.PredicateSensor;
+import net.tslat.smartbrainlib.api.core.sensor.base.PredicateSensor;
 import net.tslat.smartbrainlib.registry.SBLMemoryTypes;
 import net.tslat.smartbrainlib.registry.SBLSensors;
 import net.tslat.smartbrainlib.util.BrainUtil;
@@ -21,11 +21,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class NearbyFoodSensor<E extends BirdEntity> extends PredicateSensor<ItemEntity, E> {
+public class NearbyFoodSensor<E extends BirdEntity> extends PredicateSensor<E, ItemEntity> {
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(SBLMemoryTypes.NEARBY_ITEMS.get());
 
     public NearbyFoodSensor() {
-        super((item, bird) -> bird.wantsToPickUp((ServerLevel) bird.level(), item.getItem()) && bird.hasLineOfSight(item));
+        super((bird, item) -> bird.wantsToPickUp((ServerLevel) bird.level(), item.getItem()) && bird.hasLineOfSight(item));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class NearbyFoodSensor<E extends BirdEntity> extends PredicateSensor<Item
     protected void doTick(ServerLevel world, E bird) {
         Brain<?> brain = bird.getBrain();
         double radius = bird.getAttributeValue(Attributes.FOLLOW_RANGE);
-        List<ItemEntity> nearbyItems = EntityRetrievalUtil.getEntities(bird, radius, ItemEntity.class, item -> this.predicate().test(item, bird));
+        List<ItemEntity> nearbyItems = EntityRetrievalUtil.getEntities(bird, radius, ItemEntity.class, item -> this.predicate().test(bird, item));
         BrainUtil.setMemory(brain, SBLMemoryTypes.NEARBY_ITEMS.get(), nearbyItems);
 
         if (BirdUtils.canPickupFood(bird)) {
