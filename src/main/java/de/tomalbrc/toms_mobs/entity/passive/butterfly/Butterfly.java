@@ -72,10 +72,10 @@ public class Butterfly extends AbstractButterfly {
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         var special = level().getRandom().nextInt(1000) == 42;
         if (special) {
-            return MobRegistry.EMPEROR_BUTTERFLY.create(serverLevel, EntitySpawnReason.BREEDING);
+            return MobRegistry.EMPEROR_BUTTERFLY.get().create(serverLevel, EntitySpawnReason.BREEDING);
         }
 
-        return MobRegistry.BUTTERFLY.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.BUTTERFLY.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

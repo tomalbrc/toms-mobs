@@ -23,7 +23,6 @@ import de.tomalbrc.toms_mobs.util.SetEntityLookTarget;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -46,6 +45,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 import net.tslat.smartbrainlib.api.core.ActivityBuilder;
 import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableMeleeAttack;
@@ -101,12 +101,12 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
 
     @Override
     public boolean isFood(@NotNull ItemStack itemStack) {
-        return itemStack.is(ConventionalItemTags.FOODS);
+        return itemStack.is(Tags.Items.FOODS);
     }
 
     @Override
     public Ingredient getFood() {
-        return Ingredient.of(BuiltInRegistries.ITEM.get(ConventionalItemTags.FOODS).orElseThrow());
+        return Ingredient.of(BuiltInRegistries.ITEM.get(Tags.Items.FOODS).orElseThrow());
     }
 
     @Override
@@ -145,7 +145,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
 
     @Override
     public Seagull getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.SEAGULL.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.SEAGULL.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
 

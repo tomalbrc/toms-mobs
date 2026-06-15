@@ -6,10 +6,8 @@ import aqario.fowlplay.common.util.BirdUtils;
 import aqario.fowlplay.common.util.CylindricalRadius;
 import com.mojang.datafixers.util.Pair;
 import de.tomalbrc.toms_mobs.CustomTags;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -32,6 +30,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 public abstract class FlyingBirdEntity extends BirdEntity {
     private static final int ROLL_FACTOR = 4;
@@ -324,7 +323,7 @@ public abstract class FlyingBirdEntity extends BirdEntity {
     }
 
     @Override
-    protected void playMuffledStepSound(@NotNull BlockState state) {
+    protected void playMuffledStepSound(@NotNull BlockState state, @NonNull BlockPos blockPos) {
     }
 
     @Override
@@ -332,7 +331,7 @@ public abstract class FlyingBirdEntity extends BirdEntity {
     }
 
     @Override
-    protected void playCombinationStepSounds(@NotNull BlockState primaryState, @NotNull BlockState secondaryState) {
+    protected void playCombinationStepSounds(@NotNull BlockState primaryState, @NotNull BlockState secondaryState, @NonNull BlockPos blockPos, @NonNull BlockPos blockPos2) {
     }
 
     @Override

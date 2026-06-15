@@ -10,7 +10,7 @@ public class ElephantHarnessItem extends TexturedPolymerItem {
     private final String variant;
 
     public ElephantHarnessItem(Properties settings, Identifier modelPath, String variant) {
-        super(settings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.SADDLE).setAllowedEntities(MobRegistry.ELEPHANT).setCanBeSheared(true).setDispensable(true).setEquipOnInteract(true).build()), modelPath);
+        super(settings.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.SADDLE).setAllowedEntities(MobRegistry.ELEPHANT.get()).setCanBeSheared(true).setDispensable(true).setEquipOnInteract(true).build()), modelPath);
         this.variant = variant;
     }
 

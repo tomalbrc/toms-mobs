@@ -113,7 +113,7 @@ public class Snake extends Animal implements AnimatedEntity {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.SNAKE.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.SNAKE.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

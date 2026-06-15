@@ -8,7 +8,6 @@ import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.util.AnimationHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -30,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.Tags;
 import net.tslat.smartbrainlib.api.core.navigation.SmoothGroundNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +43,7 @@ public class Possum extends Animal implements AnimatedEntity {
     private int petDelay = 0;
 
     private static Ingredient tempting() {
-        return Ingredient.of(BuiltInRegistries.ITEM.get(ConventionalItemTags.FOODS).orElseThrow());
+        return Ingredient.of(BuiltInRegistries.ITEM.get(Tags.Items.FOODS).orElseThrow());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -172,7 +172,7 @@ public class Possum extends Animal implements AnimatedEntity {
 
     @Override
     public Possum getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.POSSUM.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.POSSUM.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

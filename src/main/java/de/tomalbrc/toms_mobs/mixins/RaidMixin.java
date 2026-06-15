@@ -4,7 +4,6 @@ import de.tomalbrc.toms_mobs.config.ModConfig;
 import de.tomalbrc.toms_mobs.entity.hostile.Iceologer;
 import de.tomalbrc.toms_mobs.entity.hostile.Showmaster;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +12,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.biome.Biome;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,14 +33,14 @@ public class RaidMixin {
         if (raid.getGroupsSpawned() >= raid.getNumGroups(serverLevel.getDifficulty())) {
             Holder<@NotNull Biome> biome = serverLevel.getBiome(blockPos);
             Raider mob;
-            if (biome.is(ConventionalBiomeTags.IS_ICY) && biome.is(BiomeTags.IS_MOUNTAIN)) {
+            if (biome.is(Tags.Biomes.IS_ICY) && biome.is(BiomeTags.IS_MOUNTAIN)) {
                 if (ModConfig.getInstance().disabledMobs.contains(Iceologer.ID))
                     return;
-                mob = MobRegistry.ICEOLOGER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+                mob = MobRegistry.ICEOLOGER.get().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             } else {
                 if (ModConfig.getInstance().disabledMobs.contains(Showmaster.ID))
                     return;
-                mob = MobRegistry.SHOWMASTER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+                mob = MobRegistry.SHOWMASTER.get().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             }
 
             tomsmobs$spawn(serverLevel, raid.getGroupsSpawned(), mob, blockPos);

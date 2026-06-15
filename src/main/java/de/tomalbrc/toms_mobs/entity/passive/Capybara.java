@@ -257,7 +257,7 @@ public class Capybara extends Animal implements AnimatedEntity {
 
     @Override
     public Capybara getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.CAPYBARA.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.CAPYBARA.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

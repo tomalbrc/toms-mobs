@@ -63,7 +63,7 @@ public class SummonIceClusterGoal extends AnimatedGoal {
         if (!this.hasWarmupDelay() && count > 0) {
             count--;
 
-            IceCluster cluster = new IceCluster(MobRegistry.ICE_SPIKE, this.mob.level());
+            IceCluster cluster = new IceCluster(MobRegistry.ICE_SPIKE.get(), this.mob.level());
             cluster.setOwner(this.mob);
             cluster.setTarget(this.target);
             cluster.setPos(this.mob.position().add(Math.cos(Math.toRadians(this.mob.getYRot())) * 5, 2, Math.sin(Math.toRadians(this.mob.getYRot())) * 5));

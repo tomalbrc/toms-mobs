@@ -1,28 +1,22 @@
 package aqario.fowlplay.core;
 
-import de.tomalbrc.toms_mobs.util.Util;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import de.tomalbrc.toms_mobs.TomsMobs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.schedule.Activity;
-
-import java.util.function.Supplier;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class FowlPlayActivities {
-    public static final Supplier<Activity> DELIVER = register("deliver");
-    public static final Supplier<Activity> FORAGE = register("forage");
-    public static final Supplier<Activity> PERCH = register("perch");
-    public static final Supplier<Activity> PICK_UP = register("pick_up");
-    public static final Supplier<Activity> SOAR = register("soar");
+    public static final DeferredRegister<Activity> ACTIVITIES =
+            DeferredRegister.create(Registries.ACTIVITY, TomsMobs.MODID);
 
-    private static Supplier<Activity> register(String id) {
-        return registerActivity(id, () -> new Activity(id));
-    }
+    public static final DeferredHolder<Activity, Activity> DELIVER = register("deliver");
+    public static final DeferredHolder<Activity, Activity> FORAGE = register("forage");
+    public static final DeferredHolder<Activity, Activity> PERCH = register("perch");
+    public static final DeferredHolder<Activity, Activity> PICK_UP = register("pick_up");
+    public static final DeferredHolder<Activity, Activity> SOAR = register("soar");
 
-    public static Supplier<Activity> registerActivity(String id, Supplier<Activity> activity) {
-        Activity registry = Registry.register(BuiltInRegistries.ACTIVITY, Util.id(id), activity.get());
-        return () -> registry;
-    }
-
-    public static void init() {
+    private static DeferredHolder<Activity, Activity> register(String id) {
+        return ACTIVITIES.register(id, () -> new Activity(id));
     }
 }

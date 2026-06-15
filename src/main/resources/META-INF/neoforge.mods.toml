@@ -1,0 +1,14 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "LGPL-3.0-and-later"
+
+[[mods]]
+modId = "toms_mobs"
+version = "${version}"
+displayName = "Toms Mobs"
+description = ""
+authors = "tomalbrc"
+logoFile = "icon@256.png"
+
+[[mixins]]
+config="toms_mobs.mixins.json"

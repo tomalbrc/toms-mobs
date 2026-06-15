@@ -201,7 +201,7 @@ public class Elephant extends Animal implements AnimatedEntity, PlayerRideable {
 
     @Override
     public Elephant getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.ELEPHANT.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.ELEPHANT.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

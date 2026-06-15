@@ -115,10 +115,10 @@ public class IceSpikeGoal extends AnimatedGoal {
         if (canSpawn || big) {
             Entity iceSpike;
             if (big) {
-                iceSpike = new IceSpike(MobRegistry.ICE_SPIKE, this.mob.level());
+                iceSpike = new IceSpike(MobRegistry.ICE_SPIKE.get(), this.mob.level());
                 ((IceSpike) iceSpike).setOwner(this.mob);
             } else {
-                iceSpike = new IceSpikeSmall(MobRegistry.ICE_SPIKE_SMALL, this.mob.level());
+                iceSpike = new IceSpikeSmall(MobRegistry.ICE_SPIKE_SMALL.get(), this.mob.level());
                 ((IceSpikeSmall) iceSpike).setOwner(this.mob);
             }
             iceSpike.setPos(x, j + blockPos.getY(), z);

@@ -157,7 +157,7 @@ public class Lobster extends Animal implements AnimatedEntity {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.LOBSTER.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.LOBSTER.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

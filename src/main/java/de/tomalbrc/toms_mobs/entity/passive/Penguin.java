@@ -152,7 +152,7 @@ public class Penguin extends Animal implements AnimatedEntity, RangedAttackMob {
 
     @Override
     public Penguin getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return MobRegistry.PENGUIN.create(serverLevel, EntitySpawnReason.BREEDING);
+        return MobRegistry.PENGUIN.get().create(serverLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override

@@ -10,30 +10,41 @@ import de.tomalbrc.toms_mobs.registry.ItemRegistry;
 import de.tomalbrc.toms_mobs.registry.MobRegistry;
 import de.tomalbrc.toms_mobs.registry.SoundRegistry;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
 
-public class TomsMobs implements ModInitializer {
+@Mod(TomsMobs.MODID)
+public class TomsMobs {
     public static final String MODID = "toms_mobs";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    @Override
-    public void onInitialize() {
+    public TomsMobs(IEventBus modEventBus) {
+        onInitialize(modEventBus);
+    }
+
+    public void onInitialize(IEventBus modEventBus) {
         PolymerResourcePackUtils.addModAssets(MODID);
         PolymerResourcePackUtils.markAsRequired();
 
-        FowlPlaySchedules.init();
-        FowlPlaySensorTypes.init();
-        FowlPlayMemoryTypes.init();
-        FowlPlayActivities.init();
+        FowlPlaySensorTypes.SENSOR_TYPES.register(modEventBus);
+        FowlPlayMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
+        FowlPlayActivities.ACTIVITIES.register(modEventBus);
 
         SoundRegistry.registerSounds();
+
         MobRegistry.registerContent();
+
+        MobRegistry.ENTITY_TYPES.register(modEventBus);
+        MobRegistry.ITEMS.register(modEventBus);
+        MobRegistry.CREATIVE_MODE_TABS.register(modEventBus);
+
         ItemRegistry.registerItems();
+        ItemRegistry.ITEMS.register(modEventBus);
 
         var overrides = List.of(
                 "assets/bil/textures/item/butterfly/texture.png.mcmeta",

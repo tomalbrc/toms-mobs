@@ -15,17 +15,14 @@ import de.tomalbrc.toms_mobs.util.BiomeHelper;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.core.api.item.PolymerCreativeModeTabUtils;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.RegistryLayer;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
@@ -36,75 +33,96 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
+@EventBusSubscriber(modid = TomsMobs.MODID)
 public class MobRegistry {
-    public static final EntityType<@NotNull Penguin> PENGUIN = register(Penguin.ID, FabricEntityType.Builder.createMob(Penguin::new, MobCategory.CREATURE, x -> x.defaultAttributes(Penguin::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)).sized(0.6f, 1.05f));
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, TomsMobs.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, TomsMobs.MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TomsMobs.MODID);
 
-    public static final EntityType<@NotNull Elephant> ELEPHANT = register(Elephant.ID, FabricEntityType.Builder.createMob(Elephant::new, MobCategory.CREATURE, x -> x.defaultAttributes(Elephant::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)).sized(2.99f, 3.65f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = registerEntity(Penguin.ID, EntityType.Builder.of(Penguin::new, MobCategory.CREATURE).sized(0.6f, 1.05f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Elephant>> ELEPHANT = registerEntity(Elephant.ID, EntityType.Builder.of(Elephant::new, MobCategory.CREATURE).sized(2.99f, 3.65f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Capybara>> CAPYBARA = registerEntity(Capybara.ID, EntityType.Builder.of(Capybara::new, MobCategory.CREATURE).sized(0.9f, 1.f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Possum>> POSSUM = registerEntity(Possum.ID, EntityType.Builder.of(Possum::new, MobCategory.CREATURE).sized(0.9f, 1.f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Seagull>> SEAGULL = registerEntity(Seagull.ID, EntityType.Builder.of(Seagull::new, MobCategory.CREATURE).sized(0.6f, 0.8f).eyeHeight(0.7f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Mantaray>> MANTARAY = registerEntity(Mantaray.ID, EntityType.Builder.of(Mantaray::new, MobCategory.WATER_CREATURE).sized(1.4f, 0.4f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Tuna>> TUNA = registerEntity(Tuna.ID, EntityType.Builder.of(Tuna::new, MobCategory.WATER_AMBIENT).sized(0.55f, 0.55f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Lobster>> LOBSTER = registerEntity(Lobster.ID, EntityType.Builder.of(Lobster::new, MobCategory.WATER_CREATURE).sized(0.65f, 0.35f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Firemoth>> FIREMOTH = registerEntity(Firemoth.ID, EntityType.Builder.of(Firemoth::new, MobCategory.AMBIENT).sized(0.5f, 0.5f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = registerEntity(Butterfly.ID, EntityType.Builder.of(Butterfly::new, MobCategory.AMBIENT).sized(0.25f, 0.25f));
+    public static final DeferredHolder<EntityType<?>, EntityType<LargeButterfly>> EMPEROR_BUTTERFLY = registerEntity(Util.id("emperor_butterfly"), EntityType.Builder.of(LargeButterfly::new, MobCategory.AMBIENT).sized(0.6f, 0.6f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Snake>> SNAKE = registerEntity(Snake.ID, EntityType.Builder.of(Snake::new, MobCategory.CREATURE).sized(0.9f, 0.4f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Sculkling>> SCULKLING = registerEntity(Sculkling.ID, EntityType.Builder.of(Sculkling::new, MobCategory.MONSTER).sized(0.5f, 0.9f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Showmaster>> SHOWMASTER = registerEntity(Showmaster.ID, EntityType.Builder.of(Showmaster::new, MobCategory.MONSTER).sized(0.7f, 1.8f));
+    public static final DeferredHolder<EntityType<?>, EntityType<Iceologer>> ICEOLOGER = registerEntity(Iceologer.ID, EntityType.Builder.of(Iceologer::new, MobCategory.MONSTER).sized(0.7f, 1.8f));
+    public static final DeferredHolder<EntityType<?>, EntityType<IceSpike>> ICE_SPIKE = registerEntity(IceSpike.ID, EntityType.Builder.of(IceSpike::new, MobCategory.MISC).sized(1.f, 2.f));
+    public static final DeferredHolder<EntityType<?>, EntityType<IceSpikeSmall>> ICE_SPIKE_SMALL = registerEntity(IceSpikeSmall.ID, EntityType.Builder.of(IceSpikeSmall::new, MobCategory.MISC).sized(1.2f, 0.8f));
+    public static final DeferredHolder<EntityType<?>, EntityType<IceCluster>> ICE_CLUSTER = registerEntity(IceCluster.ID, EntityType.Builder.of(IceCluster::new, MobCategory.MISC).sized(2, 1));
 
-    public static final EntityType<@NotNull Capybara> CAPYBARA = register(Capybara.ID, FabricEntityType.Builder.createMob(Capybara::new, MobCategory.CREATURE, x -> x.defaultAttributes(Capybara::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)).sized(0.9f, 1.f));
+    private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> registerEntity(Identifier id, EntityType.Builder<T> builder) {
+        return ENTITY_TYPES.register(id.getPath(), () -> {
+            EntityType<T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+            PolymerEntityUtils.registerType(type);
+            return type;
+        });
+    }
 
-    public static final EntityType<@NotNull Possum> POSSUM = register(Possum.ID, FabricEntityType.Builder.createMob(Possum::new, MobCategory.CREATURE, x -> x.defaultAttributes(Possum::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)).sized(0.9f, 1.f));
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ITEM_GROUP = CREATIVE_MODE_TABS.register("spawn_eggs", () -> {
+        CreativeModeTab tab = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, -1)
+                .title(Component.literal("Toms Mobs").withStyle(ChatFormatting.DARK_GREEN))
+                .icon(Items.BAT_SPAWN_EGG::getDefaultInstance)
+                .displayItems((parameters, output) -> ITEMS.getEntries().forEach(holder -> output.accept(holder.get())))
+                .build();
+        PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(Util.id("spawn-eggs"), tab);
+        return tab;
+    });
 
-    /*public static final EntityType<Vulture> VULTURE = register(
-            Vulture.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Vulture::new)
-                    .spawnGroup(MobCategory.CREATURE)
-                    .dimensions(EntityDimensions.scalable(1.f, 1.f))
-                    .defaultAttributes(Vulture::createAttributes)
-                    .spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)
-    );
-*/
-    public static final EntityType<@NotNull Seagull> SEAGULL = register(Seagull.ID, FabricEntityType.Builder.createMob(Seagull::new, MobCategory.CREATURE, x -> x.defaultAttributes(Seagull::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBirdEntity::canSpawnShorebirds)).sized(0.6f, 0.8f).eyeHeight(0.7f));
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(PENGUIN.get(), Penguin.createAttributes().build());
+        event.put(ELEPHANT.get(), Elephant.createAttributes().build());
+        event.put(CAPYBARA.get(), Capybara.createAttributes().build());
+        event.put(POSSUM.get(), Possum.createAttributes().build());
+        event.put(SEAGULL.get(), Seagull.createAttributes().build());
+        event.put(MANTARAY.get(), Mantaray.createAttributes().build());
+        event.put(TUNA.get(), Tuna.createAttributes().build());
+        event.put(LOBSTER.get(), Lobster.createAttributes().build());
+        event.put(FIREMOTH.get(), Firemoth.createAttributes().build());
+        event.put(BUTTERFLY.get(), Butterfly.createAttributes().build());
+        event.put(EMPEROR_BUTTERFLY.get(), LargeButterfly.createAttributes().build());
+        event.put(SNAKE.get(), Snake.createAttributes().build());
+        event.put(SCULKLING.get(), Sculkling.createAttributes().build());
+        event.put(SHOWMASTER.get(), Showmaster.createAttributes().build());
+        event.put(ICEOLOGER.get(), Iceologer.createAttributes().build());
+    }
 
-    public static final EntityType<@NotNull Mantaray> MANTARAY = register(Mantaray.ID, FabricEntityType.Builder.createMob(Mantaray::new, MobCategory.WATER_CREATURE, x -> x.defaultAttributes(Mantaray::createAttributes).spawnPlacement(SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mantaray::checkRareDeepWaterSpawnRules)).sized(1.4f, 0.4f));
-
-    public static final EntityType<@NotNull Tuna> TUNA = register(Tuna.ID, FabricEntityType.Builder.createMob(Tuna::new, MobCategory.WATER_AMBIENT, x -> x.defaultAttributes(Tuna::createAttributes).spawnPlacement(SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, Tuna::checkDeepWaterSpawnRules)).sized(0.55f, 0.55f));
-
-    public static final EntityType<@NotNull Lobster> LOBSTER = register(Lobster.ID, FabricEntityType.Builder.createMob(Lobster::new, MobCategory.WATER_CREATURE, x -> x.defaultAttributes(Lobster::createAttributes).spawnPlacement(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, (xx, levelAccessor, z, blockPos, r) -> r.nextInt(4) == 2 && blockPos.getY() < levelAccessor.getSeaLevel() + 3 && (TurtleEggBlock.onSand(levelAccessor, blockPos) || levelAccessor.getBlockState(blockPos).getFluidState().is(FluidTags.WATER)) && levelAccessor.getRawBrightness(blockPos, 0) > 1)).sized(0.65f, 0.35f));
-
-    /*
-    public static final EntityType<Jellyfish> JELLYFISH = register(
-            Jellyfish.ID,
-            FabricEntityTypeBuilder.createMob()
-                    .entityFactory(Jellyfish::new)
-                    .spawnGroup(MobCategory.WATER_AMBIENT)
-                    .dimensions(EntityDimensions.scalable(0.5f, 0.5f))
-                    .defaultAttributes(Jellyfish::createAttributes)
-    );
-    */
-
-    public static final EntityType<@NotNull Firemoth> FIREMOTH = register(Firemoth.ID, FabricEntityType.Builder.createMob(Firemoth::new, MobCategory.AMBIENT, x -> x.defaultAttributes(Firemoth::createAttributes).spawnPlacement(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules)).sized(0.5f, 0.5f));
-
-    public static final EntityType<@NotNull Butterfly> BUTTERFLY = register(Butterfly.ID, FabricEntityType.Builder.createMob(Butterfly::new, MobCategory.AMBIENT, x -> x.defaultAttributes(Butterfly::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules)).sized(0.25f, 0.25f));
-
-    public static final EntityType<@NotNull LargeButterfly> EMPEROR_BUTTERFLY = register(Util.id("emperor_butterfly"), FabricEntityType.Builder.createMob(LargeButterfly::new, MobCategory.AMBIENT, x -> x.defaultAttributes(LargeButterfly::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LargeButterfly::checkLargeButterflySpawnRules)).sized(0.6f, 0.6f));
-
-    public static final EntityType<@NotNull Snake> SNAKE = register(Snake.ID, FabricEntityType.Builder.createMob(Snake::new, MobCategory.CREATURE, x -> x.defaultAttributes(Snake::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)).sized(0.9f, 0.4f));
-
-    public static final EntityType<@NotNull Sculkling> SCULKLING = register(Sculkling.ID, FabricEntityType.Builder.createMob(Sculkling::new, MobCategory.MONSTER, x -> x.defaultAttributes(Sculkling::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules)).sized(0.5f, 0.9f));
-
-    public static final EntityType<@NotNull Showmaster> SHOWMASTER = register(Showmaster.ID, FabricEntityType.Builder.createMob(Showmaster::new, MobCategory.MONSTER, x -> x.defaultAttributes(Showmaster::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Showmaster::checkMobSpawnRules)).sized(0.7f, 1.8f));
-
-    public static final EntityType<@NotNull Iceologer> ICEOLOGER = register(Iceologer.ID, FabricEntityType.Builder.createMob(Iceologer::new, MobCategory.MONSTER, x -> x.defaultAttributes(Iceologer::createAttributes).spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules)).sized(0.7f, 1.8f));
-
-    public static final EntityType<@NotNull IceSpike> ICE_SPIKE = register(IceSpike.ID, EntityType.Builder.of(IceSpike::new, MobCategory.MISC).sized(1.f, 2.f));
-
-    public static final EntityType<@NotNull IceSpikeSmall> ICE_SPIKE_SMALL = register(IceSpikeSmall.ID, EntityType.Builder.of(IceSpikeSmall::new, MobCategory.MISC).sized(1.2f, 0.8f));
-
-    public static final EntityType<@NotNull IceCluster> ICE_CLUSTER = register(IceCluster.ID, EntityType.Builder.of(IceCluster::new, MobCategory.MISC).sized(2, 1));
-
-    private static <T extends Entity> EntityType<@NotNull T> register(Identifier id, EntityType.Builder<@NotNull T> builder) {
-        EntityType<@NotNull T> type = builder.build(ResourceKey.create(Registries.ENTITY_TYPE, id));
-        PolymerEntityUtils.registerType(type);
-
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
+    @SubscribeEvent
+    public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+        event.register(PENGUIN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ELEPHANT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(CAPYBARA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(POSSUM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(SEAGULL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBirdEntity::canSpawnShorebirds, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(MANTARAY.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mantaray::checkRareDeepWaterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(TUNA.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR, Tuna::checkDeepWaterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(LOBSTER.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, (xx, levelAccessor, z, blockPos, r) -> r.nextInt(4) == 2 && blockPos.getY() < levelAccessor.getSeaLevel() + 3 && (TurtleEggBlock.onSand(levelAccessor, blockPos) || levelAccessor.getBlockState(blockPos).getFluidState().is(FluidTags.WATER)) && levelAccessor.getRawBrightness(blockPos, 0) > 1, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(FIREMOTH.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firemoth::checkFiremothSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(BUTTERFLY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Butterfly::checkButterflySpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(EMPEROR_BUTTERFLY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LargeButterfly::checkLargeButterflySpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(SNAKE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(SCULKLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sculkling::checkSculklingSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(SHOWMASTER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Showmaster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ICEOLOGER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Iceologer::checkIceologerSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     public static void registerMobs(RegistryAccess.Frozen layeredRegistryAccess) {
@@ -144,33 +162,31 @@ public class MobRegistry {
 
         addSpawnEgg(MANTARAY, Items.WARDEN_SPAWN_EGG);
         addSpawnEgg(TUNA, Items.COD_SPAWN_EGG);
-        //addSpawnEgg(JELLYFISH, Items.SALMON_SPAWN_EGG);
         addSpawnEgg(LOBSTER, Items.PARROT_SPAWN_EGG);
 
         addSpawnEgg(SCULKLING, Items.WARDEN_SPAWN_EGG);
         addSpawnEggModeled(SNAKE, Util.id("snake_spawn_egg"));
-
         addSpawnEgg(SHOWMASTER, Items.ENDERMITE_SPAWN_EGG);
-
         addSpawnEgg(ICEOLOGER, Items.VEX_SPAWN_EGG);
-
-        PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(Util.id("spawn-eggs"), ITEM_GROUP);
     }
 
-    private static void addSpawnEggModeled(EntityType<? extends @NotNull Mob> type, Identifier model) {
-        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new TexturedPolymerSpawnEggItem(type, properties, model));
+    private static void addSpawnEggModeled(DeferredHolder<EntityType<?>, ? extends EntityType<? extends Mob>> typeHolder, Identifier model) {
+        String path = typeHolder.getId().getPath() + "_spawn_egg";
+        Identifier itemIdentifier = Util.id(path);
+        ITEMS.register(path, () -> new TexturedPolymerSpawnEggItem(
+                typeHolder.get(),
+                new Item.Properties().stacksTo(64).setId(ResourceKey.create(Registries.ITEM, itemIdentifier)),
+                model
+        ));
     }
 
-    private static void addSpawnEgg(EntityType<? extends @NotNull Mob> type, Item vanillaItem) {
-        register(Util.id(EntityType.getKey(type).getPath() + "_spawn_egg"), properties -> new VanillaPolymerSpawnEggItem(type, vanillaItem, properties));
+    private static void addSpawnEgg(DeferredHolder<EntityType<?>, ? extends EntityType<? extends Mob>> typeHolder, Item vanillaItem) {
+        String path = typeHolder.getId().getPath() + "_spawn_egg";
+        Identifier itemIdentifier = Util.id(path);
+        ITEMS.register(path, () -> new VanillaPolymerSpawnEggItem(
+                typeHolder.get(),
+                vanillaItem,
+                new Item.Properties().stacksTo(64).setId(ResourceKey.create(Registries.ITEM, itemIdentifier))
+        ));
     }
-
-    static public <T extends Item> void register(Identifier identifier, Function<Item.Properties, T> function) {
-        var x = function.apply(new Item.Properties().stacksTo(64).setId(ResourceKey.create(Registries.ITEM, identifier)));
-        Registry.register(BuiltInRegistries.ITEM, identifier, x);
-        SPAWN_EGGS.putIfAbsent(identifier, x);
-    }
-
-    public static final Object2ObjectOpenHashMap<Identifier, Item> SPAWN_EGGS = new Object2ObjectOpenHashMap<>();
-    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, -1).title(Component.literal("Toms Mobs").withStyle(ChatFormatting.DARK_GREEN)).icon(Items.BAT_SPAWN_EGG::getDefaultInstance).displayItems((parameters, output) -> SPAWN_EGGS.values().forEach(output::accept)).build();
 }

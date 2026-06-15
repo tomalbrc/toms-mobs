@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
 import de.tomalbrc.bil.json.SimpleCodecDeserializer;
 import de.tomalbrc.toms_mobs.TomsMobs;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class ModConfig {
-    private static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve(TomsMobs.MODID + ".json");
+    private static final Path CONFIG_FILE_PATH = FMLPaths.CONFIGDIR.get().resolve(TomsMobs.MODID + ".json");
     private static ModConfig instance;
 
     private static final Gson gson = new GsonBuilder()

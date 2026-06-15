@@ -1,7 +1,7 @@
 package de.tomalbrc.toms_mobs.item;
 
+import eu.pb4.polymer.common.impl.tweaker.PacketContext;
 import eu.pb4.polymer.core.api.item.PolymerSpawnEggItem;
-import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
