@@ -3,7 +3,6 @@ package de.tomalbrc.toms_mobs;
 import aqario.fowlplay.common.entity.ai.brain.sensor.FowlPlaySensorTypes;
 import aqario.fowlplay.core.FowlPlayActivities;
 import aqario.fowlplay.core.FowlPlayMemoryTypes;
-import aqario.fowlplay.core.FowlPlaySchedules;
 import com.mojang.logging.LogUtils;
 import de.tomalbrc.bil.util.ResourcePackUtil;
 import de.tomalbrc.toms_mobs.registry.ItemRegistry;

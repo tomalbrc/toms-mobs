@@ -153,8 +153,8 @@ public abstract class BirdEntity extends Animal {
     }
 
     @Override
-    public void setBaby(boolean baby) {
-        this.setAge(baby ? -72000 : 0);
+    protected int getBabyStartAge() {
+        return -72000;
     }
 
     @Nullable

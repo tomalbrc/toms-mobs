@@ -122,7 +122,7 @@ public class FlightNavigation extends GroundPathNavigation implements ExtendedNa
             if (this.path != null
                     && this.path.isDone()
                     && this.getTargetPos() != null
-                    && this.bird.position().closerThan(this.getTargetPos().getBottomCenter(), 2)
+                    && this.bird.position().closerThan(Vec3.atCenterOf(this.getTargetPos()), 2)
                     && BirdUtils.shouldLandAtDestination(this.bird, this.getTargetPos())
             ) {
                 this.bird.stopFlying();

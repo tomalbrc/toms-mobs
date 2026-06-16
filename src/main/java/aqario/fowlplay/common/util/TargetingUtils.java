@@ -152,7 +152,7 @@ public class TargetingUtils {
     @Nullable
     public static Vec3 validatePos(PathfinderMob entity, @Nullable BlockPos pos, CylindricalRadius range) {
         BlockPos validPos = validateBlockPos(entity, pos, range);
-        return validPos != null ? validPos.getBottomCenter() : null;
+        return validPos != null ? Vec3.atCenterOf(validPos) : null;
     }
 
     public static BlockPos shiftPosTowardsFlyHeightRange(FlyingBirdEntity bird, BlockPos pos) {
