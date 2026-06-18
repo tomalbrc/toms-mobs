@@ -1,7 +1,10 @@
 package de.tomalbrc.toms_mobs.entity.passive;
 
 import aqario.fowlplay.common.entity.ai.brain.BirdBrain;
-import aqario.fowlplay.common.entity.ai.brain.behaviour.*;
+import aqario.fowlplay.common.entity.ai.brain.behaviour.CompositeBehaviours;
+import aqario.fowlplay.common.entity.ai.brain.behaviour.CustomBehaviours;
+import aqario.fowlplay.common.entity.ai.brain.behaviour.FlightBehaviours;
+import aqario.fowlplay.common.entity.ai.brain.behaviour.SetRandomFlightTarget;
 import aqario.fowlplay.common.entity.ai.brain.sensor.*;
 import aqario.fowlplay.common.entity.ai.control.BirdFloatMoveControl;
 import aqario.fowlplay.common.entity.ai.navigation.AmphibiousNavigation;
@@ -209,7 +212,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
 
     @Override
     public boolean shouldAvoid(LivingEntity entity) {
-        return entity.getType() == EntityType.PLAYER && entity.isInvisible();
+        return entity.getType() == EntityTypes.PLAYER && entity.isInvisible();
     }
 
     @Override

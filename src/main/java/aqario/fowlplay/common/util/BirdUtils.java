@@ -57,7 +57,7 @@ public final class BirdUtils {
     public static void tryFlyingAlongPath(FlyingBirdEntity bird, Path path) {
         // noinspection ConstantConditions
         if (bird.canStartFlying()
-                && (shouldFlyToDestination(bird, path, path.getTarget().getCenter())
+                && (shouldFlyToDestination(bird, path, Vec3.atCenterOf(path.getTarget()))
 //            && !(bird.getType().is(FowlPlayEntityTypeTags.WATERBIRDS)
 //            && bird.isInWaterOrBubble())
                 || shouldFlyFromAvoidTarget(bird))
@@ -128,7 +128,7 @@ public final class BirdUtils {
     }
 
     public static boolean isPlayerHoldingFood(LivingEntity b, LivingEntity target) {
-        return b instanceof BirdEntity bird && target.getType() == EntityType.PLAYER && target.isHolding(bird.getFood());
+        return b instanceof BirdEntity bird && target.getType() == EntityTypes.PLAYER && target.isHolding(bird.getFood());
     }
 
     public static boolean canPickupFood(BirdEntity bird) {

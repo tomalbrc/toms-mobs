@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -33,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public abstract class AbstractButterfly extends Animal implements AnimatedEntity, FlyingAnimal {
+public abstract class AbstractButterfly extends Animal implements AnimatedEntity {
     protected EntityHolder<AbstractButterfly> holder;
 
     private int schoolSize;
@@ -120,7 +118,6 @@ public abstract class AbstractButterfly extends Animal implements AnimatedEntity
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
-    @Override
     public boolean isFlying() {
         return !this.onGround();
     }

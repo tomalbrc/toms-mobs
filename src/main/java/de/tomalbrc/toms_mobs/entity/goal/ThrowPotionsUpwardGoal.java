@@ -3,10 +3,7 @@ package de.tomalbrc.toms_mobs.entity.goal;
 import de.tomalbrc.toms_mobs.entity.hostile.Showmaster;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
@@ -72,7 +69,7 @@ public class ThrowPotionsUpwardGoal extends AnimatedGoal {
             count--;
 
             if (count % 2 == 0) {
-                ThrownSplashPotion potion = EntityType.SPLASH_POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
+                ThrownSplashPotion potion = EntityTypes.SPLASH_POTION.create(this.mob.level(), EntitySpawnReason.MOB_SUMMONED);
                 assert potion != null;
                 potion.setOwner(this.mob);
                 potion.setPos(this.mob.getEyePosition());

@@ -52,18 +52,11 @@
     "mob": "toms_mobs:butterfly",
     "biomes": [
       "#c:is_birch_forest",
-      "#c:is_flower_forest"
-    ],
-    "weight": 50,
-    "min-group": 2,
-    "max-group": 5
-  },
-  {
-    "mob": "toms_mobs:butterfly",
-    "biomes": [
+      "#c:is_flower_forest",
+      "#c:is_floral",
       "#c:is_plains"
     ],
-    "weight": 5,
+    "weight": 50,
     "min-group": 2,
     "max-group": 5
   },

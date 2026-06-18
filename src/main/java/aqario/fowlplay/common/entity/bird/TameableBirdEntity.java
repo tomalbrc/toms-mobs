@@ -1,6 +1,6 @@
 package aqario.fowlplay.common.entity.bird;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -152,8 +152,8 @@ public abstract class TameableBirdEntity extends TrustingBirdEntity implements O
     public void setOwner(Player player) {
         this.setTamed(true);
         this.setOwnerUuid(player.getUUID());
-        if (player instanceof ServerPlayer) {
-            CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer) player, this);
+        if (player instanceof ServerPlayer serverPlayer) {
+            CriteriaTriggers.TAME_ANIMAL.trigger(serverPlayer, this);
         }
     }
 

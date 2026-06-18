@@ -35,7 +35,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    implementation("eu.pb4:polymer-bundled-neo:${project.polymer_version}")
+    implementation include("eu.pb4:polymer-bundled:${project.polymer_version}")
 
     implementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
 

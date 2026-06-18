@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -38,7 +37,7 @@ import net.tslat.smartbrainlib.api.core.navigation.SmoothFlyingPathNavigation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
+public class Firemoth extends Animal implements AnimatedEntity {
     public static final Identifier ID = Util.id("firemoth");
     public static final Model MODEL = Util.loadModel(ID);
     private final EntityHolder<Firemoth> holder;
@@ -147,7 +146,6 @@ public class Firemoth extends Animal implements AnimatedEntity, FlyingAnimal {
         return null;
     }
 
-    @Override
     public boolean isFlying() {
         return !this.onGround();
     }
