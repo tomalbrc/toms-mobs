@@ -3,21 +3,22 @@ package aqario.fowlplay.common.entity.ai.brain.behaviour;
 import aqario.fowlplay.common.entity.ai.navigation.BirdRandomPos;
 import aqario.fowlplay.common.entity.bird.BirdEntity;
 import aqario.fowlplay.common.util.CylindricalRadius;
-import aqario.fowlplay.common.util.MemoryList;
-import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.entity.ai.behavior.declarative.MemoryCondition;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
-import java.util.List;
+import java.util.Set;
 import java.util.function.BiPredicate;
 
 public class SetWaterWalkTarget<E extends BirdEntity> extends SpeedModifiableBehaviour<E> {
-    private static final MemoryList MEMORIES = MemoryList.create(1)
-            .absent(MemoryModuleType.WALK_TARGET);
+    private static final Set<MemoryCondition<?,?>> MEMORIES = Set.of(
+            new MemoryCondition.Absent<>(MemoryModuleType.WALK_TARGET)
+    );
+
     protected CylindricalRadius radius = new CylindricalRadius(32, 16);
     protected BiPredicate<E, Vec3> positionPredicate = (entity, pos) -> true;
 
@@ -38,12 +39,12 @@ public class SetWaterWalkTarget<E extends BirdEntity> extends SpeedModifiableBeh
     }
 
     @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
+    public @NonNull Set<MemoryCondition<?, ?>> getMemoryRequirements() {
         return MEMORIES;
     }
 
     @Override
-    protected void start(E entity) {
+    protected void start(@NonNull E entity) {
         Vec3 targetPos = this.getTargetPos(entity);
 
         if (!this.positionPredicate.test(entity, targetPos)) {

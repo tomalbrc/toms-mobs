@@ -1,33 +1,30 @@
 package aqario.fowlplay.common.entity.ai.brain.behaviour;
 
 import aqario.fowlplay.common.entity.bird.BirdEntity;
-import aqario.fowlplay.common.util.MemoryList;
 import aqario.fowlplay.core.FowlPlayMemoryTypes;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.behavior.declarative.MemoryCondition;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.base.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtil;
+import org.jspecify.annotations.NonNull;
 
-import java.util.List;
+import java.util.Set;
 
 public class TeleportToTarget extends ExtendedBehaviour<BirdEntity> {
-    private static final MemoryList MEMORIES = MemoryList.create(1)
-            .present(FowlPlayMemoryTypes.TELEPORT_TARGET.get());
+    private static final Set<MemoryCondition<?,?>> MEMORIES = Set.of(new MemoryCondition.Present<>(FowlPlayMemoryTypes.TELEPORT_TARGET.get()));
 
     @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
+    public @NonNull Set<MemoryCondition<?, ?>> getMemoryRequirements() {
         return MEMORIES;
     }
 
     @Override
-    protected boolean shouldKeepRunning(BirdEntity entity) {
+    protected boolean shouldKeepRunning(@NonNull BirdEntity entity) {
         return BrainUtil.hasMemory(entity, FowlPlayMemoryTypes.TELEPORT_TARGET.get());
     }
 

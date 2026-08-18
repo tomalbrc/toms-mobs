@@ -1,40 +1,39 @@
 package aqario.fowlplay.common.entity.ai.brain.behaviour;
 
 import aqario.fowlplay.common.entity.bird.BirdEntity;
-import aqario.fowlplay.common.util.MemoryList;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.declarative.MemoryCondition;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
-import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 public class SetWalkTargetAwayFrom<E extends BirdEntity, T> extends SpeedModifiableBehaviour<E> {
     protected final MemoryModuleType<@NotNull T> memoryType;
     protected final Function<T, Vec3> targetPosition;
-    private final List<Pair<MemoryModuleType<?>, MemoryStatus>> memoryRequirements;
+    private final Set<MemoryCondition<?,?>> memoryRequirements;
 
     public SetWalkTargetAwayFrom(MemoryModuleType<@NotNull T> memoryType, Function<T, Vec3> targetPosition) {
         this.memoryType = memoryType;
         this.targetPosition = targetPosition;
-        this.memoryRequirements = MemoryList.create(2)
-                .registered(
-                        MemoryModuleType.LOOK_TARGET,
-                        MemoryModuleType.WALK_TARGET
-                )
-                .present(memoryType);
+
+        this.memoryRequirements = Set.of(
+                new MemoryCondition.Registered<>(MemoryModuleType.LOOK_TARGET),
+                new MemoryCondition.Registered<>(MemoryModuleType.WALK_TARGET),
+                new MemoryCondition.Present<>(memoryType)
+        );
     }
 
     @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return this.memoryRequirements == null ? List.of() : this.memoryRequirements;
+    public @NonNull Set<MemoryCondition<?, ?>> getMemoryRequirements() {
+        return this.memoryRequirements == null ? Set.of() : this.memoryRequirements;
     }
 
     @Override

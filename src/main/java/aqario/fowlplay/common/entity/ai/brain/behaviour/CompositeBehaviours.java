@@ -3,11 +3,11 @@ package aqario.fowlplay.common.entity.ai.brain.behaviour;
 import aqario.fowlplay.common.entity.bird.BirdEntity;
 import aqario.fowlplay.common.entity.bird.FlyingBirdEntity;
 import aqario.fowlplay.common.util.BirdUtils;
-import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import net.minecraft.world.entity.Entity;
-import net.tslat.smartbrainlib.api.core.behaviour.AllApplicableBehaviours;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.base.AllApplicableBehaviours;
+import net.tslat.smartbrainlib.api.core.behaviour.base.ExtendedBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.base.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
 
@@ -106,14 +106,14 @@ public class CompositeBehaviours {
 
     public static <E extends FlyingBirdEntity> ExtendedBehaviour<E> tryPerch() {
         return new OneRandomBehaviour<>(
-                Pair.of(
+                ObjectIntPair.of(
                         idleAndLookAround()
-                                .runForBetween(30, 100)
+                                .runFor(30, 100)
                                 .startCondition(BirdUtils::isPerched)
                                 .stopIf(Predicate.not(BirdUtils::isPerched)),
                         8
                 ),
-                Pair.of(
+                ObjectIntPair.of(
                         trySetPerchWalkTarget(),
                         1
                 )
@@ -122,14 +122,14 @@ public class CompositeBehaviours {
 
     public static <E extends FlyingBirdEntity> ExtendedBehaviour<E> tryForage() {
         return new OneRandomBehaviour<>(
-                Pair.of(
+                ObjectIntPair.of(
                         idleAndLookAround()
-                                .runForBetween(30, 100)
+                                .runFor(30, 100)
                                 .startCondition(Entity::onGround)
                                 .stopIf(Predicate.not(Entity::onGround)),
                         2
                 ),
-                Pair.of(
+                ObjectIntPair.of(
                         trySetGroundWalkTarget(),
                         1
                 )

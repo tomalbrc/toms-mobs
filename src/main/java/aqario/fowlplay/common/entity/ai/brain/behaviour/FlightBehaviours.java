@@ -1,7 +1,7 @@
 package aqario.fowlplay.common.entity.ai.brain.behaviour;
 
 import aqario.fowlplay.common.entity.bird.FlyingBirdEntity;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.base.ExtendedBehaviour;
 
 /**
  * A collection of behaviours that control the flying behaviour of birds.

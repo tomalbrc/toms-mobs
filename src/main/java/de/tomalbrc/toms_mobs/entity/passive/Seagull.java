@@ -26,13 +26,13 @@ import de.tomalbrc.toms_mobs.util.SetEntityLookTarget;
 import de.tomalbrc.toms_mobs.util.Util;
 import eu.pb4.polymer.virtualentity.api.attachment.EntityAttachment;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -50,7 +50,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.ActivityBuilder;
-import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.base.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableMeleeAttack;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.BreedWithPartner;
@@ -298,7 +298,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
         return BirdBrain.coreActivity(
                 FlightBehaviours.stopFalling(),
                 new SetAttackTarget<>(),
-                new LookAtTarget<>().runForBetween(45, 90),
+                new LookAtTarget<>().runFor(45, 90),
                 new MoveToWalkTarget<>()
         );
     }
@@ -325,13 +325,13 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     public ActivityBuilder<Seagull> getForageTasks() {
         return BirdBrain.forageActivity(
                 new OneRandomBehaviour<>(
-                        Pair.of(
+                        ObjectIntPair.of(
                                 CompositeBehaviours.trySetNonAirWalkTarget(),
                                 1
                         ),
-                        Pair.of(
+                        ObjectIntPair.of(
                                 CustomBehaviours.idleIfNotFlying()
-                                        .runForBetween(100, 300),
+                                        .runFor(100, 300),
                                 2
                         )
                 ),
@@ -346,11 +346,11 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
                 new FollowParent<>(),
                 new LookAtTarget<>(),
                 new SetEntityLookTarget<>().startCondition(x -> BirdUtils.isPlayerHoldingFood(this, x)),
-                new SetRandomLookTarget<>().lookChance(ConstantFloat.of(0.02f)),
+                new SetRandomLookTarget<>().lookChance(0.02f),
                 new OneRandomBehaviour<>(
                         CompositeBehaviours.trySetNonAirWalkTarget(),
                         CustomBehaviours.idleIfNotFlying()
-                                .runForBetween(100, 300)
+                                .runFor(100, 300)
                 )
         );
     }
