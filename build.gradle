@@ -40,7 +40,7 @@ dependencies {
 
     implementation include("de.tomalbrc:blockbench-import-library:${project.bil_version}")
 
-    implementation include("net.tslat:smartbrainlib-fabric-26.2:${project.sbl_version}") {
+    implementation include("net.tslat:smartbrainlib-fabric-26.3:${project.sbl_version}") {
         transitive = false
     }
 }
