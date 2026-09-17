@@ -15,7 +15,7 @@
         },
         "has_the_recipe": {
             "conditions": {
-                "recipe": "toms_mobs:emperor_wing_pattern"
+                "recipes": "toms_mobs:emperor_wing_pattern"
             },
             "trigger": "minecraft:recipe_unlocked"
         }

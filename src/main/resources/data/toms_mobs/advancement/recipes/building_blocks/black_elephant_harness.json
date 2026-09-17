@@ -15,7 +15,7 @@
         },
         "has_the_recipe": {
             "conditions": {
-                "recipe": "toms_mobs:black_elephant_harness"
+                "recipes": "toms_mobs:black_elephant_harness"
             },
             "trigger": "minecraft:recipe_unlocked"
         }

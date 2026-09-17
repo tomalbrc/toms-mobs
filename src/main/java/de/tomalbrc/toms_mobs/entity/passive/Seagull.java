@@ -175,7 +175,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    protected MoveControl createMoveControl() {
+    protected MoveControl<?> createMoveControl() {
         return new BirdFloatMoveControl(this);
     }
 
@@ -280,7 +280,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public List<? extends ExtendedSensor<? extends Seagull>> getSensors(Seagull seagull) {
+    public @NonNull List<? extends ExtendedSensor<? extends Seagull>> getSensors(Seagull seagull) {
         return ObjectArrayList.of(
                 new NearbyLivingEntitySensor<>(),
                 new NearbyPlayersSensor<>(),
@@ -294,7 +294,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public ActivityBuilder<Seagull> getCoreBehaviourGroup(Seagull seagull) {
+    public @NonNull ActivityBuilder<Seagull> getCoreBehaviourGroup(@NonNull Seagull seagull) {
         return BirdBrain.coreActivity(
                 FlightBehaviours.stopFalling(),
                 new SetAttackTarget<>(),
@@ -311,7 +311,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public ActivityBuilder<Seagull> getFightingBehaviourGroup(Seagull seagull) {
+    public @NonNull ActivityBuilder<Seagull> getFightingBehaviourGroup(@NonNull Seagull seagull) {
         return BirdBrain.fightActivity(
                 new InvalidateAttackTarget<>(),
                 FlightBehaviours.startFlying(),
@@ -340,7 +340,7 @@ public class Seagull extends FlyingBirdEntity implements AnimatedEntity, BirdBra
     }
 
     @Override
-    public ActivityBuilder<Seagull> getIdleBehaviourGroup(Seagull seagull) {
+    public @NonNull ActivityBuilder<Seagull> getIdleBehaviourGroup(@NonNull Seagull seagull) {
         return BirdBrain.idleActivity(
                 new BreedWithPartner<>(),
                 new FollowParent<>(),
